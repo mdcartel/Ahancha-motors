@@ -1,6 +1,7 @@
 import React from 'react';
 import { Metadata } from 'next';
 import VehicleList from '@/components/vehicles/VehicleList';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'Vehicle Inventory | Browse Our Selection',
@@ -183,12 +184,28 @@ export default async function InventoryPage({
   return (
     <div className="bg-gray-100 min-h-screen">
       {/* Page Header */}
-      <div className="bg-gray-900 text-white py-8">
-        <div className="container mx-auto px-4">
-          <h1 className="text-3xl md:text-4xl font-bold mb-2 text-white">Vehicle Inventory</h1>
-          <p className="text-gray-300">Find your perfect vehicle from our extensive selection</p>
-        </div>
-      </div>
+        <div className="relative bg-gray-900 text-white">
+                            <div className="absolute inset-0 z-0 opacity-30">
+                              <Image 
+                                src="/images/backgrounds/bmw.png" 
+                                alt="Premium Auto Dealership" 
+                                fill 
+                                className="object-cover xl:object-left"
+                                priority
+                              />
+                            </div>
+                            <div className="relative z-10 container mx-auto px-4 py-20">
+                              <div className="max-w-3xl">
+                                <div className="inline-block px-4 py-1.5 bg-red-600 text-white text-sm font-medium rounded-full mb-4">
+                                Inventory
+                                </div>
+                                <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white">Vehicle Inventory</h1>
+                                <p className="text-lg text-gray-300">
+                                RFind your perfect vehicle from our extensive selection
+                                </p>
+                              </div>
+                            </div>
+                          </div>
 
       {/* Inventory Content */}
       <div className="container mx-auto px-4 py-8">

@@ -54,9 +54,6 @@ const Footer: React.FC = () => {
                 <Link href="/about" className="text-gray-400 hover:text-white transition-colors">About Us</Link>
               </li>
               <li>
-                <Link href="/blog" className="text-gray-400 hover:text-white transition-colors">Blog</Link>
-              </li>
-              <li>
                 <Link href="/contact" className="text-gray-400 hover:text-white transition-colors">Contact Us</Link>
               </li>
             </ul>
@@ -91,10 +88,6 @@ const Footer: React.FC = () => {
           <div>
             <h3 className="text-lg font-bold text-white mb-4">Contact Us</h3>
             <ul className="space-y-3">
-              <li className="flex items-start space-x-3">
-                <MapPin size={20} className="text-gray-400 mt-1 flex-shrink-0" />
-                <span className="text-gray-400">123 Auto Drive, Car City, CC 12345</span>
-              </li>
               <li className="flex items-center space-x-3">
                 <Phone size={20} className="text-gray-400 flex-shrink-0" />
                 <a href="tel:+1-234-567-8900" className="text-gray-400 hover:text-white transition-colors">
@@ -106,13 +99,6 @@ const Footer: React.FC = () => {
                 <a href="mailto:info@premiumauto.com" className="text-gray-400 hover:text-white transition-colors">
                   info@premiumauto.com
                 </a>
-              </li>
-              <li className="flex items-start space-x-3">
-                <Clock size={20} className="text-gray-400 mt-1 flex-shrink-0" />
-                <div className="text-gray-400">
-                  <p>Monday - Saturday: 9am - 7pm</p>
-                  <p>Sunday: 10am - 5pm</p>
-                </div>
               </li>
             </ul>
           </div>

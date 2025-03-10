@@ -20,12 +20,6 @@ const navLinks = [
   { 
     name: 'Services', 
     path: '/services',
-    submenu: [
-      { name: 'Maintenance', path: '/services/maintenance' },
-      { name: 'Repairs', path: '/services/repairs' },
-      { name: 'Parts', path: '/services/parts' },
-      { name: 'Detailing', path: '/services/detailing' },
-    ]
   },
   { name: 'Financing', path: '/financing' },
   { name: 'About', path: '/about' },
@@ -92,11 +86,11 @@ const Header: React.FC = () => {
             
             {/* Quick links */}
             <div className="hidden md:flex items-center space-x-4 text-sm">
-              <Link href="/careers" className="hover:text-accent-400 transition-colors">Careers</Link>
+              <Link href="#" className="hover:text-accent-400 transition-colors">Careers</Link>
               <span className="text-gray-500">|</span>
-              <Link href="/blog" className="hover:text-accent-400 transition-colors">Blog</Link>
+              <Link href="#" className="hover:text-accent-400 transition-colors">Blog</Link>
               <span className="text-gray-500">|</span>
-              <Link href="/faq" className="hover:text-accent-400 transition-colors">FAQ</Link>
+              <Link href="#" className="hover:text-accent-400 transition-colors">FAQ</Link>
             </div>
           </div>
         </div>
