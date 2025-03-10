@@ -42,10 +42,10 @@ const VehicleFeatures: React.FC<VehicleFeaturesProps> = ({ features }) => {
           </button>
           
           {expandedCategories[feature.category] && (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-4">
               {feature.items.map((item, index) => (
                 <div key={index} className="flex items-start">
-                  <CheckCircle className="h-5 w-5 text-primary flex-shrink-0 mt-0.5" />
+                  <CheckCircle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
                   <span className="ml-2 text-gray-700">{item}</span>
                 </div>
               ))}
