@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Metadata } from 'next';
 import FinanceForm from '@/components/financing/FinanceForm';
 import FinanceOptions from '@/components/financing/FinanceOptions';
+import FinancingFAQ from '@/components/financing/FinancingFAQ';
 
 export const metadata: Metadata = {
   title: 'Auto Financing | Premium Auto Dealership',
@@ -74,53 +75,7 @@ export default function FinancingPage() {
           </div>
 
           {/* FAQ Section */}
-          <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">Frequently Asked Questions</h2>
-            
-            <div className="space-y-6">
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">What documents do I need for financing?</h3>
-                <p className="text-gray-700">
-                  To process your financing application, you'll typically need a valid driver's license, proof of income 
-                  (pay stubs or tax returns), proof of residence, and insurance information. Additional documents may be 
-                  required based on your specific situation.
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">Can I get financing with less-than-perfect credit?</h3>
-                <p className="text-gray-700">
-                  Yes! We work with multiple lenders to provide options for a wide range of credit profiles. Our finance 
-                  team specializes in finding solutions for customers with varying credit histories.
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">How long does the approval process take?</h3>
-                <p className="text-gray-700">
-                  In many cases, we can provide preliminary approval within hours. The final approval process typically 
-                  takes 24-48 hours, depending on the lender and verification requirements.
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">Is there a difference between leasing and financing?</h3>
-                <p className="text-gray-700">
-                  Yes, financing means you'll eventually own the vehicle after completing the loan payments. Leasing is 
-                  essentially a long-term rental with lower monthly payments, but you return the vehicle at the end of 
-                  the lease term (typically 2-3 years) unless you choose to purchase it.
-                </p>
-              </div>
-              
-              <div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-2">Can I pay off my loan early?</h3>
-                <p className="text-gray-700">
-                  Most of our financing options allow for early payoff without penalties. However, specific terms depend 
-                  on the lender. Our finance team will ensure you understand all terms before finalizing your agreement.
-                </p>
-              </div>
-            </div>
-          </div>
+          <FinancingFAQ />
 
           {/* CTA Section */}
           <div className="bg-gray-900 text-white rounded-lg shadow-md p-8 text-center">
