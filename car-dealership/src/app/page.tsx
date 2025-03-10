@@ -5,7 +5,7 @@ import FeaturedVehicles from '@/components/home/FeaturedVehicles';
 import Services from '@/components/home/Services';
 import Testimonials from '@/components/home/Testimonials';
 import CTASection from '@/components/home/CTASection';
-// import WhyChooseUs from '@/components/home/WhyChooseUs';
+import WhyChooseUs from '@/components/home/WhyChooseUs';
 
 export const metadata = {
   title: 'Premium Auto Dealership | Find Your Dream Car',
@@ -14,21 +14,17 @@ export const metadata = {
 
 export default function HomePage() {
   return (
-    <>
-      {/* Hero Section with Search Bar Overlay */}
-      <div className="relative">
-        <Hero />
-        <div className="relative z-20">
-          <SearchBar />
-        </div>
-      </div>
+    <div className="bg-white">
+      {/* Hero Section with Search Bar Below */}
+      <Hero />
+      <SearchBar />
 
       {/* Main Content Sections */}
       <FeaturedVehicles />
-      {/* <WhyChooseUs /> */}
+      <WhyChooseUs />
       <Services />
       <Testimonials />
       <CTASection />
-    </>
+    </div>
   );
 }

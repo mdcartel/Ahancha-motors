@@ -36,12 +36,11 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <section className="bg-white py-0 relative z-20 search-bar-section">
+    <section className="relative z-20 -mt-20 mb-16">
       <div className="container mx-auto px-4">
-        <div className="bg-white p-6 rounded-lg shadow-lg -mt-24 mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 mb-4 text-center md:text-left">Find Your Ideal Vehicle</h2>
+        <div className="bg-white rounded-lg shadow-xl p-6 border border-gray-200">
           <form onSubmit={handleSubmit}>
-            <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-5">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-5">
               <div>
                 <label htmlFor="make" className="block text-sm font-medium text-gray-700 mb-1">
                   Make
@@ -51,7 +50,7 @@ const SearchBar: React.FC = () => {
                   name="make"
                   value={filters.make}
                   onChange={handleChange}
-                  className="w-full p-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-gray-700"
+                  className="w-full p-3 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-700"
                 >
                   <option value="">Any Make</option>
                   <option value="toyota">Toyota</option>
@@ -75,7 +74,7 @@ const SearchBar: React.FC = () => {
                   name="model"
                   value={filters.model}
                   onChange={handleChange}
-                  className="w-full p-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-gray-700"
+                  className="w-full p-3 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-700"
                 >
                   <option value="">Any Model</option>
                   {filters.make === 'toyota' && (
@@ -106,7 +105,7 @@ const SearchBar: React.FC = () => {
                   name="bodyType"
                   value={filters.bodyType}
                   onChange={handleChange}
-                  className="w-full p-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-gray-700"
+                  className="w-full p-3 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-700"
                 >
                   <option value="">Any Body Type</option>
                   <option value="sedan">Sedan</option>
@@ -128,7 +127,7 @@ const SearchBar: React.FC = () => {
                   name="priceRange"
                   value={filters.priceRange}
                   onChange={handleChange}
-                  className="w-full p-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-gray-700"
+                  className="w-full p-3 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-700"
                 >
                   <option value="">Any Price</option>
                   <option value="under-20000">Under $20,000</option>
@@ -148,7 +147,7 @@ const SearchBar: React.FC = () => {
                   name="condition"
                   value={filters.condition}
                   onChange={handleChange}
-                  className="w-full p-3 border border-gray-300 rounded-md focus:ring-primary focus:border-primary text-gray-700"
+                  className="w-full p-3 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-700"
                 >
                   <option value="">Any Condition</option>
                   <option value="new">New</option>
@@ -161,7 +160,7 @@ const SearchBar: React.FC = () => {
             <div className="mt-6 flex justify-center md:justify-end">
               <button
                 type="submit"
-                className="bg-primary hover:bg-primary-dark text-white py-3 px-8 rounded-md font-medium transition-colors flex items-center shadow-md"
+                className="bg-accent-500 hover:bg-accent-600 text-white py-3 px-8 rounded-md font-medium transition-colors flex items-center shadow-md"
               >
                 <Search className="mr-2 h-5 w-5" />
                 Search Vehicles
