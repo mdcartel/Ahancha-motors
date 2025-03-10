@@ -78,16 +78,11 @@ const Header: React.FC = () => {
                 <Clock size={14} className="mr-1.5" />
                 <span>Mon-Sat: 9am-7pm | Sun: Closed</span>
               </div>
-              <div className="hidden lg:flex items-center">
-                <MapPin size={14} className="mr-1.5" />
-                <span>123 Auto Drive, Car City</span>
-              </div>
+              
             </div>
             
             {/* Quick links */}
             <div className="hidden md:flex items-center space-x-4 text-sm">
-              <Link href="#" className="hover:text-accent-400 transition-colors">Careers</Link>
-              <span className="text-gray-500">|</span>
               <Link href="#" className="hover:text-accent-400 transition-colors">Blog</Link>
               <span className="text-gray-500">|</span>
               <Link href="#" className="hover:text-accent-400 transition-colors">FAQ</Link>
