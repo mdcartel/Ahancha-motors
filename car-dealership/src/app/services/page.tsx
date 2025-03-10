@@ -15,7 +15,7 @@ export default function ServicesPage() {
 <div className="relative bg-gray-900 text-white">
                 <div className="absolute inset-0 z-0 opacity-30">
                   <Image 
-                    src="/images/cars/services.png" 
+                    src="/images/backgrounds/services.png" 
                     alt="Premium Auto Dealership" 
                     fill 
                     className="object-cover xl:object-left"
