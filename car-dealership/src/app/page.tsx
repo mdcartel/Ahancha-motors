@@ -16,14 +16,17 @@ export default function HomePage() {
   return (
     <div className="bg-white">
       {/* Hero Section with Search Bar Below */}
-      <Hero />
-      <SearchBar />
+      <div className="relative">
+        <Hero />
+        <SearchBar />
+      </div>
 
       {/* Main Content Sections */}
       <FeaturedVehicles />
-      <WhyChooseUs />
       <Services />
       <Testimonials />
+      
+      {/* High-Impact CTA Section */}
       <CTASection />
     </div>
   );

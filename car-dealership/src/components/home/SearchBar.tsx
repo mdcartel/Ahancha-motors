@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Search } from 'lucide-react';
+import { Search, Filter, ChevronDown, X, Car } from 'lucide-react';
 
 const SearchBar: React.FC = () => {
   const router = useRouter();
@@ -13,6 +13,9 @@ const SearchBar: React.FC = () => {
     priceRange: '',
     condition: '',
   });
+  
+  const [isExpanded, setIsExpanded] = useState(false);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
@@ -22,8 +25,12 @@ const SearchBar: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Build query string from filters
+    // Build query string from filters and search term
     const queryParams = new URLSearchParams();
+    
+    if (searchTerm) {
+      queryParams.append('search', searchTerm);
+    }
     
     Object.entries(filters).forEach(([key, value]) => {
       if (value) {
@@ -35,138 +42,248 @@ const SearchBar: React.FC = () => {
     router.push(`/inventory?${queryParams.toString()}`);
   };
 
+  const clearFilters = () => {
+    setFilters({
+      make: '',
+      model: '',
+      bodyType: '',
+      priceRange: '',
+      condition: '',
+    });
+    setSearchTerm('');
+  };
+
+  // Count active filters
+  const activeFilterCount = Object.values(filters).filter(Boolean).length;
+
   return (
-    <section className="relative z-20 -mt-20 mb-16">
-      <div className="container mx-auto px-4">
-        <div className="bg-white rounded-lg shadow-xl p-6 border border-gray-200">
+    <section className="relative z-30 -mt-12 px-4 mb-16">
+      <div className="max-w-5xl mx-auto">
+        <div className="bg-white rounded-lg shadow-lg overflow-hidden">
           <form onSubmit={handleSubmit}>
-            <div className="grid grid-cols-1 md:grid-cols-5 gap-5">
-              <div>
-                <label htmlFor="make" className="block text-sm font-medium text-gray-700 mb-1">
-                  Make
-                </label>
-                <select
-                  id="make"
-                  name="make"
-                  value={filters.make}
-                  onChange={handleChange}
-                  className="w-full p-3 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-700"
-                >
-                  <option value="">Any Make</option>
-                  <option value="toyota">Toyota</option>
-                  <option value="honda">Honda</option>
-                  <option value="ford">Ford</option>
-                  <option value="chevrolet">Chevrolet</option>
-                  <option value="bmw">BMW</option>
-                  <option value="mercedes">Mercedes-Benz</option>
-                  <option value="audi">Audi</option>
-                  <option value="lexus">Lexus</option>
-                  <option value="nissan">Nissan</option>
-                </select>
+            {/* Simplified search header */}
+            <div className="p-4">
+              <h2 className="text-lg font-bold text-gray-800 mb-3">Find Your Perfect Vehicle</h2>
+
+              <div className="flex flex-col md:flex-row gap-3 items-end">
+                {/* Search input */}
+                <div className="flex-grow relative">
+                  <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                    <Search size={18} className="text-gray-400" />
+                  </div>
+                  <input
+                    type="text"
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    placeholder="Search by make, model, or keyword..."
+                    className="w-full h-10 pl-10 pr-4 py-2 bg-gray-50 border border-gray-300 rounded focus:ring-2 focus:ring-red-500/40 focus:border-red-500 text-gray-700"
+                  />
+                </div>
+                
+                {/* Quick filter for condition */}
+                <div className="md:w-48">
+                  <select
+                    id="condition"
+                    name="condition"
+                    value={filters.condition}
+                    onChange={handleChange}
+                    className="w-full h-10 px-3 py-2 bg-gray-50 border border-gray-300 rounded focus:ring-2 focus:ring-red-500/40 focus:border-red-500 text-gray-700"
+                  >
+                    <option value="">Any Condition</option>
+                    <option value="new">New</option>
+                    <option value="used">Used</option>
+                    <option value="certified">Certified Pre-Owned</option>
+                  </select>
+                </div>
+                
+                {/* Search button */}
+                <div>
+                  <button
+                    type="submit"
+                    className="w-full md:w-auto h-10 px-5 bg-red-600 hover:bg-red-700 text-white rounded font-medium transition-colors shadow-md flex items-center justify-center gap-2"
+                  >
+                    <Search size={16} />
+                    <span>Search</span>
+                  </button>
+                </div>
               </div>
+            </div>
+
+            {/* Filter toggle */}
+            <div className="px-4 py-2 border-t border-gray-200 bg-gray-50 flex justify-between items-center">
+              <button
+                type="button"
+                onClick={() => setIsExpanded(!isExpanded)}
+                className="flex items-center gap-2 text-gray-600 hover:text-red-500 transition-colors text-sm"
+              >
+                <Filter size={16} />
+                <span className="font-medium">Advanced Filters</span>
+                <ChevronDown 
+                  size={14} 
+                  className={`transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`} 
+                />
+                {activeFilterCount > 0 && (
+                  <span className="ml-1 px-1.5 py-0.5 bg-red-600 text-white text-xs rounded-full">
+                    {activeFilterCount}
+                  </span>
+                )}
+              </button>
               
-              <div>
-                <label htmlFor="model" className="block text-sm font-medium text-gray-700 mb-1">
-                  Model
-                </label>
-                <select
-                  id="model"
-                  name="model"
-                  value={filters.model}
-                  onChange={handleChange}
-                  className="w-full p-3 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-700"
+              {activeFilterCount > 0 && (
+                <button
+                  type="button"
+                  onClick={clearFilters}
+                  className="text-xs text-gray-500 hover:text-gray-700 flex items-center gap-1"
                 >
-                  <option value="">Any Model</option>
-                  {filters.make === 'toyota' && (
-                    <>
-                      <option value="camry">Camry</option>
-                      <option value="corolla">Corolla</option>
-                      <option value="rav4">RAV4</option>
-                      <option value="highlander">Highlander</option>
-                    </>
-                  )}
-                  {filters.make === 'honda' && (
-                    <>
-                      <option value="accord">Accord</option>
-                      <option value="civic">Civic</option>
-                      <option value="cr-v">CR-V</option>
-                      <option value="pilot">Pilot</option>
-                    </>
-                  )}
-                </select>
-              </div>
-              
-              <div>
-                <label htmlFor="bodyType" className="block text-sm font-medium text-gray-700 mb-1">
-                  Body Type
-                </label>
-                <select
-                  id="bodyType"
-                  name="bodyType"
-                  value={filters.bodyType}
-                  onChange={handleChange}
-                  className="w-full p-3 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-700"
-                >
-                  <option value="">Any Body Type</option>
-                  <option value="sedan">Sedan</option>
-                  <option value="suv">SUV</option>
-                  <option value="truck">Truck</option>
-                  <option value="coupe">Coupe</option>
-                  <option value="convertible">Convertible</option>
-                  <option value="wagon">Wagon</option>
-                  <option value="van">Van</option>
-                </select>
-              </div>
-              
-              <div>
-                <label htmlFor="priceRange" className="block text-sm font-medium text-gray-700 mb-1">
-                  Price Range
-                </label>
-                <select
-                  id="priceRange"
-                  name="priceRange"
-                  value={filters.priceRange}
-                  onChange={handleChange}
-                  className="w-full p-3 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-700"
-                >
-                  <option value="">Any Price</option>
-                  <option value="under-20000">Under $20,000</option>
-                  <option value="20000-30000">$20,000 - $30,000</option>
-                  <option value="30000-40000">$30,000 - $40,000</option>
-                  <option value="40000-50000">$40,000 - $50,000</option>
-                  <option value="over-50000">Over $50,000</option>
-                </select>
-              </div>
-              
-              <div>
-                <label htmlFor="condition" className="block text-sm font-medium text-gray-700 mb-1">
-                  Condition
-                </label>
-                <select
-                  id="condition"
-                  name="condition"
-                  value={filters.condition}
-                  onChange={handleChange}
-                  className="w-full p-3 border border-gray-300 rounded-md focus:ring-primary-500 focus:border-primary-500 text-gray-700"
-                >
-                  <option value="">Any Condition</option>
-                  <option value="new">New</option>
-                  <option value="used">Used</option>
-                  <option value="certified">Certified Pre-Owned</option>
-                </select>
-              </div>
+                  <X size={12} />
+                  <span>Clear all</span>
+                </button>
+              )}
             </div>
             
-            <div className="mt-6 flex justify-center md:justify-end">
-              <button
-                type="submit"
-                className="bg-accent-500 hover:bg-accent-600 text-white py-3 px-8 rounded-md font-medium transition-colors flex items-center shadow-md"
-              >
-                <Search className="mr-2 h-5 w-5" />
-                Search Vehicles
-              </button>
+            {/* Advanced filters (expandable) */}
+            <div className={`bg-gray-50 border-t border-gray-200 overflow-hidden transition-all duration-300 ${
+              isExpanded ? 'max-h-[400px] py-4' : 'max-h-0'
+            }`}>
+              <div className="px-4">
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  <div>
+                    <label htmlFor="make" className="block text-xs font-medium text-gray-700 mb-1">
+                      Make
+                    </label>
+                    <select
+                      id="make"
+                      name="make"
+                      value={filters.make}
+                      onChange={handleChange}
+                      className="w-full p-2 text-sm bg-white border border-gray-300 rounded focus:ring-2 focus:ring-red-500/40 focus:border-red-500 text-gray-700"
+                    >
+                      <option value="">Any Make</option>
+                      <option value="toyota">Toyota</option>
+                      <option value="honda">Honda</option>
+                      <option value="ford">Ford</option>
+                      <option value="chevrolet">Chevrolet</option>
+                      <option value="bmw">BMW</option>
+                      <option value="mercedes">Mercedes-Benz</option>
+                      <option value="audi">Audi</option>
+                      <option value="lexus">Lexus</option>
+                      <option value="nissan">Nissan</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="model" className="block text-xs font-medium text-gray-700 mb-1">
+                      Model
+                    </label>
+                    <select
+                      id="model"
+                      name="model"
+                      value={filters.model}
+                      onChange={handleChange}
+                      className="w-full p-2 text-sm bg-white border border-gray-300 rounded focus:ring-2 focus:ring-accent-500/40 focus:border-accent-500 text-gray-700"
+                    >
+                      <option value="">Any Model</option>
+                      {filters.make === 'toyota' && (
+                        <>
+                          <option value="camry">Camry</option>
+                          <option value="corolla">Corolla</option>
+                          <option value="rav4">RAV4</option>
+                          <option value="highlander">Highlander</option>
+                        </>
+                      )}
+                      {filters.make === 'honda' && (
+                        <>
+                          <option value="accord">Accord</option>
+                          <option value="civic">Civic</option>
+                          <option value="cr-v">CR-V</option>
+                          <option value="pilot">Pilot</option>
+                        </>
+                      )}
+                      {filters.make === 'bmw' && (
+                        <>
+                          <option value="3-series">3 Series</option>
+                          <option value="5-series">5 Series</option>
+                          <option value="x3">X3</option>
+                          <option value="x5">X5</option>
+                        </>
+                      )}
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="bodyType" className="block text-xs font-medium text-gray-700 mb-1">
+                      Body Type
+                    </label>
+                    <select
+                      id="bodyType"
+                      name="bodyType"
+                      value={filters.bodyType}
+                      onChange={handleChange}
+                      className="w-full p-2 text-sm bg-white border border-gray-300 rounded focus:ring-2 focus:ring-accent-500/40 focus:border-accent-500 text-gray-700"
+                    >
+                      <option value="">Any Body Type</option>
+                      <option value="sedan">Sedan</option>
+                      <option value="suv">SUV</option>
+                      <option value="truck">Truck</option>
+                      <option value="coupe">Coupe</option>
+                      <option value="convertible">Convertible</option>
+                      <option value="wagon">Wagon</option>
+                      <option value="van">Van</option>
+                    </select>
+                  </div>
+                  
+                  <div>
+                    <label htmlFor="priceRange" className="block text-xs font-medium text-gray-700 mb-1">
+                      Price Range
+                    </label>
+                    <select
+                      id="priceRange"
+                      name="priceRange"
+                      value={filters.priceRange}
+                      onChange={handleChange}
+                      className="w-full p-2 text-sm bg-white border border-gray-300 rounded focus:ring-2 focus:ring-accent-500/40 focus:border-accent-500 text-gray-700"
+                    >
+                      <option value="">Any Price</option>
+                      <option value="under-20000">Under $20,000</option>
+                      <option value="20000-30000">$20,000 - $30,000</option>
+                      <option value="30000-40000">$30,000 - $40,000</option>
+                      <option value="40000-50000">$40,000 - $50,000</option>
+                      <option value="over-50000">Over $50,000</option>
+                    </select>
+                  </div>
+                </div>
+                
+                {/* Action buttons for advanced filter section */}
+                <div className="mt-4 flex justify-end space-x-3">
+                  <button
+                    type="button"
+                    onClick={clearFilters}
+                    className="px-3 py-1.5 text-xs text-gray-600 hover:text-gray-800 font-medium"
+                  >
+                    Reset
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-4 py-1.5 bg-red-600 hover:bg-red-700 text-white text-xs rounded font-medium transition-colors shadow-md flex items-center gap-1"
+                  >
+                    <span>Apply Filters</span>
+                  </button>
+                </div>
+              </div>
             </div>
           </form>
+        </div>
+        
+        {/* Quick filter chips */}
+        <div className="flex flex-wrap gap-2 mt-3">
+          <button className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-full text-xs font-medium flex items-center gap-1 transition-colors">
+            <Car size={12} />
+            <span>New Arrivals</span>
+          </button>
+          <button className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-full text-xs font-medium transition-colors">SUVs</button>
+          <button className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-full text-xs font-medium transition-colors">Luxury</button>
+          <button className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-full text-xs font-medium transition-colors">Electric</button>
+          <button className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-full text-xs font-medium transition-colors">Under $30k</button>
         </div>
       </div>
     </section>
