@@ -215,13 +215,12 @@ async function getSimilarVehicles(vehicle: any) {
   ];
 }
 
-// Corrected Props interface to satisfy Next.js PageProps
-interface PageProps {
+type GenerateMetadataProps = {
   params: { id: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
-export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+export async function generateMetadata({ params, searchParams }: GenerateMetadataProps): Promise<Metadata> {
   const vehicle = await getVehicle(params.id);
   
   if (!vehicle) {
@@ -239,7 +238,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   };
 }
 
-export default async function VehicleDetailPage({ params }: PageProps) {
+export default async function VehicleDetailPage({
+  params,
+}: {
+  params: { id: string };
+}) {
   const vehicle = await getVehicle(params.id);
   
   if (!vehicle) {
