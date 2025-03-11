@@ -3,6 +3,7 @@ import Image from 'next/image';
 import { Metadata } from 'next';
 import { Phone, Mail, MapPin, Clock, Car, Calendar } from 'lucide-react';
 import ContactForm from '@/components/contact/ContactForm';
+import Map from '@/components/contact/Map';
 
 export const metadata: Metadata = {
   title: 'Contact Us | Premium Auto Dealership',
@@ -138,15 +139,9 @@ export default function ContactPage() {
             </div>
             
             {/* Map */}
-            <div className="bg-white rounded-lg shadow-md p-6">
-              <h2 className="text-xl font-bold text-gray-900 mb-4">Find Us</h2>
-              <div className="aspect-video w-full bg-gray-200 rounded-lg">
-                {/* Replace with actual map component */}
-                <div className="w-full h-full flex items-center justify-center">
-                  <p className="text-gray-500">Map goes here</p>
-                </div>
-              </div>
-            </div>
+            {/* <div>
+              <Map />
+              </div> */}
           </div>
         </div>
       </div>

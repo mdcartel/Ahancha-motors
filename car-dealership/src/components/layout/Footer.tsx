@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Facebook, Twitter, Instagram, Linkedin, Phone, Mail, MapPin, Clock } from 'lucide-react';
 
 const Footer: React.FC = () => {
@@ -14,7 +15,7 @@ const Footer: React.FC = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
           {/* About Us Column */}
           <div>
-            <h3 className="text-xl font-bold text-white mb-4">Premium<span className="text-accent">Auto</span></h3>
+            <h3 className="text-xl font-bold text-white mb-4">Premium<span className="text-red-600">Auto</span></h3>
             <p className="text-gray-400 mb-4">
               Your trusted dealership for new and pre-owned vehicles. We're committed to providing exceptional service and finding the perfect vehicle for your needs.
             </p>
@@ -111,15 +112,33 @@ const Footer: React.FC = () => {
           <p className="text-gray-500 text-sm text-center md:text-left mb-4 md:mb-0">
             &copy; {currentYear} Premium Auto Dealership. All rights reserved.
           </p>
+          {/* Centered Chacha Technologies Attribution */}
+        <div className="flex justify-center mt-4">
+          <div className="bg-green-800 rounded-lg px-4 py-2 inline-flex items-center">
+            <span className="text-gray-400 text-sm mr-2">Powered by</span>
+            <a 
+              href="https://www.chach-a.com" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="flex items-center hover:opacity-80 transition-opacity"
+            >
+              <Image 
+                src="https://www.chach-a.com/logoMark.svg" 
+                alt="Chacha Technologies" 
+                width={20} 
+                height={20} 
+                className="mr-1" 
+              />
+              <span className="text-white text-sm font-medium">Chacha Technologies</span>
+            </a>
+          </div>
+        </div>
           <div className="flex space-x-6">
             <Link href="/privacy" className="text-gray-500 hover:text-white text-sm transition-colors">
               Privacy Policy
             </Link>
             <Link href="/terms" className="text-gray-500 hover:text-white text-sm transition-colors">
               Terms of Service
-            </Link>
-            <Link href="/sitemap" className="text-gray-500 hover:text-white text-sm transition-colors">
-              Sitemap
             </Link>
           </div>
         </div>
