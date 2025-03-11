@@ -11,7 +11,7 @@ const services = [
     description: 'Regular oil changes keep your engine running smoothly and extend its life. Our technicians use premium oils and filters.',
     category: 'maintenance',
     price: 'From $39.95',
-    image: '/images/services/oil-change.jpg',
+    image: '/images/services/oil-change.png',
     duration: '30-45 min',
     popular: true
   },
@@ -21,7 +21,7 @@ const services = [
     description: 'Ensure your safety with our comprehensive brake inspection and repair services, from pad replacement to complete system overhauls.',
     category: 'repairs',
     price: 'From $149.95',
-    image: '/images/services/brake-service.jpg',
+    image: '/images/services/brake-service.png',
     duration: '1-3 hours',
     popular: true
   },
@@ -31,7 +31,7 @@ const services = [
     description: 'From rotations to replacements, our tire services ensure optimal traction, fuel efficiency, and safety for your vehicle.',
     category: 'maintenance',
     price: 'From $24.95',
-    image: '/images/services/tire-service.jpg',
+    image: '/images/services/tire-service.png',
     duration: '30-60 min',
     popular: true
   },
@@ -41,7 +41,7 @@ const services = [
     description: 'Don\'t get stranded with a dead battery. Our technicians will test your battery health and replace it if necessary.',
     category: 'maintenance',
     price: 'From $29.95',
-    image: '/images/services/battery-service.jpg',
+    image: '/images/services/battery-service.png',
     duration: '30 min',
     popular: false
   },
@@ -51,7 +51,7 @@ const services = [
     description: 'Keep cool with our air conditioning service. We check for leaks, recharge refrigerant, and ensure optimal cooling performance.',
     category: 'repairs',
     price: 'From $89.95',
-    image: '/images/services/ac-service.jpg',
+    image: '/images/services/ac-service.png',
     duration: '1-2 hours',
     popular: false
   },
@@ -61,7 +61,7 @@ const services = [
     description: 'Proper wheel alignment improves handling, extends tire life, and increases fuel efficiency by ensuring your tires make optimal contact with the road.',
     category: 'maintenance',
     price: 'From $79.95',
-    image: '/images/services/wheel-alignment.jpg',
+    image: '/images/services/wheel-alignment.png',
     duration: '45-60 min',
     popular: false
   },
@@ -71,7 +71,7 @@ const services = [
     description: 'Restore your vehicle\'s showroom shine with our comprehensive detailing services, from express packages to full interior and exterior treatments.',
     category: 'detailing',
     price: 'From $129.95',
-    image: '/images/services/detailing.jpg',
+    image: '/images/services/detailing.png',
     duration: '2-4 hours',
     popular: true
   },
@@ -81,7 +81,7 @@ const services = [
     description: 'Using state-of-the-art equipment, our technicians can identify and troubleshoot complex issues affecting your vehicle\'s performance.',
     category: 'repairs',
     price: 'From $99.95',
-    image: '/images/services/diagnostic.jpg',
+    image: '/images/services/diagnostic.png',
     duration: '1 hour',
     popular: false
   },
@@ -91,7 +91,7 @@ const services = [
     description: 'Maintain your transmission\'s performance and longevity with our comprehensive service, including fluid exchange and system inspection.',
     category: 'maintenance',
     price: 'From $149.95',
-    image: '/images/services/transmission.jpg',
+    image: '/images/services/transmission.png',
     duration: '1-2 hours',
     popular: false
   },
@@ -101,7 +101,7 @@ const services = [
     description: 'From battery issues to complex electrical problems, our technicians have the expertise to diagnose and repair your vehicle\'s electrical systems.',
     category: 'repairs',
     price: 'From $89.95',
-    image: '/images/services/electrical.jpg',
+    image: '/images/services/electrical.png',
     duration: 'Varies',
     popular: false
   },
@@ -111,7 +111,7 @@ const services = [
     description: 'Restore your vehicle\'s ride comfort and handling with our suspension and steering services, including shock/strut replacement and steering adjustments.',
     category: 'repairs',
     price: 'From $149.95',
-    image: '/images/services/suspension.jpg',
+    image: '/images/services/suspension.png',
     duration: '1-3 hours',
     popular: false
   },
@@ -121,7 +121,7 @@ const services = [
     description: 'Protect your vehicle\'s paint with our professional ceramic coating service, providing long-lasting shine and protection against environmental damage.',
     category: 'detailing',
     price: 'From $699.95',
-    image: '/images/services/ceramic-coating.jpg',
+    image: '/images/services/ceramic-coating.png',
     duration: '1-2 days',
     popular: false
   }
