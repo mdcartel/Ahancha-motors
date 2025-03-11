@@ -55,7 +55,7 @@ const CTASection: React.FC = () => {
                   </div>
                   <div>
                     <h4 className="font-medium text-white">Call Us</h4>
-                    <p className="text-sm text-gray-400">(234) 567-8900</p>
+                    <p className="text-sm text-gray-400">+2547 9628-0700</p>
                   </div>
                 </div>
               </div>

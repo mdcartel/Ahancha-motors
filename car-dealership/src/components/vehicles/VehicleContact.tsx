@@ -106,7 +106,7 @@ const VehicleContact: React.FC<VehicleContactProps> = ({ vehicle }) => {
               href="tel:+1-234-567-8900" 
               className="font-medium text-gray-900 hover:text-primary transition-colors"
             >
-              (234) 567-8900
+              +2547 9628-0700
             </a>
           </div>
         </div>

@@ -5,7 +5,7 @@
 // Company Information
 export const COMPANY_NAME = 'Premium Auto Dealership';
 export const COMPANY_ADDRESS = '123 Auto Drive, Car City, CC 12345';
-export const COMPANY_PHONE = '(234) 567-8900';
+export const COMPANY_PHONE = '+2547 9628-0700';
 export const COMPANY_EMAIL = 'info@premiumauto.com';
 export const COMPANY_HOURS = {
   weekdays: '9:00 AM - 7:00 PM',

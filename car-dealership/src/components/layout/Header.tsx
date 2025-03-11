@@ -72,7 +72,7 @@ const Header: React.FC = () => {
             <div className="flex items-center space-x-6 text-sm">
               <a href="tel:+1-234-567-8900" className="flex items-center hover:text-accent-400 transition-colors">
                 <Phone size={14} className="mr-1.5" />
-                <span>(234) 567-8900</span>
+                <span>+2547 9628-0700</span>
               </a>
               <div className="hidden md:flex items-center">
                 <Clock size={14} className="mr-1.5" />
@@ -282,7 +282,7 @@ const Header: React.FC = () => {
               <div className="mt-6 grid grid-cols-1 gap-4">
                 <a href="tel:+1-234-567-8900" className="flex items-center text-gray-700">
                   <Phone size={16} className="mr-2" />
-                  <span>(234) 567-8900</span>
+                  <span>+2547 9628-0700</span>
                 </a>
                 <div className="flex items-center text-gray-700">
                   <Clock size={16} className="mr-2" />

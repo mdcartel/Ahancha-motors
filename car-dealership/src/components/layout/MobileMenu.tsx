@@ -58,7 +58,7 @@ const MobileMenu: React.FC<MobileMenuProps> = ({
             <div className="flex items-center gap-3 py-2">
               <Phone size={18} className="text-primary-500" />
               <a href="tel:+1-234-567-8900" className="text-gray-800 hover:text-primary-500 transition-colors">
-                (234) 567-8900
+                +2547 9628-0700
               </a>
             </div>
             
