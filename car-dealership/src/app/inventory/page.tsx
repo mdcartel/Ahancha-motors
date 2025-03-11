@@ -155,14 +155,11 @@ async function getVehicles() {
 export default async function InventoryPage({
   searchParams,
 }: {
-  searchParams?: { 
-    [key: string]: string | string[] | undefined 
-  };
+  searchParams?: Record<string, string | string[] | undefined>;
 }) {
   const vehicles = await getVehicles();
   
   // Filter vehicles based on search parameters
-  // This would typically be handled by the API, but we're doing it client-side for this example
   const filteredVehicles = vehicles.filter(vehicle => {
     if (searchParams?.make && vehicle.make.toLowerCase() !== (searchParams.make as string).toLowerCase()) {
       return false;
@@ -176,38 +173,34 @@ export default async function InventoryPage({
     if (searchParams?.bodyType && vehicle.bodyType.toLowerCase() !== (searchParams.bodyType as string).toLowerCase()) {
       return false;
     }
-    // You would add more filter conditions here based on your search parameters
-    
     return true;
   });
 
   return (
     <div className="bg-gray-100 min-h-screen">
-      {/* Page Header */}
-        <div className="relative bg-gray-900 text-white">
-                            <div className="absolute inset-0 z-0 opacity-30">
-                              <Image 
-                                src="/images/backgrounds/bmw.png" 
-                                alt="Premium Auto Dealership" 
-                                fill 
-                                className="object-cover xl:object-left"
-                                priority
-                              />
-                            </div>
-                            <div className="relative z-10 container mx-auto px-4 py-20">
-                              <div className="max-w-3xl">
-                                <div className="inline-block px-4 py-1.5 bg-red-600 text-white text-sm font-medium rounded-full mb-4">
-                                Inventory
-                                </div>
-                                <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white">Vehicle Inventory</h1>
-                                <p className="text-lg text-gray-300">
-                                RFind your perfect vehicle from our extensive selection
-                                </p>
-                              </div>
-                            </div>
-                          </div>
+      <div className="relative bg-gray-900 text-white">
+        <div className="absolute inset-0 z-0 opacity-30">
+          <Image 
+            src="/images/backgrounds/bmw.png" 
+            alt="Premium Auto Dealership" 
+            fill 
+            className="object-cover xl:object-left"
+            priority
+          />
+        </div>
+        <div className="relative z-10 container mx-auto px-4 py-20">
+          <div className="max-w-3xl">
+            <div className="inline-block px-4 py-1.5 bg-red-600 text-white text-sm font-medium rounded-full mb-4">
+              Inventory
+            </div>
+            <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white">Vehicle Inventory</h1>
+            <p className="text-lg text-gray-300">
+              Find your perfect vehicle from our extensive selection
+            </p>
+          </div>
+        </div>
+      </div>
 
-      {/* Inventory Content */}
       <div className="container mx-auto px-4 py-8">
         <VehicleList vehicles={filteredVehicles} />
       </div>
