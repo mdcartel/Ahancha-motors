@@ -190,7 +190,7 @@ export default function ContactPage() {
             <div className="space-y-2">
               <div className="flex items-center text-gray-700">
                 <Phone size={16} className="mr-2" />
-                <span>(234) 567-8902</span>
+                <span>+2547 1117-5616</span>
               </div>
               <div className="flex items-center text-gray-700">
                 <Mail size={16} className="mr-2" />

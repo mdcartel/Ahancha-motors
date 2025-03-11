@@ -23,7 +23,7 @@ export const DEPARTMENTS = {
   },
   service: {
     name: 'Service Department',
-    phone: '(234) 567-8902',
+    phone: '+2547 1117-5616',
     email: 'service@premiumauto.com',
     hours: 'Mon-Fri: 8am-6pm | Sat: 9am-4pm',
   },

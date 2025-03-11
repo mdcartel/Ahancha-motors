@@ -21,7 +21,7 @@ const TeamSection = () => {
       bio: "Sarah leads our sales team with a customer-first approach. Her background in customer service and 15 years in automotive sales ensures that every client receives personalized attention and finds the perfect vehicle to match their needs.",
       image: "/images/team/sales-director.jpg",
       email: "sarah@premiumauto.com",
-      phone: "(234) 567-8902",
+      phone: "+2547 1117-5616",
       linkedin: "https://linkedin.com/in/sarahmiller"
     },
     {
