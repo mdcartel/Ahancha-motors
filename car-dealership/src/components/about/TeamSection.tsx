@@ -12,7 +12,7 @@ const TeamSection = () => {
       bio: "John founded Premium Auto in 2002 with a vision to create a dealership that prioritizes customer relationships over sales quotas. With over 30 years of experience in the automotive industry, his leadership has established Premium Auto as a trusted name in the community.",
       image: "/images/team/ceo.jpg",
       email: "john@premiumauto.com",
-      phone: "(234) 567-8901",
+      phone: "+2541 1483-3381",
       linkedin: "https://linkedin.com/in/johnanderson"
     },
     {

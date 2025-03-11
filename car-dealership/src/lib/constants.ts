@@ -17,7 +17,7 @@ export const COMPANY_HOURS = {
 export const DEPARTMENTS = {
   sales: {
     name: 'Sales Department',
-    phone: '(234) 567-8901',
+    phone: '+2541 1483-3381',
     email: 'sales@premiumauto.com',
     hours: 'Mon-Sat: 9am-7pm | Sun: 10am-5pm',
   },

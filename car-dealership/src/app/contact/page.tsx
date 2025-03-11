@@ -70,7 +70,7 @@ export default function ContactPage() {
                   <div>
                     <h3 className="font-medium text-gray-900">Phone</h3>
                     <p className="text-gray-600">Sales: +2547 9628-0700</p>
-                    <p className="text-gray-600">Service: (234) 567-8901</p>
+                    <p className="text-gray-600">Service: +2541 1483-3381</p>
                   </div>
                 </div>
                 
@@ -174,7 +174,7 @@ export default function ContactPage() {
             <div className="space-y-2">
               <div className="flex items-center text-gray-700">
                 <Phone size={16} className="mr-2" />
-                <span>(234) 567-8901</span>
+                <span>+2541 1483-3381</span>
               </div>
               <div className="flex items-center text-gray-700">
                 <Mail size={16} className="mr-2" />
