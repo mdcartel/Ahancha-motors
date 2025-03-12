@@ -61,8 +61,12 @@ export async function GET(
   try {
     console.log('GET /api/vehicles/[id] handler called');
     
-    // Access id directly from context
-    const id = context.params.id;
+    // Handle params safely to work in both environments
+    const paramsObj = context.params;
+    const id = typeof paramsObj === 'object' && paramsObj !== null 
+      ? paramsObj.id 
+      : (await context.params).id;
+      
     console.log(`Looking for vehicle with ID: ${id}`);
     
     if (!id) {
