@@ -230,7 +230,7 @@
     "bodyType": "Pickup Truck",
     "condition": "New",
     "description": "Robust and reliable Toyota Hilux, perfect for both urban and rural Kenyan terrains. Known for its durability and versatility.",
-    "image": "/images/cars/toyota-hilux.jpg",
+    "image": "/images/cars/toyota-hilux.png",
     "featured": false,
     "features": [
       {
@@ -280,7 +280,7 @@
     "bodyType": "Crossover SUV",
     "condition": "New",
     "description": "Stylish and efficient Mazda CX-5, offering premium comfort and performance for Kenyan families and professionals.",
-    "image": "/images/cars/mazda-cx5.jpg",
+    "image": "/images/cars/mazda-cx5.png",
     "featured": false,
     "features": [
       {
@@ -331,7 +331,7 @@
     "bodyType": "Pickup Truck",
     "condition": "New",
     "description": "Rugged Isuzu D-Max Single Cab, designed for hard work and reliability. Ideal for businesses and agricultural operations in Kenya.",
-    "image": "/images/cars/isuzu-dmax.jpg",
+    "image": "/images/cars/isuzu-dmax.png",
     "featured": false,
     "features": [
       {
@@ -381,7 +381,7 @@
     "bodyType": "SUV",
     "condition": "Used",
     "description": "Well-maintained Toyota Prado TXL, perfect for family use and safari adventures. Spacious, comfortable, and capable of handling Kenya's diverse terrains.",
-    "image": "/images/cars/toyota-prado.jpg",
+    "image": "/images/cars/toyota-prado.png",
     "featured": false,
     "features": [
       {
@@ -423,7 +423,7 @@
     "mileage": 95000,
     "fuelType": "Gasoline",
     "transmission": "CVT",
-    "exteriorColor": "Blue",
+    "exteriorColor": "Graphite Gray",
     "interiorColor": "Black Cloth",
     "vin": "JNTAN5B17H9012345",
     "stockNumber": "KE-XTRAIL-2017-01",
