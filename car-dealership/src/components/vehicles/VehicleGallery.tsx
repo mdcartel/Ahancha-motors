@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { VehicleImage } from './VehicleImage';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 
@@ -18,24 +18,25 @@ const VehicleGallery: React.FC<VehicleGalleryProps> = ({ images, title }) => {
     ? images 
     : ['/images/cars/car-placeholder.jpg'];
   
-  const handlePrevious = () => {
+  // Memoize handlers to prevent recreating on each render
+  const handlePrevious = useCallback(() => {
     setActiveIndex((prevIndex) => (prevIndex === 0 ? galleryImages.length - 1 : prevIndex - 1));
-  };
+  }, [galleryImages.length]);
   
-  const handleNext = () => {
+  const handleNext = useCallback(() => {
     setActiveIndex((prevIndex) => (prevIndex === galleryImages.length - 1 ? 0 : prevIndex + 1));
-  };
+  }, [galleryImages.length]);
   
-  const openLightbox = (index: number) => {
+  const openLightbox = useCallback((index: number) => {
     setActiveIndex(index);
     setLightboxOpen(true);
-  };
+  }, []);
   
-  const closeLightbox = () => {
+  const closeLightbox = useCallback(() => {
     setLightboxOpen(false);
-  };
+  }, []);
   
-  // Keyboard navigation for lightbox
+  // Keyboard navigation for lightbox - with proper dependencies
   React.useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (!lightboxOpen) return;
@@ -54,7 +55,7 @@ const VehicleGallery: React.FC<VehicleGalleryProps> = ({ images, title }) => {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [lightboxOpen]);
+  }, [lightboxOpen, handlePrevious, handleNext, closeLightbox]); // Added missing dependencies
   
   // Lock body scroll when lightbox is open
   React.useEffect(() => {

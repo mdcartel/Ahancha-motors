@@ -6,6 +6,7 @@ import Newsletter from '@/components/home/Newsletter';
 // Fetch vehicles from the API
 async function getVehicles() {
   try {
+    console.log('Fetching vehicles from API...');
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/api/vehicles`, {
       cache: 'no-store',
     });
@@ -14,7 +15,9 @@ async function getVehicles() {
       throw new Error(`Failed to fetch vehicles: ${response.status}`);
     }
 
-    return await response.json();
+    const data = await response.json();
+    console.log(`Successfully fetched ${data.length} vehicles`);
+    return data;
   } catch (error) {
     console.error('Error fetching vehicles:', error);
     return [];
@@ -28,41 +31,12 @@ export const metadata: Metadata = {
   metadataBase: new URL(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'),
 };
 
-interface Vehicle {
-  make: string;
-  model: string;
-  condition: string;
-  bodyType: string;
-}
-
-export default async function InventoryPage({
-  searchParams,
-}: {
-  searchParams: { 
-    make?: string; 
-    model?: string; 
-    condition?: string; 
-    bodyType?: string; 
-  };
-}) {
+export default async function InventoryPage() {
+  // Get all vehicles - don't filter here in the server component
   const vehicles = await getVehicles();
   
-  // Safely filter vehicles
-  const filteredVehicles = vehicles.filter((vehicle: Vehicle) => {
-    // Function to safely compare values
-    const compareValue = (paramValue: string | undefined, vehicleValue: string) => {
-      if (!paramValue) return true;
-      return vehicleValue.toLowerCase() === paramValue.toLowerCase();
-    };
-
-    return (
-      compareValue(searchParams.make, vehicle.make) &&
-      compareValue(searchParams.model, vehicle.model) &&
-      compareValue(searchParams.condition, vehicle.condition) &&
-      compareValue(searchParams.bodyType, vehicle.bodyType)
-    );
-  });
-
+  // Pass all vehicles to the client component
+  // Your VehicleList component already handles filtering client-side
   return (
     <div className="bg-gray-100 min-h-screen">
       <div className="relative bg-gray-900 text-white">
@@ -103,7 +77,7 @@ export default async function InventoryPage({
             </p>
           </div>
         ) : (
-          <VehicleList vehicles={filteredVehicles} />
+          <VehicleList vehicles={vehicles} />
         )}
       </div>
       <Newsletter />

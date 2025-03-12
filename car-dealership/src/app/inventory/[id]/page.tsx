@@ -1,3 +1,4 @@
+// src/app/inventory/[id]/page.tsx
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
@@ -7,12 +8,8 @@ import {
   Gauge, 
   Fuel, 
   Cog, 
-  Palette, 
-  Tag, 
-  Hash, 
   Car,
-  Award,
-  CheckCircle
+  Award
 } from 'lucide-react';
 
 import ClientVehicleComponents from './ClientVehicleComponents';
@@ -20,6 +17,7 @@ import ClientVehicleComponents from './ClientVehicleComponents';
 // Fetch a specific vehicle from the API
 async function getVehicle(id: string) {
   try {
+    console.log(`Fetching vehicle with ID: ${id}`);
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/api/vehicles/${id}`, {
       cache: 'no-store',
     });
@@ -62,17 +60,22 @@ async function getSimilarVehicles(vehicle: any) {
   }
 }
 
-type GenerateMetadataProps = {
-  params: { id: string };
-}
+type Params = {
+  id: string;
+};
 
-export async function generateMetadata({ params }: GenerateMetadataProps): Promise<Metadata> {
-  const vehicle = await getVehicle(params.id);
+export async function generateMetadata(props: { params: Params }): Promise<Metadata> {
+  // Important: Await the params object
+  const params = await props.params;
+  const id = params.id;
+  
+  const vehicle = await getVehicle(id);
   
   if (!vehicle) {
     return {
       title: 'Vehicle Not Found | Premium Auto Dealership',
       description: 'The requested vehicle could not be found in our inventory.',
+      metadataBase: new URL(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'),
     };
   }
   
@@ -89,12 +92,12 @@ export async function generateMetadata({ params }: GenerateMetadataProps): Promi
   };
 }
 
-export default async function VehicleDetailPage({
-  params,
-}: {
-  params: { id: string };
-}) {
-  const vehicle = await getVehicle(params.id);
+export default async function VehicleDetailPage(props: { params: Params }) {
+  // Important: Await the params object
+  const params = await props.params;
+  const id = params.id;
+  
+  const vehicle = await getVehicle(id);
   
   if (!vehicle) {
     notFound();
