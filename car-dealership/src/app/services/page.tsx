@@ -2,6 +2,8 @@ import React from 'react';
 import Image from 'next/image';
 import { Metadata } from 'next';
 import ServiceList from '@/components/services/ServiceList';
+import Newsletter from '@/components/home/Newsletter';
+
 
 export const metadata: Metadata = {
   title: 'Automotive Services | Premium Auto Dealership',
@@ -99,7 +101,7 @@ export default function ServicesPage() {
           </div>
           
           {/* Maintenance Plans */}
-        
+        <Newsletter className="bg-gray-100" />
           {/* Appointment CTA */}
           <div className="bg-gray-900 text-white rounded-lg shadow-md p-8 text-center">
             <h2 className="text-2xl font-bold mb-4">Schedule Your Service Appointment</h2>

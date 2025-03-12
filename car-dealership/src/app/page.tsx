@@ -6,6 +6,7 @@ import Services from '@/components/home/Services';
 import Testimonials from '@/components/home/Testimonials';
 import CTASection from '@/components/home/CTASection';
 import WhyChooseUs from '@/components/home/WhyChooseUs';
+import Newsletter from '@/components/home/Newsletter';
 
 export const metadata = {
   title: 'Premium Auto Dealership | Find Your Dream Car',
@@ -25,6 +26,7 @@ export default function HomePage() {
       <FeaturedVehicles />
       <Services />
       <Testimonials />
+      <Newsletter />
       
       {/* High-Impact CTA Section */}
       <CTASection />
