@@ -43,14 +43,14 @@ async function getVehiclesFromFile() {
   }
 }
 
-// Use the correct type signature for Next.js
+// Use the exact type signature that Next.js requires
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } }
+  context: { params: { id: string } }
 ) {
   try {
-    const { id } = params;
-    
+    const { id } = context.params;
+
     if (!id) {
       return NextResponse.json(
         { error: 'Vehicle ID is required' },
