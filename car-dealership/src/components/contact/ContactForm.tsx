@@ -1,20 +1,28 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Send, Phone, User, Mail, Calendar, MessageSquare, Check, AlertCircle } from 'lucide-react';
+import { Phone, Mail, Calendar, Clock } from 'lucide-react';
 
-const UpdatedForm = () => {
+interface VehicleContactProps {
+  vehicle: {
+    id: string;
+    title: string;
+  };
+}
+
+const VehicleContact: React.FC<VehicleContactProps> = ({ vehicle }) => {
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
     email: '',
     phone: '',
-    subject: '',
-    message: '',
-    requestType: 'general',
+    subject: `Inquiry about ${vehicle.title}`,
+    message: `I'm interested in this ${vehicle.title} you have listed. Please contact me with more information.`,
+    requestType: 'vehicle-inquiry',
     preferredContact: 'email',
     subscribedToNewsletter: false,
-    bestTimeToCall: ''
+    vehicleId: vehicle.id,
+    vehicleTitle: vehicle.title
   });
   
   const [formStatus, setFormStatus] = useState<{
@@ -25,7 +33,7 @@ const UpdatedForm = () => {
     message: '',
   });
   
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
@@ -33,6 +41,11 @@ const UpdatedForm = () => {
   const handleCheckboxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, checked } = e.target;
     setFormData(prev => ({ ...prev, [name]: checked }));
+  };
+  
+  const handleRadioChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
   };
   
   const handleSubmit = async (e: React.FormEvent) => {
@@ -44,8 +57,8 @@ const UpdatedForm = () => {
     });
     
     try {
-      // Submit to contact API
-      const contactResponse = await fetch('/api/contact', {
+      // Send to your API endpoint
+      const response = await fetch('/api/contact', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -53,35 +66,15 @@ const UpdatedForm = () => {
         body: JSON.stringify(formData),
       });
       
-      const contactData = await contactResponse.json();
+      const data = await response.json();
       
-      if (!contactResponse.ok) {
-        throw new Error(contactData.error || 'Failed to send message');
-      }
-      
-      // If newsletter subscription is checked, also submit to newsletter API
-      if (formData.subscribedToNewsletter) {
-        try {
-          await fetch('/api/newsletter', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              email: formData.email,
-              name: `${formData.firstName} ${formData.lastName}`,
-              source: 'contact'
-            }),
-          });
-          // Newsletter errors shouldn't prevent success message for the contact form
-        } catch (newsletterError) {
-          console.error('Newsletter subscription failed:', newsletterError);
-        }
+      if (!response.ok) {
+        throw new Error(data.error || 'Failed to send message');
       }
       
       setFormStatus({
         status: 'success',
-        message: 'Your message has been sent! We will contact you shortly.',
+        message: data.message || 'Your message has been sent! We will contact you shortly.',
       });
       
       // Reset form after successful submission
@@ -90,84 +83,70 @@ const UpdatedForm = () => {
         lastName: '',
         email: '',
         phone: '',
-        subject: '',
-        message: '',
-        requestType: 'general',
+        subject: `Inquiry about ${vehicle.title}`,
+        message: `I'm interested in this ${vehicle.title} you have listed. Please contact me with more information.`,
+        requestType: 'vehicle-inquiry',
         preferredContact: 'email',
         subscribedToNewsletter: false,
-        bestTimeToCall: ''
+        vehicleId: vehicle.id,
+        vehicleTitle: vehicle.title
       });
     } catch (error) {
-      console.error('Error submitting form:', error);
       setFormStatus({
         status: 'error',
-        message: error instanceof Error 
-          ? error.message 
-          : 'There was an error sending your message. Please try again.',
+        message: error instanceof Error ? error.message : 'There was an error sending your message. Please try again.',
       });
     }
   };
   
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      {/* Form header */}
-      <div className="bg-gray-50 rounded-lg p-4 border-l-4 border-red-600 mb-6">
-        <h3 className="text-lg font-bold text-gray-900">Get in Touch</h3>
-        <p className="text-gray-600">Fill out the form below and we'll get back to you as soon as possible.</p>
-      </div>
+    <div>
+      <h2 className="text-2xl font-bold text-gray-900 mb-4">Interested in this vehicle?</h2>
       
-      {/* Request type selector */}
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-        <div 
-          onClick={() => setFormData(prev => ({ ...prev, requestType: 'general' }))}
-          className={`
-            border rounded-lg p-3 text-center cursor-pointer transition-all
-            ${formData.requestType === 'general' 
-              ? 'border-red-600 bg-red-50 text-gray-900' 
-              : 'border-gray-200 bg-white text-gray-600 hover:bg-gray-50'}
-          `}
-        >
-          <MessageSquare className={`mx-auto h-6 w-6 mb-1 ${formData.requestType === 'general' ? 'text-red-600' : 'text-gray-400'}`} />
-          <span className="text-sm font-medium">General Inquiry</span>
+      {/* Contact Options */}
+      <div className="space-y-3 mb-6">
+        <div className="flex items-center">
+          <Phone className="h-5 w-5 text-primary mr-3" />
+          <div>
+            <div className="text-sm text-gray-500">Call or Text</div>
+            <a 
+              href="tel:+1-234-567-8900" 
+              className="font-medium text-gray-900 hover:text-primary transition-colors"
+            >
+              +2547 9628-0700
+            </a>
+          </div>
         </div>
         
-        <div 
-          onClick={() => setFormData(prev => ({ ...prev, requestType: 'sales' }))}
-          className={`
-            border rounded-lg p-3 text-center cursor-pointer transition-all
-            ${formData.requestType === 'sales' 
-              ? 'border-red-600 bg-red-50 text-gray-900' 
-              : 'border-gray-200 bg-white text-gray-600 hover:bg-gray-50'}
-          `}
-        >
-          <Calendar className={`mx-auto h-6 w-6 mb-1 ${formData.requestType === 'sales' ? 'text-red-600' : 'text-gray-400'}`} />
-          <span className="text-sm font-medium">Schedule Test Drive</span>
+        <div className="flex items-center">
+          <Mail className="h-5 w-5 text-primary mr-3" />
+          <div>
+            <div className="text-sm text-gray-500">Email Us</div>
+            <a 
+              href="mailto:sales@premiumauto.com" 
+              className="font-medium text-gray-900 hover:text-primary transition-colors"
+            >
+              sales@premiumauto.com
+            </a>
+          </div>
         </div>
         
-        <div 
-          onClick={() => setFormData(prev => ({ ...prev, requestType: 'service' }))}
-          className={`
-            border rounded-lg p-3 text-center cursor-pointer transition-all
-            ${formData.requestType === 'service' 
-              ? 'border-red-600 bg-red-50 text-gray-900' 
-              : 'border-gray-200 bg-white text-gray-600 hover:bg-gray-50'}
-          `}
-        >
-          <Check className={`mx-auto h-6 w-6 mb-1 ${formData.requestType === 'service' ? 'text-red-600' : 'text-gray-400'}`} />
-          <span className="text-sm font-medium">Service Appointment</span>
+        <div className="flex items-center">
+          <Clock className="h-5 w-5 text-primary mr-3" />
+          <div>
+            <div className="text-sm text-gray-500">Business Hours</div>
+            <div className="font-medium text-gray-900">Mon-Sat: 9am-7pm | Sun: 10am-5pm</div>
+          </div>
         </div>
       </div>
       
-      {/* Personal information */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div className="relative">
-          <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
-            First Name *
-          </label>
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <User size={16} className="text-gray-400" />
-            </div>
+      {/* Contact Form */}
+      <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label htmlFor="firstName" className="block text-sm font-medium text-gray-700 mb-1">
+              First Name *
+            </label>
             <input
               type="text"
               id="firstName"
@@ -175,20 +154,14 @@ const UpdatedForm = () => {
               value={formData.firstName}
               onChange={handleChange}
               required
-              className="w-full pl-10 p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500/40 focus:border-red-500 text-gray-700"
-              placeholder="John"
+              className="w-full p-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
             />
           </div>
-        </div>
-        
-        <div>
-          <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">
-            Last Name *
-          </label>
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <User size={16} className="text-gray-400" />
-            </div>
+          
+          <div>
+            <label htmlFor="lastName" className="block text-sm font-medium text-gray-700 mb-1">
+              Last Name *
+            </label>
             <input
               type="text"
               id="lastName"
@@ -196,217 +169,129 @@ const UpdatedForm = () => {
               value={formData.lastName}
               onChange={handleChange}
               required
-              className="w-full pl-10 p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500/40 focus:border-red-500 text-gray-700"
-              placeholder="Doe"
+              className="w-full p-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
             />
           </div>
         </div>
-      </div>
-      
-      {/* Contact information */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+        
         <div>
           <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
             Email *
           </label>
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Mail size={16} className="text-gray-400" />
-            </div>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-              className="w-full pl-10 p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500/40 focus:border-red-500 text-gray-700"
-              placeholder="john.doe@example.com"
-            />
-          </div>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            className="w-full p-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
+          />
         </div>
         
         <div>
           <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
             Phone *
           </label>
-          <div className="relative">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Phone size={16} className="text-gray-400" />
-            </div>
-            <input
-              type="tel"
-              id="phone"
-              name="phone"
-              value={formData.phone}
-              onChange={handleChange}
-              required
-              className="w-full pl-10 p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500/40 focus:border-red-500 text-gray-700"
-              placeholder="(123) 456-7890"
-            />
-          </div>
-        </div>
-      </div>
-      
-      {/* Best time to call - for phone contact preference */}
-      {formData.preferredContact === 'phone' && (
-        <div>
-          <label htmlFor="bestTimeToCall" className="block text-sm font-medium text-gray-700 mb-1">
-            Best Time to Call
-          </label>
-          <select
-            id="bestTimeToCall"
-            name="bestTimeToCall"
-            value={formData.bestTimeToCall}
-            onChange={handleChange}
-            className="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500/40 focus:border-red-500 text-gray-700"
-          >
-            <option value="">Select a time</option>
-            <option value="morning">Morning (9AM - 12PM)</option>
-            <option value="afternoon">Afternoon (12PM - 5PM)</option>
-            <option value="evening">Evening (5PM - 7PM)</option>
-          </select>
-        </div>
-      )}
-      
-      {/* Message details */}
-      <div>
-        <label htmlFor="subject" className="block text-sm font-medium text-gray-700 mb-1">
-          Subject *
-        </label>
-        <input
-          type="text"
-          id="subject"
-          name="subject"
-          value={formData.subject}
-          onChange={handleChange}
-          required
-          className="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500/40 focus:border-red-500 text-gray-700"
-          placeholder="How can we help you?"
-        />
-      </div>
-      
-      <div>
-        <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-          Message *
-        </label>
-        <textarea
-          id="message"
-          name="message"
-          value={formData.message}
-          onChange={handleChange}
-          required
-          rows={4}
-          className="w-full p-2.5 border border-gray-300 rounded-lg focus:ring-2 focus:ring-red-500/40 focus:border-red-500 text-gray-700"
-          placeholder="Enter your message here..."
-        />
-      </div>
-      
-      {/* Contact preference */}
-      <div>
-        <p className="block text-sm font-medium text-gray-700 mb-2">
-          Preferred Contact Method *
-        </p>
-        <div className="flex space-x-4">
-          <label className="flex items-center">
-            <input
-              type="radio"
-              name="preferredContact"
-              value="email"
-              checked={formData.preferredContact === 'email'}
-              onChange={handleChange}
-              className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300"
-            />
-            <span className="ml-2 text-sm text-gray-700">Email</span>
-          </label>
-          <label className="flex items-center">
-            <input
-              type="radio"
-              name="preferredContact"
-              value="phone"
-              checked={formData.preferredContact === 'phone'}
-              onChange={handleChange}
-              className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300"
-            />
-            <span className="ml-2 text-sm text-gray-700">Phone</span>
-          </label>
-        </div>
-      </div>
-      
-      {/* Newsletter subscription */}
-      <div className="bg-gray-50 rounded-lg p-4">
-        <label className="flex items-start">
           <input
-            type="checkbox"
-            name="subscribedToNewsletter"
-            checked={formData.subscribedToNewsletter}
-            onChange={handleCheckboxChange}
-            className="h-5 w-5 mt-0.5 text-red-600 focus:ring-red-500 border-gray-300 rounded"
+            type="tel"
+            id="phone"
+            name="phone"
+            value={formData.phone}
+            onChange={handleChange}
+            required
+            className="w-full p-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
           />
-          <div className="ml-3">
-            <span className="text-sm font-medium text-gray-900">Subscribe to newsletter</span>
-            <p className="text-xs text-gray-500 mt-0.5">
-              Receive updates on new inventory, special offers, and automotive news.
-            </p>
-          </div>
-        </label>
-      </div>
-      
-      {/* Status messages */}
-      {formStatus.status !== 'idle' && (
-        <div
-          className={`p-4 rounded-lg flex items-start ${
-            formStatus.status === 'success'
-              ? 'bg-green-50 text-green-800 border border-green-200'
-              : formStatus.status === 'error'
-              ? 'bg-red-50 text-red-800 border border-red-200'
-              : 'bg-blue-50 text-blue-800 border border-blue-200'
-          }`}
-        >
-          <div className={`rounded-full p-1 mr-3 ${
-            formStatus.status === 'success'
-              ? 'bg-green-100'
-              : formStatus.status === 'error'
-              ? 'bg-red-100'
-              : 'bg-blue-100'
-          }`}>
-            {formStatus.status === 'success' ? (
-              <Check className="h-4 w-4" />
-            ) : formStatus.status === 'error' ? (
-              <AlertCircle className="h-4 w-4" />
-            ) : (
-              <Send className="h-4 w-4" />
-            )}
-          </div>
-          <p className="text-sm">{formStatus.message}</p>
         </div>
-      )}
-      
-      {/* Submit button */}
-      <button
-        type="submit"
-        disabled={formStatus.status === 'submitting'}
-        className="w-full bg-red-600 hover:bg-red-700 text-white font-medium py-3 px-4 rounded-lg transition-colors flex items-center justify-center disabled:opacity-70 disabled:cursor-not-allowed"
-      >
-        {formStatus.status === 'submitting' ? (
-          <>
-            <div className="animate-spin mr-2 h-4 w-4 border-2 border-white border-t-transparent rounded-full"></div>
-            Sending...
-          </>
-        ) : (
-          <>
-            <Send size={16} className="mr-2" />
-            Send Message
-          </>
+        
+        <div>
+          <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+            Message *
+          </label>
+          <textarea
+            id="message"
+            name="message"
+            value={formData.message}
+            onChange={handleChange}
+            required
+            rows={4}
+            className="w-full p-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
+          />
+        </div>
+        
+        <div>
+          <p className="block text-sm font-medium text-gray-700 mb-1">
+            Preferred Contact Method *
+          </p>
+          <div className="flex space-x-4">
+            <label className="flex items-center">
+              <input
+                type="radio"
+                name="preferredContact"
+                value="email"
+                checked={formData.preferredContact === 'email'}
+                onChange={handleRadioChange}
+                className="h-4 w-4 text-primary focus:ring-primary border-gray-300"
+              />
+              <span className="ml-2 text-sm text-gray-700">Email</span>
+            </label>
+            <label className="flex items-center">
+              <input
+                type="radio"
+                name="preferredContact"
+                value="phone"
+                checked={formData.preferredContact === 'phone'}
+                onChange={handleRadioChange}
+                className="h-4 w-4 text-primary focus:ring-primary border-gray-300"
+              />
+              <span className="ml-2 text-sm text-gray-700">Phone</span>
+            </label>
+          </div>
+        </div>
+        
+        <div>
+          <label className="flex items-center">
+            <input
+              type="checkbox"
+              name="subscribedToNewsletter"
+              checked={formData.subscribedToNewsletter}
+              onChange={handleCheckboxChange}
+              className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+            />
+            <span className="ml-2 text-sm text-gray-700">
+              Keep me updated on new inventory and special offers.
+            </span>
+          </label>
+        </div>
+        
+        {formStatus.status !== 'idle' && (
+          <div
+            className={`p-3 rounded-md ${
+              formStatus.status === 'success'
+                ? 'bg-green-50 text-green-800'
+                : formStatus.status === 'error'
+                ? 'bg-red-50 text-red-800'
+                : 'bg-blue-50 text-blue-800'
+            }`}
+          >
+            {formStatus.message}
+          </div>
         )}
-      </button>
-      
-      {/* Privacy note */}
-      <p className="text-xs text-gray-500 text-center">
-        By submitting this form, you agree to our <a href="/privacy" className="text-red-600 hover:underline">Privacy Policy</a> and consent to be contacted regarding your inquiry.
-      </p>
-    </form>
+        
+        <button
+          type="submit"
+          disabled={formStatus.status === 'submitting'}
+          className="w-full bg-primary hover:bg-primary-dark text-white py-3 px-4 rounded-md font-medium transition-colors disabled:opacity-70"
+        >
+          {formStatus.status === 'submitting' ? 'Sending...' : 'Send Message'}
+        </button>
+        
+        <p className="text-xs text-gray-500 text-center">
+          By clicking "Send Message", you agree to our <a href="/privacy" className="text-primary hover:underline">Privacy Policy</a> and consent to be contacted by our dealership.
+        </p>
+      </form>
+    </div>
   );
 };
 
-export default UpdatedForm;
+export default VehicleContact;
