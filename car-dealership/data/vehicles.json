@@ -1,0 +1,46 @@
+[
+  {
+    "id": "15242f79-ff15-49e8-a64f-1aaa12e375a5",
+    "title": "2025 Toyota Camry red",
+    "make": "Toyota",
+    "model": "Camry",
+    "trim": "red",
+    "year": 2025,
+    "price": 2000,
+    "mileage": 12000,
+    "fuelType": "Gasoline",
+    "transmission": "Automatic",
+    "exteriorColor": "red",
+    "interiorColor": "red",
+    "vin": "TCXSRF22",
+    "stockNumber": "112",
+    "engine": "3.4L",
+    "drivetrain": "Front-Wheel Drive",
+    "bodyType": "Sedan",
+    "condition": "New",
+    "description": "New car doing Graete",
+    "image": "/images/cars/cx3.png",
+    "featured": true,
+    "features": [
+      {
+        "category": "Comfort & Convenience",
+        "items": [
+          "sunroof"
+        ]
+      },
+      {
+        "category": "Technology",
+        "items": [
+          "electric"
+        ]
+      },
+      {
+        "category": "Safety",
+        "items": [
+          "secure"
+        ]
+      }
+    ],
+    "createdAt": "2025-03-12T08:28:50.525Z"
+  }
+]

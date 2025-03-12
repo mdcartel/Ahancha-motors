@@ -10,147 +10,27 @@ export const metadata: Metadata = {
   keywords: 'car inventory, new cars, used cars, certified pre-owned, car dealership',
 };
 
-// This would typically fetch data from an API
+// Fetch vehicles from the API
 async function getVehicles() {
-  // Simulate API call with mock data
-  return [
-    {
-      id: '1',
-      title: '2023 Toyota Camry XSE',
-      make: 'Toyota',
-      model: 'Camry',
-      trim: 'XSE',
-      year: 2023,
-      price: 32995,
-      mileage: 12560,
-      fuelType: 'Gasoline',
-      transmission: 'Automatic',
-      exteriorColor: 'Pearl White',
-      image: '/images/cars/toyota-camry.jpg',
-      featured: true,
-      condition: 'New',
-      bodyType: 'Sedan',
-    },
-    {
-      id: '2',
-      title: '2022 Honda Accord Sport',
-      make: 'Honda',
-      model: 'Accord',
-      trim: 'Sport',
-      year: 2022,
-      price: 28995,
-      mileage: 18750,
-      fuelType: 'Gasoline',
-      transmission: 'Automatic',
-      exteriorColor: 'Modern Steel',
-      image: '/images/cars/honda-accord.jpg',
-      featured: true,
-      condition: 'Used',
-      bodyType: 'Sedan',
-    },
-    {
-      id: '3',
-      title: '2023 Ford F-150 Lariat',
-      make: 'Ford',
-      model: 'F-150',
-      trim: 'Lariat',
-      year: 2023,
-      price: 45995,
-      mileage: 5230,
-      fuelType: 'Gasoline',
-      transmission: 'Automatic',
-      exteriorColor: 'Agate Black',
-      image: '/images/cars/ford-f150.jpg',
-      featured: true,
-      condition: 'New',
-      bodyType: 'Truck',
-    },
-    {
-      id: '4',
-      title: '2022 BMW X5 xDrive40i',
-      make: 'BMW',
-      model: 'X5',
-      trim: 'xDrive40i',
-      year: 2022,
-      price: 59995,
-      mileage: 15680,
-      fuelType: 'Gasoline',
-      transmission: 'Automatic',
-      exteriorColor: 'Alpine White',
-      image: '/images/cars/bmw-x5.jpg',
-      featured: true,
-      condition: 'Used',
-      bodyType: 'SUV',
-    },
-    {
-      id: '5',
-      title: '2021 Mercedes-Benz E-Class',
-      make: 'Mercedes-Benz',
-      model: 'E-Class',
-      trim: 'E 350',
-      year: 2021,
-      price: 48995,
-      mileage: 22450,
-      fuelType: 'Gasoline',
-      transmission: 'Automatic',
-      exteriorColor: 'Obsidian Black',
-      image: '/images/cars/mercedes-e-class.jpg',
-      featured: false,
-      condition: 'Used',
-      bodyType: 'Sedan',
-    },
-    {
-      id: '6',
-      title: '2023 Audi Q7 Premium Plus',
-      make: 'Audi',
-      model: 'Q7',
-      trim: 'Premium Plus',
-      year: 2023,
-      price: 62995,
-      mileage: 8760,
-      fuelType: 'Gasoline',
-      transmission: 'Automatic',
-      exteriorColor: 'Glacier White',
-      image: '/images/cars/audi-q7.jpg',
-      featured: false,
-      condition: 'New',
-      bodyType: 'SUV',
-    },
-    {
-      id: '7',
-      title: '2022 Lexus RX 350',
-      make: 'Lexus',
-      model: 'RX',
-      trim: '350',
-      year: 2022,
-      price: 47995,
-      mileage: 16280,
-      fuelType: 'Gasoline',
-      transmission: 'Automatic',
-      exteriorColor: 'Matador Red',
-      image: '/images/cars/lexus-rx.jpg',
-      featured: false,
-      condition: 'Used',
-      bodyType: 'SUV',
-    },
-    {
-      id: '8',
-      title: '2023 Chevrolet Silverado 1500',
-      make: 'Chevrolet',
-      model: 'Silverado 1500',
-      trim: 'LT',
-      year: 2023,
-      price: 42995,
-      mileage: 7850,
-      fuelType: 'Gasoline',
-      transmission: 'Automatic',
-      exteriorColor: 'Silver Ice',
-      image: '/images/cars/chevrolet-silverado.jpg',
-      featured: false,
-      condition: 'New',
-      bodyType: 'Truck',
-    },
-  ];
+  try {
+    // Use relative URL for API routes in Next.js
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/api/vehicles`, {
+      // Add cache options as needed
+      cache: 'no-store', // Don't cache for dynamic inventory pages
+      // Or use revalidation for better performance with fresh data
+      // next: { revalidate: 300 }, // Revalidate every 5 minutes
+    });
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch vehicles: ${response.status}`);
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error('Error fetching vehicles:', error);
+    // Return empty array on error to avoid breaking the page
+    return [];
+  }
 }
 
 export default async function InventoryPage({
@@ -161,7 +41,21 @@ export default async function InventoryPage({
   const vehicles = await getVehicles();
   
   // Filter vehicles based on search parameters
-  const filteredVehicles = vehicles.filter(vehicle => {
+  interface Vehicle {
+    make: string;
+    model: string;
+    condition: string;
+    bodyType: string;
+  }
+
+  interface SearchParams {
+    make?: string;
+    model?: string;
+    condition?: string;
+    bodyType?: string;
+  }
+
+  const filteredVehicles = vehicles.filter((vehicle: Vehicle) => {
     if (searchParams?.make && vehicle.make.toLowerCase() !== (searchParams.make as string).toLowerCase()) {
       return false;
     }
@@ -203,7 +97,22 @@ export default async function InventoryPage({
       </div>
 
       <div className="container mx-auto px-4 py-8">
-        <VehicleList vehicles={filteredVehicles} />
+        {vehicles.length === 0 ? (
+          <div className="bg-white rounded-lg shadow-md p-8 text-center">
+            <div className="inline-flex items-center justify-center p-3 bg-gray-100 rounded-full text-gray-500 mb-4">
+              <svg xmlns="http://www.w3.org/2000/svg" className="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              </svg>
+            </div>
+            <h3 className="text-xl font-medium text-gray-900 mb-2">No Vehicles Found</h3>
+            <p className="text-gray-600 mb-4">
+              We couldn't find any vehicles in our inventory right now.
+              Please check back soon as we're constantly updating our selection.
+            </p>
+          </div>
+        ) : (
+          <VehicleList vehicles={filteredVehicles} />
+        )}
       </div>
       <Newsletter />
     </div>
