@@ -211,60 +211,6 @@
     "createdAt": "2024-03-12T16:00:00.000Z"
   },
   {
-    "id": "58906e1d-ff58-7f2f-e0d7-5e4f3c1d6h8",
-    "title": "2023 Audi RS6 Avant",
-    "make": "Audi",
-    "model": "RS6",
-    "trim": "Avant",
-    "year": 2023,
-    "price": 119995,
-    "mileage": 3250,
-    "fuelType": "Gasoline",
-    "transmission": "8-Speed Automatic",
-    "exteriorColor": "Nardo Gray",
-    "interiorColor": "Black Leather",
-    "vin": "WAU8DAF25LN123456",
-    "stockNumber": "AUDI2023-RS6",
-    "engine": "4.0L Twin-Turbo V8",
-    "drivetrain": "Quattro All-Wheel Drive",
-    "bodyType": "Wagon",
-    "condition": "Used",
-    "description": "The Audi RS6 Avant is the ultimate performance wagon, combining power, style, and versatility in one stunning package. Experience the thrill of driving a high-performance masterpiece.",
-    "image": "/images/cars/audi-rs6.png",
-    "featured": true,
-    "features": [
-      {
-        "category": "Performance",
-        "items": [
-          "591 HP Twin-Turbo V8",
-          "0-60 mph in 3.5 seconds",
-          "RS Sport Exhaust",
-          "RS Adaptive Air Suspension"
-        ]
-      },
-      {
-        "category": "Technology",
-        "items": [
-          "Audi Virtual Cockpit",
-          "MMI Touch Response",
-          "Head-Up Display",
-          "Bang & Olufsen Sound System"
-        ]
-      },
-      {
-        "category": "Luxury",
-        "items": [
-          "Valcona Leather Seats",
-          "Heated/Cooled Cup Holders",
-          "Four-Zone Climate Control",
-          "Ambient LED Lighting"
-        ]
-      }
-    ],
-    "createdAt": "2024-03-12T16:30:00.000Z"
-  },
-
-  {
     "id": "ke-new-01",
     "title": "2024 Toyota Hilux Double Cab",
     "make": "Toyota",
