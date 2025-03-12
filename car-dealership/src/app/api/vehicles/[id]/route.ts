@@ -13,13 +13,11 @@ interface Vehicle {
 async function getVehiclesFromFile() {
   try {
     const filePath = path.join(process.cwd(), 'data', 'vehicles.json');
-    console.log(`Reading vehicles data from: ${filePath}`);
     
     try {
       const fileData = await fs.readFile(filePath, 'utf8');
       return JSON.parse(fileData);
     } catch (error) {
-      console.error('Error reading vehicles file:', error);
       // Return a sample array if the file doesn't exist
       return [
         {
@@ -42,32 +40,26 @@ async function getVehiclesFromFile() {
       ];
     }
   } catch (error) {
-    console.error('Error in getVehiclesFromFile:', error);
     return [];
   }
 }
 
-// Define the correct type for context
-type RouteContext = {
-  params: {
-    id: string;
-  };
-};
-
+// Use the exact type signature that Next.js requires
 export async function GET(
-  request: NextRequest,
-  context: RouteContext
+  _request: NextRequest,
+  { params }: { params: { id: string } }
 ) {
   try {
-    console.log('GET /api/vehicles/[id] handler called');
-    
-    // Handle params safely to work in both environments
-    const paramsObj = context.params;
-    const id = typeof paramsObj === 'object' && paramsObj !== null 
-      ? paramsObj.id 
-      : (await context.params).id;
-      
-    console.log(`Looking for vehicle with ID: ${id}`);
+    // Explicitly use a try/catch for accessing the id
+    let id: string;
+    try {
+      // Try to access it as a promise first (dev mode)
+      const resolvedParams = await Promise.resolve(params);
+      id = resolvedParams.id;
+    } catch {
+      // If that fails, try direct access (prod mode)
+      id = params.id;
+    }
     
     if (!id) {
       return NextResponse.json(
@@ -78,23 +70,19 @@ export async function GET(
     
     // Get all vehicles
     const vehicles = await getVehiclesFromFile();
-    console.log(`Found ${vehicles.length} vehicles in database`);
     
     // Find the vehicle with the matching ID
     const vehicle = vehicles.find((v: Vehicle) => v.id === id);
     
     if (!vehicle) {
-      console.log(`Vehicle with ID ${id} not found`);
       return NextResponse.json(
         { error: 'Vehicle not found' },
         { status: 404 }
       );
     }
     
-    console.log(`Found vehicle: ${vehicle.title}`);
     return NextResponse.json(vehicle);
   } catch (error) {
-    console.error('Error getting vehicle:', error);
     return NextResponse.json(
       { error: 'Failed to get vehicle details' },
       { status: 500 }
