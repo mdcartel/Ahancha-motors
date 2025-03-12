@@ -1,4 +1,3 @@
-// src/app/api/vehicles/[id]/route.ts
 import { NextRequest, NextResponse } from 'next/server';
 import fs from 'fs/promises';
 import path from 'path';
@@ -44,22 +43,13 @@ async function getVehiclesFromFile() {
   }
 }
 
-// Use the exact type signature that Next.js requires
+// Use the correct type signature for Next.js
 export async function GET(
-  _request: NextRequest,
+  request: NextRequest,
   { params }: { params: { id: string } }
 ) {
   try {
-    // Explicitly use a try/catch for accessing the id
-    let id: string;
-    try {
-      // Try to access it as a promise first (dev mode)
-      const resolvedParams = await Promise.resolve(params);
-      id = resolvedParams.id;
-    } catch {
-      // If that fails, try direct access (prod mode)
-      id = params.id;
-    }
+    const { id } = params;
     
     if (!id) {
       return NextResponse.json(
