@@ -1,13 +1,29 @@
+// src/app/inventory/page.tsx
 import { Metadata } from 'next';
 import Image from 'next/image';
 import VehicleList from '@/components/vehicles/VehicleList';
 import Newsletter from '@/components/home/Newsletter';
 
+// Mark the page as explicitly dynamic to avoid build warnings
+export const dynamic = 'force-dynamic';
+
+export const metadata: Metadata = {
+  title: 'Vehicle Inventory | Browse Our Selection',
+  description: 'Browse our extensive inventory of new, used, and certified pre-owned vehicles. Find your perfect car, truck, or SUV today.',
+  keywords: 'car inventory, new cars, used cars, certified pre-owned, car dealership',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'),
+};
+
 // Fetch vehicles from the API
 async function getVehicles() {
   try {
     console.log('Fetching vehicles from API...');
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/api/vehicles`, {
+    
+    // Use an absolute URL with the origin from environment variables
+    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 
+                   (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000');
+    
+    const response = await fetch(`${baseUrl}/api/vehicles`, {
       cache: 'no-store',
     });
 
@@ -23,13 +39,6 @@ async function getVehicles() {
     return [];
   }
 }
-
-export const metadata: Metadata = {
-  title: 'Vehicle Inventory | Browse Our Selection',
-  description: 'Browse our extensive inventory of new, used, and certified pre-owned vehicles. Find your perfect car, truck, or SUV today.',
-  keywords: 'car inventory, new cars, used cars, certified pre-owned, car dealership',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'),
-};
 
 export default async function InventoryPage() {
   // Get all vehicles - don't filter here in the server component

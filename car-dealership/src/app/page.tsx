@@ -1,20 +1,16 @@
-import React from 'react';
+'use client';
+
+import React, { Suspense } from 'react';
 import Hero from '@/components/home/Hero';
 import SearchBar from '@/components/home/SearchBar';
 import FeaturedVehicles from '@/components/home/FeaturedVehicles';
 import Services from '@/components/home/Services';
 import Testimonials from '@/components/home/Testimonials';
 import CTASection from '@/components/home/CTASection';
-import WhyChooseUs from '@/components/home/WhyChooseUs';
 import Newsletter from '@/components/home/Newsletter';
-import NewsletterSection from '@/components/home/NewsletterSection';
 
-export const metadata = {
-  title: 'Premium Auto Dealership | Find Your Dream Car',
-  description: 'Discover your perfect vehicle at our dealership. Browse our extensive inventory of new, used, and certified pre-owned cars, trucks, and SUVs.',
-}
-
-export default function HomePage() {
+// This is the content that will be wrapped in Suspense
+function HomeContent() {
   return (
     <div className="bg-white">
       {/* Hero Section with Search Bar Below */}
@@ -32,5 +28,21 @@ export default function HomePage() {
       {/* High-Impact CTA Section */}
       <CTASection />
     </div>
+  );
+}
+
+// This is the main page component with Suspense
+export default function HomePage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-red-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
+          <p className="mt-4 text-gray-600">Loading...</p>
+        </div>
+      </div>
+    }>
+      <HomeContent />
+    </Suspense>
   );
 }

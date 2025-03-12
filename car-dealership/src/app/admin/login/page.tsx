@@ -1,14 +1,15 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Lock, AlertCircle } from 'lucide-react';
 import Image from 'next/image';
 
-export default function AdminLoginPage() {
+// Create a client component that uses useSearchParams
+function LoginForm() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const redirectPath = searchParams.get('redirect') || '/admin/vehicles';
+  const redirectPath = searchParams?.get('redirect') || '/admin/vehicles';
   
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -144,5 +145,23 @@ export default function AdminLoginPage() {
         </form>
       </div>
     </div>
+  );
+}
+
+// The main page component that wraps LoginForm in a Suspense boundary
+export default function AdminLoginPage() {
+  return (
+    <Suspense fallback={
+      <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="text-center">
+          <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="w-8 h-8 border-4 border-red-600 border-t-transparent rounded-full animate-spin"></div>
+          </div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    }>
+      <LoginForm />
+    </Suspense>
   );
 }

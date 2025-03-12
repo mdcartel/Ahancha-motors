@@ -135,7 +135,7 @@ export default function ContactPage() {
             {/* Contact Form */}
             <div className="bg-white rounded-lg shadow-md p-6 mb-6">
               <h2 className="text-xl font-bold text-gray-900 mb-4">Send Us a Message</h2>
-              <ContactForm />
+              <ContactForm vehicle={{ id: '1', title: 'Sample Vehicle' }} />
             </div>
             
             {/* Map */}

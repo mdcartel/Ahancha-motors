@@ -7,58 +7,31 @@ import { Mail, Phone, Linkedin } from 'lucide-react';
 const TeamSection = () => {
   const teamMembers = [
     {
-      name: "John Anderson",
+      name: "Joyce Wegesa",
       position: "Founder & CEO",
-      bio: "John founded Premium Auto in 2002 with a vision to create a dealership that prioritizes customer relationships over sales quotas. With over 30 years of experience in the automotive industry, his leadership has established Premium Auto as a trusted name in the community.",
-      image: "/images/team/ceo.jpg",
-      email: "john@premiumauto.com",
+      bio: "Joyce founded Premium Auto in 2002 with a vision to create a dealership that prioritizes customer relationships over sales quotas. With over 30 years of experience in the automotive industry, his leadership has established Premium Auto as a trusted name in the community.",
+      image: "/images/team/joy.jpg",
+      email: "joyce@ahancha.com",
       phone: "+2541 1483-3381",
-      linkedin: "https://linkedin.com/in/johnanderson"
+      linkedin: "#"
     },
     {
-      name: "Sarah Miller",
+      name: "Daniel Madaraka",
       position: "Sales Director",
       bio: "Sarah leads our sales team with a customer-first approach. Her background in customer service and 15 years in automotive sales ensures that every client receives personalized attention and finds the perfect vehicle to match their needs.",
       image: "/images/team/sales-director.jpg",
-      email: "sarah@premiumauto.com",
+      email: "cardendante@gmail.com",
       phone: "+2547 1117-5616",
-      linkedin: "https://linkedin.com/in/sarahmiller"
+      linkedin: "#"
     },
     {
-      name: "Michael Chen",
+      name: "Chacha Chacha",
       position: "Service Manager",
       bio: "Michael manages our service department with precision and care. A certified master technician with experience across multiple brands, he ensures that every vehicle receives the highest quality maintenance and repairs.",
       image: "/images/team/service-manager.jpg",
-      email: "michael@premiumauto.com",
-      phone: "(234) 567-8903",
-      linkedin: "https://linkedin.com/in/michaelchen"
-    },
-    {
-      name: "Emily Rodriguez",
-      position: "Finance Manager",
-      bio: "Emily brings her expertise in automotive financing to help customers navigate the financial aspects of vehicle ownership. Her knowledge of lending options and commitment to transparency makes the financing process smooth and stress-free.",
-      image: "/images/team/finance-manager.jpg",
-      email: "emily@premiumauto.com",
-      phone: "(234) 567-8904",
-      linkedin: "https://linkedin.com/in/emilyrodriguez"
-    },
-    {
-      name: "David Thompson",
-      position: "Parts Department Manager",
-      bio: "David oversees our comprehensive parts department, ensuring we have the right components for every job. His extensive knowledge of OEM and aftermarket parts helps customers make informed decisions for their vehicles.",
-      image: "/images/team/parts-manager.jpg",
-      email: "david@premiumauto.com",
-      phone: "(234) 567-8905",
-      linkedin: "https://linkedin.com/in/davidthompson"
-    },
-    {
-      name: "Lisa Johnson",
-      position: "Customer Experience Manager",
-      bio: "Lisa is dedicated to ensuring every interaction at Premium Auto exceeds expectations. From initial contact through long-term vehicle ownership, she implements programs and policies that put customer satisfaction first.",
-      image: "/images/team/customer-experience.jpg",
-      email: "lisa@premiumauto.com",
-      phone: "(234) 567-8906",
-      linkedin: "https://linkedin.com/in/lisajohnson"
+      email: "calex2607@gmail.com",
+      phone: "+2547 9628-0700",
+      linkedin: "#"
     }
   ];
 
