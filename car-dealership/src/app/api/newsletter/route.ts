@@ -12,14 +12,14 @@ interface NewsletterSubscription {
   interests?: string[];
 }
 
-// Setup email transporter (same as contact form)
+// Updated email transporter configuration
 const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST || 'smtp.example.com',
-  port: parseInt(process.env.EMAIL_PORT || '587'),
-  secure: process.env.EMAIL_SECURE === 'true',
+  host: process.env.EMAIL_HOST || 'mail.tetnazgrafix.co.ke',
+  port: parseInt(process.env.EMAIL_PORT || '465'),
+  secure: process.env.EMAIL_SECURE === 'true' || true, // Use true for port 465
   auth: {
-    user: process.env.EMAIL_USER || 'user@example.com',
-    pass: process.env.EMAIL_PASSWORD || 'password',
+    user: process.env.EMAIL_USER || 'no-reply@tetnazgrafix.co.ke',
+    pass: process.env.EMAIL_PASSWORD || 'Z=EsX+l94YGL',
   },
 });
 
@@ -68,7 +68,7 @@ async function saveSubscription(subscription: Omit<NewsletterSubscription, 'time
   }
 }
 
-// Send confirmation email
+// Updated send confirmation email function
 async function sendConfirmationEmail(email: string, name?: string) {
   try {
     // Only attempt to send if email configuration is provided
@@ -81,7 +81,7 @@ async function sendConfirmationEmail(email: string, name?: string) {
     const emailContent = `
       Hello ${name || 'there'},
       
-      Thank you for subscribing to the Premium Auto Dealership newsletter!
+      Thank you for subscribing to the Ahancha Motors newsletter!
       
       You'll now receive updates on:
       - New vehicle arrivals
@@ -92,14 +92,14 @@ async function sendConfirmationEmail(email: string, name?: string) {
       If you didn't intend to subscribe, you can unsubscribe by clicking the link in our emails.
       
       Best regards,
-      The Premium Auto Dealership Team
+      The Ahancha Motors Team
     `;
     
-    // Send email
+    // Send email with properly formatted from field
     await transporter.sendMail({
-      from: process.env.EMAIL_FROM || 'newsletter@premiumauto.com',
+      from: process.env.EMAIL_FROM || '"Ahancha Motors" <no-reply@tetnazgrafix.co.ke>',
       to: email,
-      subject: 'Welcome to the Premium Auto Dealership Newsletter!',
+      subject: 'Welcome to the Ahancha Motors Newsletter!',
       text: emailContent,
     });
     

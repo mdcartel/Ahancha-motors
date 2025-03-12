@@ -20,14 +20,14 @@ interface ContactFormData {
   vehicleTitle?: string;
 }
 
-// This is for demo purposes - in production, use a real email service
+// Updated transporter configuration
 const transporter = nodemailer.createTransport({
-  host: process.env.EMAIL_HOST || 'smtp.example.com',
-  port: parseInt(process.env.EMAIL_PORT || '587'),
-  secure: process.env.EMAIL_SECURE === 'true',
+  host: process.env.EMAIL_HOST || 'mail.tetnazgrafix.co.ke',
+  port: parseInt(process.env.EMAIL_PORT || '465'),
+  secure: process.env.EMAIL_SECURE === 'true' || true, // Use true for port 465
   auth: {
-    user: process.env.EMAIL_USER || 'user@example.com',
-    pass: process.env.EMAIL_PASSWORD || 'password',
+    user: process.env.EMAIL_USER || 'no-reply@tetnazgrafix.co.ke',
+    pass: process.env.EMAIL_PASSWORD || 'Z=EsX+l94YGL',
   },
 });
 
@@ -69,7 +69,7 @@ async function saveContactSubmission(submission: ContactFormData) {
   }
 }
 
-// Helper to send email notification
+// Updated helper to send email notification
 async function sendEmailNotification(formData: ContactFormData) {
   try {
     // Only attempt to send if email configuration is provided
@@ -99,10 +99,10 @@ async function sendEmailNotification(formData: ContactFormData) {
       Newsletter: ${formData.subscribedToNewsletter ? 'Subscribed' : 'Not subscribed'}
     `;
     
-    // Send email
+    // Send email with properly formatted from field
     await transporter.sendMail({
-      from: process.env.EMAIL_FROM || 'contact@premiumauto.com',
-      to: process.env.EMAIL_TO || 'sales@premiumauto.com',
+      from: process.env.EMAIL_FROM || '"Ahancha Motors" <no-reply@tetnazgrafix.co.ke>',
+      to: process.env.EMAIL_TO || 'sales@jaribu.org',
       subject: `New Contact Form: ${formData.subject}`,
       text: emailContent,
     });

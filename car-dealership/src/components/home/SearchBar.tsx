@@ -1,25 +1,118 @@
 'use client';
 
-import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import React, { useState, useEffect } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { Search, Filter, ChevronDown, X, Car } from 'lucide-react';
+
+// Define vehicle interface
+interface Vehicle {
+  id: string;
+  title: string;
+  make: string;
+  model: string;
+  trim?: string;
+  year: number;
+  price: number;
+  mileage: number;
+  fuelType: string;
+  transmission: string;
+  exteriorColor: string;
+  bodyType?: string;
+  condition?: string;
+  image?: string;
+}
 
 const SearchBar: React.FC = () => {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  
+  // Initialize filters from URL params
   const [filters, setFilters] = useState({
-    make: '',
-    model: '',
-    bodyType: '',
-    priceRange: '',
-    condition: '',
+    make: searchParams.get('make') || '',
+    model: searchParams.get('model') || '',
+    bodyType: searchParams.get('bodyType') || '',
+    priceRange: searchParams.get('priceRange') || '',
+    condition: searchParams.get('condition') || '',
+    minYear: searchParams.get('minYear') || '',
+    maxYear: searchParams.get('maxYear') || '',
   });
   
   const [isExpanded, setIsExpanded] = useState(false);
-  const [searchTerm, setSearchTerm] = useState('');
+  const [searchTerm, setSearchTerm] = useState(searchParams.get('search') || '');
+  const [makes, setMakes] = useState<string[]>([]);
+  const [models, setModels] = useState<string[]>([]);
+  const [bodyTypes, setBodyTypes] = useState<string[]>([]);
+  const [years, setYears] = useState<number[]>([]);
+  const [isLoading, setIsLoading] = useState(false);
+
+  // Fetch available makes, models, and body types from API on component mount
+  useEffect(() => {
+    const fetchVehicleData = async () => {
+      try {
+        setIsLoading(true);
+        const response = await fetch('/api/vehicles');
+        if (!response.ok) {
+          throw new Error('Failed to fetch vehicle data');
+        }
+        
+        const vehicles: Vehicle[] = await response.json();
+        
+        // Extract unique values
+        const uniqueMakes = [...new Set(vehicles.map(vehicle => vehicle.make))].sort();
+        const uniqueBodyTypes = [...new Set(vehicles.filter(v => v.bodyType).map(v => v.bodyType as string))].sort();
+        const uniqueYears = [...new Set(vehicles.map(v => v.year))].sort((a, b) => b - a);
+        
+        setMakes(uniqueMakes);
+        setBodyTypes(uniqueBodyTypes);
+        setYears(uniqueYears);
+      } catch (error) {
+        console.error('Error fetching vehicle data:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    
+    fetchVehicleData();
+  }, []);
+
+  // Update available models when make changes
+  useEffect(() => {
+    const fetchModels = async () => {
+      if (!filters.make) {
+        setModels([]);
+        return;
+      }
+      
+      try {
+        const response = await fetch('/api/vehicles');
+        if (!response.ok) {
+          throw new Error('Failed to fetch vehicle data');
+        }
+        
+        const vehicles: Vehicle[] = await response.json();
+        const filteredVehicles = vehicles.filter(v => 
+          v.make.toLowerCase() === filters.make.toLowerCase()
+        );
+        const uniqueModels = [...new Set(filteredVehicles.map(v => v.model))].sort();
+        
+        setModels(uniqueModels);
+      } catch (error) {
+        console.error('Error fetching models:', error);
+      }
+    };
+    
+    fetchModels();
+  }, [filters.make]);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const { name, value } = e.target;
-    setFilters(prev => ({ ...prev, [name]: value }));
+    setFilters(prev => {
+      // If changing make, reset model
+      if (name === 'make' && prev.model && value !== prev.make) {
+        return { ...prev, [name]: value, model: '' };
+      }
+      return { ...prev, [name]: value };
+    });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -49,12 +142,14 @@ const SearchBar: React.FC = () => {
       bodyType: '',
       priceRange: '',
       condition: '',
+      minYear: '',
+      maxYear: '',
     });
     setSearchTerm('');
   };
 
   // Count active filters
-  const activeFilterCount = Object.values(filters).filter(Boolean).length;
+  const activeFilterCount = Object.values(filters).filter(Boolean).length + (searchTerm ? 1 : 0);
 
   return (
     <section className="relative z-30 -mt-12 px-4 mb-16">
@@ -90,9 +185,9 @@ const SearchBar: React.FC = () => {
                     className="w-full h-10 px-3 py-2 bg-gray-50 border border-gray-300 rounded focus:ring-2 focus:ring-red-500/40 focus:border-red-500 text-gray-700"
                   >
                     <option value="">Any Condition</option>
-                    <option value="new">New</option>
-                    <option value="used">Used</option>
-                    <option value="certified">Certified Pre-Owned</option>
+                    <option value="New">New</option>
+                    <option value="Used">Used</option>
+                    <option value="Certified Pre-Owned">Certified Pre-Owned</option>
                   </select>
                 </div>
                 
@@ -157,17 +252,14 @@ const SearchBar: React.FC = () => {
                       value={filters.make}
                       onChange={handleChange}
                       className="w-full p-2 text-sm bg-white border border-gray-300 rounded focus:ring-2 focus:ring-red-500/40 focus:border-red-500 text-gray-700"
+                      disabled={isLoading}
                     >
                       <option value="">Any Make</option>
-                      <option value="toyota">Toyota</option>
-                      <option value="honda">Honda</option>
-                      <option value="ford">Ford</option>
-                      <option value="chevrolet">Chevrolet</option>
-                      <option value="bmw">BMW</option>
-                      <option value="mercedes">Mercedes-Benz</option>
-                      <option value="audi">Audi</option>
-                      <option value="lexus">Lexus</option>
-                      <option value="nissan">Nissan</option>
+                      {makes.map(make => (
+                        <option key={make} value={make}>
+                          {make}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   
@@ -181,32 +273,14 @@ const SearchBar: React.FC = () => {
                       value={filters.model}
                       onChange={handleChange}
                       className="w-full p-2 text-sm bg-white border border-gray-300 rounded focus:ring-2 focus:ring-accent-500/40 focus:border-accent-500 text-gray-700"
+                      disabled={!filters.make || isLoading}
                     >
                       <option value="">Any Model</option>
-                      {filters.make === 'toyota' && (
-                        <>
-                          <option value="camry">Camry</option>
-                          <option value="corolla">Corolla</option>
-                          <option value="rav4">RAV4</option>
-                          <option value="highlander">Highlander</option>
-                        </>
-                      )}
-                      {filters.make === 'honda' && (
-                        <>
-                          <option value="accord">Accord</option>
-                          <option value="civic">Civic</option>
-                          <option value="cr-v">CR-V</option>
-                          <option value="pilot">Pilot</option>
-                        </>
-                      )}
-                      {filters.make === 'bmw' && (
-                        <>
-                          <option value="3-series">3 Series</option>
-                          <option value="5-series">5 Series</option>
-                          <option value="x3">X3</option>
-                          <option value="x5">X5</option>
-                        </>
-                      )}
+                      {models.map(model => (
+                        <option key={model} value={model}>
+                          {model}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   
@@ -220,15 +294,14 @@ const SearchBar: React.FC = () => {
                       value={filters.bodyType}
                       onChange={handleChange}
                       className="w-full p-2 text-sm bg-white border border-gray-300 rounded focus:ring-2 focus:ring-accent-500/40 focus:border-accent-500 text-gray-700"
+                      disabled={isLoading}
                     >
                       <option value="">Any Body Type</option>
-                      <option value="sedan">Sedan</option>
-                      <option value="suv">SUV</option>
-                      <option value="truck">Truck</option>
-                      <option value="coupe">Coupe</option>
-                      <option value="convertible">Convertible</option>
-                      <option value="wagon">Wagon</option>
-                      <option value="van">Van</option>
+                      {bodyTypes.map(type => (
+                        <option key={type} value={type}>
+                          {type}
+                        </option>
+                      ))}
                     </select>
                   </div>
                   
@@ -249,6 +322,43 @@ const SearchBar: React.FC = () => {
                       <option value="30000-40000">$30,000 - $40,000</option>
                       <option value="40000-50000">$40,000 - $50,000</option>
                       <option value="over-50000">Over $50,000</option>
+                    </select>
+                  </div>
+                </div>
+                
+                {/* Year Range */}
+                <div className="mt-3">
+                  <label className="block text-xs font-medium text-gray-700 mb-1">
+                    Year Range
+                  </label>
+                  <div className="grid grid-cols-2 gap-3">
+                    <select
+                      id="minYear"
+                      name="minYear"
+                      value={filters.minYear}
+                      onChange={handleChange}
+                      className="w-full p-2 text-sm bg-white border border-gray-300 rounded focus:ring-2 focus:ring-accent-500/40 focus:border-accent-500 text-gray-700"
+                    >
+                      <option value="">Min Year</option>
+                      {years.map(year => (
+                        <option key={`min-${year}`} value={year}>
+                          {year}
+                        </option>
+                      ))}
+                    </select>
+                    <select
+                      id="maxYear"
+                      name="maxYear"
+                      value={filters.maxYear}
+                      onChange={handleChange}
+                      className="w-full p-2 text-sm bg-white border border-gray-300 rounded focus:ring-2 focus:ring-accent-500/40 focus:border-accent-500 text-gray-700"
+                    >
+                      <option value="">Max Year</option>
+                      {years.map(year => (
+                        <option key={`max-${year}`} value={year}>
+                          {year}
+                        </option>
+                      ))}
                     </select>
                   </div>
                 </div>
@@ -276,14 +386,48 @@ const SearchBar: React.FC = () => {
         
         {/* Quick filter chips */}
         <div className="flex flex-wrap gap-2 mt-3">
-          <button className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-full text-xs font-medium flex items-center gap-1 transition-colors">
+          <button 
+            onClick={() => {
+              router.push('/inventory?sort=featured');
+            }}
+            className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-full text-xs font-medium flex items-center gap-1 transition-colors"
+          >
             <Car size={12} />
-            <span>New Arrivals</span>
+            <span>Featured</span>
           </button>
-          <button className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-full text-xs font-medium transition-colors">SUVs</button>
-          <button className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-full text-xs font-medium transition-colors">Luxury</button>
-          <button className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-full text-xs font-medium transition-colors">Electric</button>
-          <button className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-full text-xs font-medium transition-colors">Under $30k</button>
+          <button 
+            onClick={() => {
+              router.push('/inventory?bodyType=SUV');
+            }}
+            className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-full text-xs font-medium transition-colors"
+          >
+            SUVs
+          </button>
+          <button 
+            onClick={() => {
+              // For the luxury filter, we'll navigate to a route that the VehicleList can interpret
+              router.push('/inventory?sort=price-desc');
+            }}
+            className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-full text-xs font-medium transition-colors"
+          >
+            Luxury
+          </button>
+          <button 
+            onClick={() => {
+              router.push('/inventory?fuelType=Electric');
+            }}
+            className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-full text-xs font-medium transition-colors"
+          >
+            Electric
+          </button>
+          <button 
+            onClick={() => {
+              router.push('/inventory?priceRange=under-30000');
+            }}
+            className="px-3 py-1.5 bg-gray-100 hover:bg-gray-200 text-gray-800 rounded-full text-xs font-medium transition-colors"
+          >
+            Under $30k
+          </button>
         </div>
       </div>
     </section>
