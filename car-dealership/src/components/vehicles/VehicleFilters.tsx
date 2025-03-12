@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRouter, usePathname, useSearchParams } from 'next/navigation';
 
 interface Vehicle {
@@ -44,52 +44,46 @@ const VehicleFilters: React.FC<VehicleFiltersProps> = ({ allVehicles, onFilterCh
   const pathname = usePathname();
   const searchParams = useSearchParams();
   
-  // Initial filters state
-  const [filters, setFilters] = useState<Filters>({
-    make: '',
-    model: '',
-    minYear: '',
-    maxYear: '',
-    minPrice: '',
-    maxPrice: '',
-    bodyType: [],
-    condition: [],
-    transmission: [],
-    fuelType: [],
+  // Initialize filters from URL params on first render only
+  const [filters, setFilters] = useState<Filters>(() => {
+    return {
+      make: searchParams.get('make') || '',
+      model: searchParams.get('model') || '',
+      minYear: searchParams.get('minYear') || '',
+      maxYear: searchParams.get('maxYear') || '',
+      minPrice: searchParams.get('minPrice') || '',
+      maxPrice: searchParams.get('maxPrice') || '',
+      bodyType: searchParams.get('bodyType') ? [searchParams.get('bodyType')!] : [],
+      condition: searchParams.get('condition') ? [searchParams.get('condition')!] : [],
+      transmission: searchParams.get('transmission') ? [searchParams.get('transmission')!] : [],
+      fuelType: searchParams.get('fuelType') ? [searchParams.get('fuelType')!] : [],
+    };
   });
 
-  // Get unique values for select options
-  const uniqueMakes = [...new Set(allVehicles.map(v => v.make))].sort();
-  const uniqueModels = [...new Set(allVehicles.filter(v => !filters.make || v.make === filters.make).map(v => v.model))].sort();
-  const uniqueYears = [...new Set(allVehicles.map(v => v.year))].sort((a, b) => b - a);
-  const uniqueBodyTypes = [...new Set(allVehicles.map(v => v.bodyType))].sort();
-  const uniqueConditions = [...new Set(allVehicles.map(v => v.condition))].sort();
-  const uniqueTransmissions = [...new Set(allVehicles.map(v => v.transmission))].sort();
-  const uniqueFuelTypes = [...new Set(allVehicles.map(v => v.fuelType))].sort();
+  // Memoize unique values to prevent unnecessary recalculations
+  const uniqueMakes = useMemo(() => [...new Set(allVehicles.map(v => v.make))].sort(), [allVehicles]);
+  const uniqueModels = useMemo(() => 
+    [...new Set(allVehicles.filter(v => !filters.make || v.make === filters.make).map(v => v.model))].sort(), 
+    [allVehicles, filters.make]);
+  const uniqueYears = useMemo(() => 
+    [...new Set(allVehicles.map(v => v.year))].sort((a, b) => b - a), 
+    [allVehicles]);
+  const uniqueBodyTypes = useMemo(() => 
+    [...new Set(allVehicles.map(v => v.bodyType))].sort(), 
+    [allVehicles]);
+  const uniqueConditions = useMemo(() => 
+    [...new Set(allVehicles.map(v => v.condition))].sort(), 
+    [allVehicles]);
+  const uniqueTransmissions = useMemo(() => 
+    [...new Set(allVehicles.map(v => v.transmission))].sort(), 
+    [allVehicles]);
+  const uniqueFuelTypes = useMemo(() => 
+    [...new Set(allVehicles.map(v => v.fuelType))].sort(), 
+    [allVehicles]);
   
-  // Initialize filters from URL params when component mounts
-  useEffect(() => {
-    const make = searchParams.get('make') || '';
-    const model = searchParams.get('model') || '';
-    const condition = searchParams.get('condition');
-    const bodyType = searchParams.get('bodyType');
-    
-    const initialFilters = {
-      ...filters,
-      make,
-      model,
-      condition: condition ? [condition] : [],
-      bodyType: bodyType ? [bodyType] : [],
-    };
-    
-    setFilters(initialFilters);
-    
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-  
-  // Apply filters whenever they change
-  useEffect(() => {
-    const filteredVehicles = allVehicles.filter(vehicle => {
+  // Get filtered vehicles based on current filters
+  const getFilteredVehicles = useCallback(() => {
+    return allVehicles.filter(vehicle => {
       // Make filter
       if (filters.make && vehicle.make !== filters.make) return false;
       
@@ -118,14 +112,24 @@ const VehicleFilters: React.FC<VehicleFiltersProps> = ({ allVehicles, onFilterCh
       
       return true;
     });
-    
+  }, [allVehicles, filters]);
+  
+  // Apply filters effect - key fix is here
+  useEffect(() => {
+    const filteredVehicles = getFilteredVehicles();
     onFilterChange(filteredVehicles);
-  }, [filters, allVehicles, onFilterChange]);
+  }, [getFilteredVehicles]);
   
   // Handle text/select input changes
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const { name, value } = e.target;
-    setFilters(prev => ({ ...prev, [name]: value }));
+    
+    // Special case: when make changes, reset model
+    if (name === 'make') {
+      setFilters(prev => ({ ...prev, [name]: value, model: '' }));
+    } else {
+      setFilters(prev => ({ ...prev, [name]: value }));
+    }
   };
   
   // Handle checkbox input changes
@@ -145,7 +149,7 @@ const VehicleFilters: React.FC<VehicleFiltersProps> = ({ allVehicles, onFilterCh
   };
   
   // Apply filters to URL and update browser history
-  const applyFilters = () => {
+  const applyFilters = useCallback(() => {
     const params = new URLSearchParams();
     
     if (filters.make) params.set('make', filters.make);
@@ -173,10 +177,10 @@ const VehicleFilters: React.FC<VehicleFiltersProps> = ({ allVehicles, onFilterCh
     
     // Update URL with filters
     router.push(`${pathname}?${params.toString()}`);
-  };
+  }, [filters, pathname, router]);
   
   // Reset all filters
-  const resetFilters = () => {
+  const resetFilters = useCallback(() => {
     setFilters({
       make: '',
       model: '',
@@ -191,7 +195,7 @@ const VehicleFilters: React.FC<VehicleFiltersProps> = ({ allVehicles, onFilterCh
     });
     
     router.push(pathname);
-  };
+  }, [pathname, router]);
 
   return (
     <div>
