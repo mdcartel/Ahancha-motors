@@ -512,6 +512,506 @@
       }
     ],
     "createdAt": "2024-03-12T22:00:00.000Z"
+  },
+  {
+    "id": "ke-used-04",
+    "title": "2018 Nissan Note",
+    "make": "Nissan",
+    "model": "Note",
+    "trim": "E-Power",
+    "year": 2018,
+    "price": 8500,
+    "mileage": 65000,
+    "fuelType": "Hybrid",
+    "transmission": "Automatic",
+    "exteriorColor": "White Pearl",
+    "interiorColor": "Black Cloth",
+    "vin": "KENOTE187654321",
+    "stockNumber": "KE-NOTE-2018-01",
+    "engine": "1.2L Hybrid",
+    "drivetrain": "FWD",
+    "bodyType": "Hatchback",
+    "condition": "Used",
+    "description": "Economical and practical Nissan Note with e-Power hybrid technology. Extremely fuel-efficient with spacious interior, perfect for city driving in Nairobi and beyond.",
+    "image": "/images/cars/nissan-note.jpg",
+    "featured": false,
+    "features": [
+      {
+        "category": "Efficiency",
+        "items": [
+          "e-Power Hybrid System",
+          "Low Fuel Consumption",
+          "Regenerative Braking"
+        ]
+      },
+      {
+        "category": "Practicality",
+        "items": [
+          "Flexible Seating",
+          "Spacious Cabin",
+          "Easy Parking"
+        ]
+      },
+      {
+        "category": "Technology",
+        "items": [
+          "Push Start Button",
+          "Reverse Camera",
+          "Bluetooth Connectivity"
+        ]
+      }
+    ],
+    "createdAt": "2024-03-13T08:00:00.000Z"
+  },
+  {
+    "id": "ke-used-05",
+    "title": "2016 Suzuki Alto",
+    "make": "Suzuki",
+    "model": "Alto",
+    "trim": "GL",
+    "year": 2016,
+    "price": 4800,
+    "mileage": 78000,
+    "fuelType": "Gasoline",
+    "transmission": "Automatic",
+    "exteriorColor": "Silver",
+    "interiorColor": "Gray Cloth",
+    "vin": "KEALTO162345678",
+    "stockNumber": "KE-ALTO-2016-01",
+    "engine": "0.7L Petrol",
+    "drivetrain": "FWD",
+    "bodyType": "Hatchback",
+    "condition": "Used",
+    "description": "Affordable and economical Suzuki Alto, perfect for first-time car owners. Incredibly fuel-efficient and easy to maintain, ideal for navigating through Kenyan city traffic.",
+    "image": "/images/cars/suzuki-alto.jpeg",
+    "featured": false,
+    "features": [
+      {
+        "category": "Economy",
+        "items": [
+          "Excellent Fuel Efficiency",
+          "Low Maintenance Cost",
+          "Affordable Spare Parts"
+        ]
+      },
+      {
+        "category": "Practicality",
+        "items": [
+          "Compact Size",
+          "Easy Parking",
+          "Maneuverability"
+        ]
+      },
+      {
+        "category": "Basic Features",
+        "items": [
+          "Power Steering",
+          "Air Conditioning",
+          "CD Player"
+        ]
+      }
+    ],
+    "createdAt": "2024-03-13T08:30:00.000Z"
+  },
+  {
+    "id": "ke-used-06",
+    "title": "2017 Toyota Vitz",
+    "make": "Toyota",
+    "model": "Vitz",
+    "trim": "F",
+    "year": 2017,
+    "price": 7200,
+    "mileage": 62000,
+    "fuelType": "Gasoline",
+    "transmission": "Automatic",
+    "exteriorColor": "Wine Red",
+    "interiorColor": "Beige Cloth",
+    "vin": "KEVITZ178765432",
+    "stockNumber": "KE-VITZ-2017-01",
+    "engine": "1.0L Petrol",
+    "drivetrain": "FWD",
+    "bodyType": "Hatchback",
+    "condition": "Used",
+    "description": "Reliable and economical Toyota Vitz, a favorite in the Kenyan market. Fuel-efficient with Toyota's legendary reliability, perfect for daily commuting.",
+    "image": "/images/cars/toyota-vitz.jpg",
+    "featured": false,
+    "features": [
+      {
+        "category": "Reliability",
+        "items": [
+          "Toyota Dependability",
+          "Low Maintenance",
+          "Fuel Efficient"
+        ]
+      },
+      {
+        "category": "Comfort",
+        "items": [
+          "Comfortable Interior",
+          "Adjustable Seats",
+          "Good Visibility"
+        ]
+      },
+      {
+        "category": "Convenience",
+        "items": [
+          "Power Windows",
+          "Central Locking",
+          "Multiple Storage Spaces"
+        ]
+      }
+    ],
+    "createdAt": "2024-03-13T09:00:00.000Z"
+  },
+  {
+    "id": "ke-used-07",
+    "title": "2015 Honda Fit",
+    "make": "Honda",
+    "model": "Fit",
+    "trim": "Hybrid",
+    "year": 2015,
+    "price": 6900,
+    "mileage": 85000,
+    "fuelType": "Hybrid",
+    "transmission": "Automatic",
+    "exteriorColor": "Sky Blue",
+    "interiorColor": "Black Cloth",
+    "vin": "KEFIT153456789",
+    "stockNumber": "KE-FIT-2015-01",
+    "engine": "1.3L Hybrid",
+    "drivetrain": "FWD",
+    "bodyType": "Hatchback",
+    "condition": "Used",
+    "description": "Versatile and fuel-efficient Honda Fit Hybrid with the innovative Magic Seats. Surprisingly spacious interior with excellent fuel economy, perfect for urban Kenyan drivers.",
+    "image": "/images/cars/honda-fit.jpg",
+    "featured": false,
+    "features": [
+      {
+        "category": "Economy",
+        "items": [
+          "Hybrid Efficiency",
+          "Eco Assist System",
+          "Low Running Costs"
+        ]
+      },
+      {
+        "category": "Versatility",
+        "items": [
+          "Magic Seats",
+          "Configurable Interior",
+          "Surprising Cargo Space"
+        ]
+      },
+      {
+        "category": "Technology",
+        "items": [
+          "LED Headlights",
+          "Touchscreen Display",
+          "Keyless Entry"
+        ]
+      }
+    ],
+    "createdAt": "2024-03-13T09:30:00.000Z"
+  },
+  {
+    "id": "ke-used-08",
+    "title": "2016 Mazda Demio",
+    "make": "Mazda",
+    "model": "Demio",
+    "trim": "13C",
+    "year": 2016,
+    "price": 6500,
+    "mileage": 72000,
+    "fuelType": "Gasoline",
+    "transmission": "Automatic",
+    "exteriorColor": "Graphite Gray",
+    "interiorColor": "Black Cloth",
+    "vin": "KEDEMIO165432109",
+    "stockNumber": "KE-DEMIO-2016-01",
+    "engine": "1.3L Skyactiv",
+    "drivetrain": "FWD",
+    "bodyType": "Hatchback",
+    "condition": "Used",
+    "description": "Stylish and efficient Mazda Demio with Skyactiv technology. Combines fun driving dynamics with excellent fuel economy, ideal for Kenya's urban environments.",
+    "image": "/images/cars/mazda-demio-gray.jpeg",
+    "featured": false,
+    "features": [
+      {
+        "category": "Performance",
+        "items": [
+          "Skyactiv Technology",
+          "Responsive Handling",
+          "Fuel Efficiency"
+        ]
+      },
+      {
+        "category": "Design",
+        "items": [
+          "KODO Design Language",
+          "Stylish Interior",
+          "Quality Materials"
+        ]
+      },
+      {
+        "category": "Convenience",
+        "items": [
+          "Push Button Start",
+          "Bluetooth Connectivity",
+          "USB Ports"
+        ]
+      }
+    ],
+    "createdAt": "2024-03-13T10:00:00.000Z"
+  },
+  {
+    "id": "ke-used-09",
+    "title": "2014 Toyota Passo",
+    "make": "Toyota",
+    "model": "Passo",
+    "trim": "X",
+    "year": 2014,
+    "price": 5300,
+    "mileage": 95000,
+    "fuelType": "Gasoline",
+    "transmission": "Automatic",
+    "exteriorColor": "Red",
+    "interiorColor": "Beige Cloth",
+    "vin": "KEPASSO143210987",
+    "stockNumber": "KE-PASSO-2014-01",
+    "engine": "1.0L Petrol",
+    "drivetrain": "FWD",
+    "bodyType": "Hatchback",
+    "condition": "Used",
+    "description": "Compact and economical Toyota Passo, perfect for navigating Nairobi's busy streets. Reliable, fuel-efficient, and easy to maintain for the budget-conscious Kenyan driver.",
+    "image": "/images/cars/toyota-passo.jpg",
+    "featured": false,
+    "features": [
+      {
+        "category": "Economy",
+        "items": [
+          "High Fuel Efficiency",
+          "Low Maintenance Cost",
+          "Durable Build"
+        ]
+      },
+      {
+        "category": "Practicality",
+        "items": [
+          "Compact Size",
+          "Adequate Interior Space",
+          "Easy City Driving"
+        ]
+      },
+      {
+        "category": "Reliability",
+        "items": [
+          "Toyota Reliability",
+          "Readily Available Parts",
+          "Low Cost of Ownership"
+        ]
+      }
+    ],
+    "createdAt": "2024-03-13T10:30:00.000Z"
+  },
+  {
+    "id": "ke-used-10",
+    "title": "2015 Nissan Tiida",
+    "make": "Nissan",
+    "model": "Tiida",
+    "trim": "Latio",
+    "year": 2015,
+    "price": 6200,
+    "mileage": 82000,
+    "fuelType": "Gasoline",
+    "transmission": "Automatic",
+    "exteriorColor": "Silver",
+    "interiorColor": "Gray Cloth",
+    "vin": "KETIIDA157654321",
+    "stockNumber": "KE-TIIDA-2015-01",
+    "engine": "1.5L Petrol",
+    "drivetrain": "FWD",
+    "bodyType": "Sedan",
+    "condition": "Used",
+    "description": "Practical and spacious Nissan Tiida sedan, offering excellent value for money. Well-suited for families and taxi services in Kenya with its comfortable ride and reliable performance.",
+    "image": "/images/cars/nissan-tiida.png",
+    "featured": false,
+    "features": [
+      {
+        "category": "Comfort",
+        "items": [
+          "Spacious Interior",
+          "Comfortable Seating",
+          "Smooth Ride"
+        ]
+      },
+      {
+        "category": "Practicality",
+        "items": [
+          "Large Trunk Space",
+          "Good Fuel Economy",
+          "Durable Construction"
+        ]
+      },
+      {
+        "category": "Convenience",
+        "items": [
+          "Power Windows",
+          "Air Conditioning",
+          "CD Player with AUX"
+        ]
+      }
+    ],
+    "createdAt": "2024-03-13T11:00:00.000Z"
+  },
+  {
+    "id": "ke-used-11",
+    "title": "2017 Mitsubishi Mirage",
+    "make": "Mitsubishi",
+    "model": "Mirage",
+    "trim": "G",
+    "year": 2017,
+    "price": 5800,
+    "mileage": 68000,
+    "fuelType": "Gasoline",
+    "transmission": "CVT",
+    "exteriorColor": "Obsidian Black Metallic",
+    "interiorColor": "Black Cloth",
+    "vin": "KEMIRAGE178901234",
+    "stockNumber": "KE-MIRAGE-2017-01",
+    "engine": "1.2L Petrol",
+    "drivetrain": "FWD",
+    "bodyType": "Hatchback",
+    "condition": "Used",
+    "description": "Economical Mitsubishi Mirage with excellent fuel efficiency. A budget-friendly option for Kenyan drivers looking for affordable transportation with low running costs.",
+    "image": "/images/cars/mitsubishi-mirage.jpg",
+    "featured": false,
+    "features": [
+      {
+        "category": "Economy",
+        "items": [
+          "Outstanding Fuel Economy",
+          "Low Emissions",
+          "Affordable Maintenance"
+        ]
+      },
+      {
+        "category": "Convenience",
+        "items": [
+          "Keyless Entry",
+          "Power Windows",
+          "Tilt Steering"
+        ]
+      },
+      {
+        "category": "Safety",
+        "items": [
+          "Multiple Airbags",
+          "ABS Brakes",
+          "Stability Control"
+        ]
+      }
+    ],
+    "createdAt": "2024-03-13T11:30:00.000Z"
+  },
+  {
+    "id": "ke-used-12",
+    "title": "2014 Suzuki Swift",
+    "make": "Suzuki",
+    "model": "Swift",
+    "trim": "DLX",
+    "year": 2014,
+    "price": 5600,
+    "mileage": 88000,
+    "fuelType": "Gasoline",
+    "transmission": "Automatic",
+    "exteriorColor": "Blue Metallic",
+    "interiorColor": "Black Cloth",
+    "vin": "KESWIFT146543210",
+    "stockNumber": "KE-SWIFT-2014-01",
+    "engine": "1.2L Petrol",
+    "drivetrain": "FWD",
+    "bodyType": "Hatchback",
+    "condition": "Used",
+    "description": "Fun-to-drive Suzuki Swift with sporty handling and compact dimensions. Popular in Kenya for its reliability, fuel efficiency, and youthful appeal.",
+    "image": "/images/cars/suzuki-swift.png",
+    "featured": false,
+    "features": [
+      {
+        "category": "Performance",
+        "items": [
+          "Nimble Handling",
+          "Responsive Engine",
+          "Good Fuel Economy"
+        ]
+      },
+      {
+        "category": "Design",
+        "items": [
+          "Sporty Appearance",
+          "Modern Interior",
+          "Well-Designed Controls"
+        ]
+      },
+      {
+        "category": "Practicality",
+        "items": [
+          "Compact Size",
+          "Adequate Cargo Space",
+          "Low Operating Costs"
+        ]
+      }
+    ],
+    "createdAt": "2024-03-13T12:00:00.000Z"
+  },
+  {
+    "id": "ke-used-13",
+    "title": "2018 Toyota Belta",
+    "make": "Toyota",
+    "model": "Belta",
+    "trim": "1.0G",
+    "year": 2018,
+    "price": 7800,
+    "mileage": 55000,
+    "fuelType": "Gasoline",
+    "transmission": "Automatic",
+    "exteriorColor": "Grey",
+    "interiorColor": "Beige Cloth",
+    "vin": "KEBELTA189012345",
+    "stockNumber": "KE-BELTA-2018-01",
+    "engine": "1.0L Petrol",
+    "drivetrain": "FWD",
+    "bodyType": "Sedan",
+    "condition": "Used",
+    "description": "Compact and economical Toyota Belta sedan, highly regarded in Kenya for reliability and fuel efficiency. Ideal for personal use and taxi services with good resale value.",
+    "image": "/images/cars/toyota-belta.jpeg",
+    "featured": false,
+    "features": [
+      {
+        "category": "Economy",
+        "items": [
+          "Excellent Fuel Efficiency",
+          "Low Maintenance",
+          "Toyota Reliability"
+        ]
+      },
+      {
+        "category": "Comfort",
+        "items": [
+          "Comfortable Interior",
+          "Good Rear Legroom",
+          "Smooth Ride Quality"
+        ]
+      },
+      {
+        "category": "Practicality",
+        "items": [
+          "Spacious Trunk",
+          "Easy to Drive",
+          "Good Visibility"
+        ]
+      }
+    ],
+    "createdAt": "2024-03-13T12:30:00.000Z"
   }
 
 ]
