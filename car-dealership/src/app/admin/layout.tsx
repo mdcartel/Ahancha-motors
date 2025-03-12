@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { 
-  Home, Car, DollarSign, Users, Settings, Menu, X, ChevronDown, LogOut 
+  Home, Car, DollarSign, Users, Settings, Menu, X, ChevronDown, LogOut, MessageSquare, Mail
 } from 'lucide-react';
 
 // Skip auth check for these paths
@@ -76,61 +76,85 @@ export default function AdminLayout({
         </div>
         
         <nav className="mt-4 px-3 space-y-1">
-          <Link 
-            href="/admin"
-            className={`flex items-center px-3 py-2 rounded-md ${
-              pathname === '/admin' 
-                ? 'bg-gray-800 text-white' 
-                : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-            }`}
-          >
-            <Home className="mr-3 h-5 w-5" />
-            Dashboard
-          </Link>
-          
-          <Link 
-            href="/admin/vehicles"
-            className={`flex items-center px-3 py-2 rounded-md ${
-              pathname?.startsWith('/admin/vehicles') 
-                ? 'bg-gray-800 text-white' 
-                : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-            }`}
-          >
-            <Car className="mr-3 h-5 w-5" />
-            Vehicles
-          </Link>
-          
-          {/* Additional items - can be implemented later */}
-          <button
-            className="w-full flex items-center justify-between px-3 py-2 rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"
-          >
-            <div className="flex items-center">
-              <Users className="mr-3 h-5 w-5" />
-              Customers
-            </div>
-            <ChevronDown size={16} />
-          </button>
-          
-          <button
-            className="w-full flex items-center justify-between px-3 py-2 rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"
-          >
-            <div className="flex items-center">
-              <DollarSign className="mr-3 h-5 w-5" />
-              Finance
-            </div>
-            <ChevronDown size={16} />
-          </button>
-          
-          <button
-            className="w-full flex items-center justify-between px-3 py-2 rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"
-          >
-            <div className="flex items-center">
-              <Settings className="mr-3 h-5 w-5" />
-              Settings
-            </div>
-            <ChevronDown size={16} />
-          </button>
-        </nav>
+  <Link 
+    href="/admin"
+    className={`flex items-center px-3 py-2 rounded-md ${
+      pathname === '/admin' 
+        ? 'bg-gray-800 text-white' 
+        : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+    }`}
+  >
+    <Home className="mr-3 h-5 w-5" />
+    Dashboard
+  </Link>
+  
+  <Link 
+    href="/admin/vehicles"
+    className={`flex items-center px-3 py-2 rounded-md ${
+      pathname?.startsWith('/admin/vehicles') 
+        ? 'bg-gray-800 text-white' 
+        : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+    }`}
+  >
+    <Car className="mr-3 h-5 w-5" />
+    Vehicles
+  </Link>
+  
+  <Link 
+    href="/admin/contact"
+    className={`flex items-center px-3 py-2 rounded-md ${
+      pathname === '/admin/contact' 
+        ? 'bg-gray-800 text-white' 
+        : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+    }`}
+  >
+    <MessageSquare className="mr-3 h-5 w-5" />
+    Contact Requests
+  </Link>
+  
+  <Link 
+    href="/admin/newsletter"
+    className={`flex items-center px-3 py-2 rounded-md ${
+      pathname === '/admin/newsletter' 
+        ? 'bg-gray-800 text-white' 
+        : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+    }`}
+  >
+    <Mail className="mr-3 h-5 w-5" />
+    Newsletter
+  </Link>
+  
+  {/* Additional items - can be implemented later */}
+  <button
+    className="w-full flex items-center justify-between px-3 py-2 rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"
+  >
+    <div className="flex items-center">
+      <Users className="mr-3 h-5 w-5" />
+      Customers
+    </div>
+    <ChevronDown size={16} />
+  </button>
+  
+  <button
+    className="w-full flex items-center justify-between px-3 py-2 rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"
+  >
+    <div className="flex items-center">
+      <DollarSign className="mr-3 h-5 w-5" />
+      Finance
+    </div>
+    <ChevronDown size={16} />
+  </button>
+  
+  <button
+    className="w-full flex items-center justify-between px-3 py-2 rounded-md text-gray-300 hover:bg-gray-700 hover:text-white"
+  >
+    <div className="flex items-center">
+      <Settings className="mr-3 h-5 w-5" />
+      Settings
+    </div>
+    <ChevronDown size={16} />
+  </button>
+</nav>
         
         <div className="absolute bottom-0 w-full px-3 py-4">
           <button

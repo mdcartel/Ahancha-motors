@@ -4,22 +4,26 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { 
   Car, DollarSign, Users, ShoppingCart, 
-  TrendingUp, Check, AlertTriangle
+  TrendingUp, Check, AlertTriangle, MessageSquare, Mail
 } from 'lucide-react';
 
 interface DashboardStats {
-  totalVehicles: number;
-  featuredVehicles: number;
-  newVehicles: number;
-  usedVehicles: number;
-}
+    totalVehicles: number;
+    featuredVehicles: number;
+    newVehicles: number;
+    usedVehicles: number;
+    totalContactRequests: number;
+    newsletterSubscribers: number;
+  }
 
 export default function AdminDashboard() {
   const [stats, setStats] = useState<DashboardStats>({
     totalVehicles: 0,
     featuredVehicles: 0,
     newVehicles: 0,
-    usedVehicles: 0
+    usedVehicles: 0,
+    totalContactRequests: 0,
+    newsletterSubscribers: 0
   });
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -27,12 +31,26 @@ export default function AdminDashboard() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await fetch('/api/vehicles');
-        if (!response.ok) {
+        // Fetch vehicles
+        const vehiclesResponse = await fetch('/api/vehicles');
+        if (!vehiclesResponse.ok) {
           throw new Error('Failed to fetch vehicle data');
         }
+        const vehicles = await vehiclesResponse.json();
         
-        const vehicles = await response.json();
+        // Fetch contact submissions
+        const contactResponse = await fetch('/api/contact');
+        if (!contactResponse.ok) {
+          throw new Error('Failed to fetch contact data');
+        }
+        const contactSubmissions = await contactResponse.json();
+        
+        // Fetch newsletter subscribers
+        const newsletterResponse = await fetch('/api/newsletter');
+        if (!newsletterResponse.ok) {
+          throw new Error('Failed to fetch newsletter data');
+        }
+        const subscribers = await newsletterResponse.json();
         
         // Calculate stats
         setStats({
@@ -40,6 +58,8 @@ export default function AdminDashboard() {
           featuredVehicles: vehicles.filter((v: any) => v.featured).length,
           newVehicles: vehicles.filter((v: any) => v.condition === 'New').length,
           usedVehicles: vehicles.filter((v: any) => v.condition === 'Used').length,
+          totalContactRequests: contactSubmissions.length,
+          newsletterSubscribers: subscribers.length
         });
       } catch (error) {
         console.error('Error fetching stats:', error);
@@ -51,6 +71,7 @@ export default function AdminDashboard() {
     
     fetchStats();
   }, []);
+  
   
   // Demo quick actions list
   const quickActions = [
@@ -95,64 +116,91 @@ export default function AdminDashboard() {
           </div>
         )}
         
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-          <div className="bg-white rounded-lg shadow p-5">
-            <div className="flex items-center">
-              <div className="p-3 rounded-full bg-blue-50 text-blue-500">
-                <Car size={24} />
-              </div>
-              <div className="ml-5">
-                <p className="text-gray-500 text-sm">Total Vehicles</p>
-                <h3 className="text-2xl font-bold text-gray-900">
-                  {loading ? '...' : stats.totalVehicles}
-                </h3>
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-white rounded-lg shadow p-5">
-            <div className="flex items-center">
-              <div className="p-3 rounded-full bg-red-50 text-red-500">
-                <Car size={24} />
-              </div>
-              <div className="ml-5">
-                <p className="text-gray-500 text-sm">New Vehicles</p>
-                <h3 className="text-2xl font-bold text-gray-900">
-                  {loading ? '...' : stats.newVehicles}
-                </h3>
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-white rounded-lg shadow p-5">
-            <div className="flex items-center">
-              <div className="p-3 rounded-full bg-green-50 text-green-500">
-                <Car size={24} />
-              </div>
-              <div className="ml-5">
-                <p className="text-gray-500 text-sm">Used Vehicles</p>
-                <h3 className="text-2xl font-bold text-gray-900">
-                  {loading ? '...' : stats.usedVehicles}
-                </h3>
-              </div>
-            </div>
-          </div>
-          
-          <div className="bg-white rounded-lg shadow p-5">
-            <div className="flex items-center">
-              <div className="p-3 rounded-full bg-yellow-50 text-yellow-500">
-                <TrendingUp size={24} />
-              </div>
-              <div className="ml-5">
-                <p className="text-gray-500 text-sm">Featured Vehicles</p>
-                <h3 className="text-2xl font-bold text-gray-900">
-                  {loading ? '...' : stats.featuredVehicles}
-                </h3>
-              </div>
-            </div>
-          </div>
-        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+  <div className="bg-white rounded-lg shadow p-5">
+    <div className="flex items-center">
+      <div className="p-3 rounded-full bg-blue-50 text-blue-500">
+        <Car size={24} />
+      </div>
+      <div className="ml-5">
+        <p className="text-gray-500 text-sm">Total Vehicles</p>
+        <h3 className="text-2xl font-bold text-gray-900">
+          {loading ? '...' : stats.totalVehicles}
+        </h3>
+      </div>
+    </div>
+  </div>
+  
+  <div className="bg-white rounded-lg shadow p-5">
+    <div className="flex items-center">
+      <div className="p-3 rounded-full bg-red-50 text-red-500">
+        <Car size={24} />
+      </div>
+      <div className="ml-5">
+        <p className="text-gray-500 text-sm">New Vehicles</p>
+        <h3 className="text-2xl font-bold text-gray-900">
+          {loading ? '...' : stats.newVehicles}
+        </h3>
+      </div>
+    </div>
+  </div>
+  
+  <div className="bg-white rounded-lg shadow p-5">
+    <div className="flex items-center">
+      <div className="p-3 rounded-full bg-green-50 text-green-500">
+        <Car size={24} />
+      </div>
+      <div className="ml-5">
+        <p className="text-gray-500 text-sm">Used Vehicles</p>
+        <h3 className="text-2xl font-bold text-gray-900">
+          {loading ? '...' : stats.usedVehicles}
+        </h3>
+      </div>
+    </div>
+  </div>
+  
+  <div className="bg-white rounded-lg shadow p-5">
+    <div className="flex items-center">
+      <div className="p-3 rounded-full bg-yellow-50 text-yellow-500">
+        <TrendingUp size={24} />
+      </div>
+      <div className="ml-5">
+        <p className="text-gray-500 text-sm">Featured Vehicles</p>
+        <h3 className="text-2xl font-bold text-gray-900">
+          {loading ? '...' : stats.featuredVehicles}
+        </h3>
+      </div>
+    </div>
+  </div>
+  
+  <div className="bg-white rounded-lg shadow p-5">
+    <div className="flex items-center">
+      <div className="p-3 rounded-full bg-purple-50 text-purple-500">
+        <MessageSquare size={24} />
+      </div>
+      <div className="ml-5">
+        <p className="text-gray-500 text-sm">Contact Requests</p>
+        <h3 className="text-2xl font-bold text-gray-900">
+          {loading ? '...' : stats.totalContactRequests}
+        </h3>
+      </div>
+    </div>
+  </div>
+  
+  <div className="bg-white rounded-lg shadow p-5">
+    <div className="flex items-center">
+      <div className="p-3 rounded-full bg-indigo-50 text-indigo-500">
+        <Mail size={24} />
+      </div>
+      <div className="ml-5">
+        <p className="text-gray-500 text-sm">Newsletter Subscribers</p>
+        <h3 className="text-2xl font-bold text-gray-900">
+          {loading ? '...' : stats.newsletterSubscribers}
+        </h3>
+      </div>
+    </div>
+  </div>
+</div>
         
         {/* Quick Actions and Recent Activity */}
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

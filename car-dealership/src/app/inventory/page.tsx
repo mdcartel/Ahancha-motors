@@ -2,6 +2,7 @@ import React from 'react';
 import { Metadata } from 'next';
 import VehicleList from '@/components/vehicles/VehicleList';
 import Image from 'next/image';
+import Newsletter from '@/components/home/Newsletter';
 
 export const metadata: Metadata = {
   title: 'Vehicle Inventory | Browse Our Selection',
@@ -204,6 +205,7 @@ export default async function InventoryPage({
       <div className="container mx-auto px-4 py-8">
         <VehicleList vehicles={filteredVehicles} />
       </div>
+      <Newsletter />
     </div>
   );
 }

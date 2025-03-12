@@ -4,6 +4,7 @@ import Image from 'next/image';
 import HistorySection from '@/components/about/HistorySection';
 import MissionSection from '@/components/about/MissionSection';
 import TeamSection from '@/components/about/TeamSection';
+import NewsletterSection from '@/components/home/NewsletterSection';
 
 export const metadata: Metadata = {
   title: 'About Us | Premium Auto Dealership',
@@ -188,7 +189,7 @@ export default function AboutPage() {
             </div>
           </div>
         </div>
-
+        <NewsletterSection />
         {/* CTA Section */}
         <div className="max-w-5xl mx-auto text-center mt-16 mb-8">
           <h2 className="text-3xl font-bold text-gray-900 mb-4">Ready to Experience the Premium Auto Difference?</h2>

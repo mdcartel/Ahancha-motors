@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Send, Phone, User, Mail, Calendar, MessageSquare, Check } from 'lucide-react';
+import { Send, Phone, User, Mail, Calendar, MessageSquare, Check, AlertCircle } from 'lucide-react';
 
 const UpdatedForm = () => {
   const [formData, setFormData] = useState({
@@ -44,8 +44,40 @@ const UpdatedForm = () => {
     });
     
     try {
-      // Simulate API delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      // Submit to contact API
+      const contactResponse = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      const contactData = await contactResponse.json();
+      
+      if (!contactResponse.ok) {
+        throw new Error(contactData.error || 'Failed to send message');
+      }
+      
+      // If newsletter subscription is checked, also submit to newsletter API
+      if (formData.subscribedToNewsletter) {
+        try {
+          await fetch('/api/newsletter', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email: formData.email,
+              name: `${formData.firstName} ${formData.lastName}`,
+              source: 'contact'
+            }),
+          });
+          // Newsletter errors shouldn't prevent success message for the contact form
+        } catch (newsletterError) {
+          console.error('Newsletter subscription failed:', newsletterError);
+        }
+      }
       
       setFormStatus({
         status: 'success',
@@ -66,9 +98,12 @@ const UpdatedForm = () => {
         bestTimeToCall: ''
       });
     } catch (error) {
+      console.error('Error submitting form:', error);
       setFormStatus({
         status: 'error',
-        message: 'There was an error sending your message. Please try again.',
+        message: error instanceof Error 
+          ? error.message 
+          : 'There was an error sending your message. Please try again.',
       });
     }
   };
@@ -337,6 +372,8 @@ const UpdatedForm = () => {
           }`}>
             {formStatus.status === 'success' ? (
               <Check className="h-4 w-4" />
+            ) : formStatus.status === 'error' ? (
+              <AlertCircle className="h-4 w-4" />
             ) : (
               <Send className="h-4 w-4" />
             )}

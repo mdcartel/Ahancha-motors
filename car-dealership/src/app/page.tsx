@@ -7,6 +7,7 @@ import Testimonials from '@/components/home/Testimonials';
 import CTASection from '@/components/home/CTASection';
 import WhyChooseUs from '@/components/home/WhyChooseUs';
 import Newsletter from '@/components/home/Newsletter';
+import NewsletterSection from '@/components/home/NewsletterSection';
 
 export const metadata = {
   title: 'Premium Auto Dealership | Find Your Dream Car',
