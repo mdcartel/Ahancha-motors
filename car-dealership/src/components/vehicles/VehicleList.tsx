@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import VehicleCard from './VehicleCard';
 import VehicleFilters from './VehicleFilters';
 import { Grid, List, ChevronDown, Sliders, Search, X } from 'lucide-react';
@@ -32,42 +32,53 @@ const VehicleList: React.FC<VehicleListProps> = ({ vehicles }) => {
   const [filtersVisible, setFiltersVisible] = useState(true);
   const [sortOption, setSortOption] = useState('featured');
   const [searchTerm, setSearchTerm] = useState('');
-  const [filteredVehicles, setFilteredVehicles] = useState<Vehicle[]>(vehicles);
+  
+  // Crucial fix: Initialize filteredVehicles with a function to avoid re-executing on every render
+  const [filteredVehicles, setFilteredVehicles] = useState<Vehicle[]>(() => vehicles);
 
   // Apply search filter
-  const searchFilteredVehicles = searchTerm 
-    ? filteredVehicles.filter(vehicle => 
-        vehicle.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        vehicle.make.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        vehicle.model.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        (vehicle.trim && vehicle.trim.toLowerCase().includes(searchTerm.toLowerCase()))
-      )
-    : filteredVehicles;
+  const searchFilteredVehicles = React.useMemo(() => {
+    if (!searchTerm) return filteredVehicles;
+    
+    return filteredVehicles.filter(vehicle => 
+      vehicle.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      vehicle.make.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      vehicle.model.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      (vehicle.trim && vehicle.trim.toLowerCase().includes(searchTerm.toLowerCase()))
+    );
+  }, [filteredVehicles, searchTerm]);
 
   // Applied client-side sorting
-  const sortedVehicles = [...searchFilteredVehicles].sort((a, b) => {
-    switch (sortOption) {
-      case 'price-asc':
-        return a.price - b.price;
-      case 'price-desc':
-        return b.price - a.price;
-      case 'year-desc':
-        return b.year - a.year;
-      case 'year-asc':
-        return a.year - b.year;
-      case 'mileage-asc':
-        return a.mileage - b.mileage;
-      case 'mileage-desc':
-        return b.mileage - a.mileage;
-      case 'featured':
-      default:
-        return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
-    }
-  });
+  const sortedVehicles = React.useMemo(() => {
+    return [...searchFilteredVehicles].sort((a, b) => {
+      switch (sortOption) {
+        case 'price-asc':
+          return a.price - b.price;
+        case 'price-desc':
+          return b.price - a.price;
+        case 'year-desc':
+          return b.year - a.year;
+        case 'year-asc':
+          return a.year - b.year;
+        case 'mileage-asc':
+          return a.mileage - b.mileage;
+        case 'mileage-desc':
+          return b.mileage - a.mileage;
+        case 'featured':
+        default:
+          return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
+      }
+    });
+  }, [searchFilteredVehicles, sortOption]);
+
+  // Update filtered vehicles when vehicles prop changes
+  useEffect(() => {
+    setFilteredVehicles(vehicles);
+  }, [vehicles]);
 
   // Function to handle filtering
-  const handleFilterChange = (filteredVehicles: Vehicle[]) => {
-    setFilteredVehicles(filteredVehicles);
+  const handleFilterChange = (filteredResults: Vehicle[]) => {
+    setFilteredVehicles(filteredResults);
   };
 
   return (
