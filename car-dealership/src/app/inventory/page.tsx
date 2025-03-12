@@ -1,24 +1,13 @@
-import React from 'react';
 import { Metadata } from 'next';
-import VehicleList from '@/components/vehicles/VehicleList';
 import Image from 'next/image';
+import VehicleList from '@/components/vehicles/VehicleList';
 import Newsletter from '@/components/home/Newsletter';
-
-export const metadata: Metadata = {
-  title: 'Vehicle Inventory | Browse Our Selection',
-  description: 'Browse our extensive inventory of new, used, and certified pre-owned vehicles. Find your perfect car, truck, or SUV today.',
-  keywords: 'car inventory, new cars, used cars, certified pre-owned, car dealership',
-};
 
 // Fetch vehicles from the API
 async function getVehicles() {
   try {
-    // Use relative URL for API routes in Next.js
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/api/vehicles`, {
-      // Add cache options as needed
-      cache: 'no-store', // Don't cache for dynamic inventory pages
-      // Or use revalidation for better performance with fresh data
-      // next: { revalidate: 300 }, // Revalidate every 5 minutes
+      cache: 'no-store',
     });
 
     if (!response.ok) {
@@ -28,47 +17,50 @@ async function getVehicles() {
     return await response.json();
   } catch (error) {
     console.error('Error fetching vehicles:', error);
-    // Return empty array on error to avoid breaking the page
     return [];
   }
+}
+
+export const metadata: Metadata = {
+  title: 'Vehicle Inventory | Browse Our Selection',
+  description: 'Browse our extensive inventory of new, used, and certified pre-owned vehicles. Find your perfect car, truck, or SUV today.',
+  keywords: 'car inventory, new cars, used cars, certified pre-owned, car dealership',
+  metadataBase: new URL(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'),
+};
+
+interface Vehicle {
+  make: string;
+  model: string;
+  condition: string;
+  bodyType: string;
 }
 
 export default async function InventoryPage({
   searchParams,
 }: {
-  searchParams?: Record<string, string | string[] | undefined>;
+  searchParams: { 
+    make?: string; 
+    model?: string; 
+    condition?: string; 
+    bodyType?: string; 
+  };
 }) {
   const vehicles = await getVehicles();
   
-  // Filter vehicles based on search parameters
-  interface Vehicle {
-    make: string;
-    model: string;
-    condition: string;
-    bodyType: string;
-  }
-
-  interface SearchParams {
-    make?: string;
-    model?: string;
-    condition?: string;
-    bodyType?: string;
-  }
-
+  // Safely filter vehicles
   const filteredVehicles = vehicles.filter((vehicle: Vehicle) => {
-    if (searchParams?.make && vehicle.make.toLowerCase() !== (searchParams.make as string).toLowerCase()) {
-      return false;
-    }
-    if (searchParams?.model && vehicle.model.toLowerCase() !== (searchParams.model as string).toLowerCase()) {
-      return false;
-    }
-    if (searchParams?.condition && vehicle.condition.toLowerCase() !== (searchParams.condition as string).toLowerCase()) {
-      return false;
-    }
-    if (searchParams?.bodyType && vehicle.bodyType.toLowerCase() !== (searchParams.bodyType as string).toLowerCase()) {
-      return false;
-    }
-    return true;
+    // Function to safely compare values
+    const compareValue = (paramValue: string | undefined, vehicleValue: string) => {
+      if (!paramValue) return true;
+      return vehicleValue.toLowerCase() === paramValue.toLowerCase();
+    };
+
+    return (
+      compareValue(searchParams.make, vehicle.make) &&
+      compareValue(searchParams.model, vehicle.model) &&
+      compareValue(searchParams.condition, vehicle.condition) &&
+      compareValue(searchParams.bodyType, vehicle.bodyType)
+    );
   });
 
   return (

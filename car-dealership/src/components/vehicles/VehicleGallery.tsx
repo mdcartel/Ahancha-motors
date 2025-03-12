@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
-import Image from 'next/image';
+import { VehicleImage } from './VehicleImage';
 import { ChevronLeft, ChevronRight, X } from 'lucide-react';
 
 interface VehicleGalleryProps {
@@ -13,12 +13,17 @@ const VehicleGallery: React.FC<VehicleGalleryProps> = ({ images, title }) => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [lightboxOpen, setLightboxOpen] = useState(false);
   
+  // Ensure we have at least one image, use placeholder if empty
+  const galleryImages = images.length > 0 
+    ? images 
+    : ['/images/cars/car-placeholder.jpg'];
+  
   const handlePrevious = () => {
-    setActiveIndex((prevIndex) => (prevIndex === 0 ? images.length - 1 : prevIndex - 1));
+    setActiveIndex((prevIndex) => (prevIndex === 0 ? galleryImages.length - 1 : prevIndex - 1));
   };
   
   const handleNext = () => {
-    setActiveIndex((prevIndex) => (prevIndex === images.length - 1 ? 0 : prevIndex + 1));
+    setActiveIndex((prevIndex) => (prevIndex === galleryImages.length - 1 ? 0 : prevIndex + 1));
   };
   
   const openLightbox = (index: number) => {
@@ -68,16 +73,12 @@ const VehicleGallery: React.FC<VehicleGalleryProps> = ({ images, title }) => {
     <div>
       {/* Main Image */}
       <div className="relative aspect-video mb-4 cursor-pointer" onClick={() => openLightbox(activeIndex)}>
-        <Image
-          src={images[activeIndex]}
+        <VehicleImage
+          src={galleryImages[activeIndex]}
           alt={`${title} - Image ${activeIndex + 1}`}
           fill
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
           className="object-cover rounded"
-          priority={activeIndex === 0}
-          onError={(e) => {
-            e.currentTarget.src = '/images/cars/car-placeholder.jpg';
-          }}
         />
         
         <div className="absolute inset-0 flex items-center justify-between px-4">
@@ -106,7 +107,7 @@ const VehicleGallery: React.FC<VehicleGalleryProps> = ({ images, title }) => {
       
       {/* Thumbnails */}
       <div className="grid grid-cols-5 gap-2">
-        {images.map((image, index) => (
+        {galleryImages.map((image, index) => (
           <div
             key={index}
             className={`relative aspect-video cursor-pointer ${
@@ -114,15 +115,12 @@ const VehicleGallery: React.FC<VehicleGalleryProps> = ({ images, title }) => {
             }`}
             onClick={() => setActiveIndex(index)}
           >
-            <Image
+            <VehicleImage
               src={image}
               alt={`${title} - Thumbnail ${index + 1}`}
               fill
               sizes="(max-width: 768px) 20vw, (max-width: 1200px) 10vw, 5vw"
               className="object-cover rounded"
-              onError={(e) => {
-                e.currentTarget.src = '/images/cars/car-placeholder.jpg';
-              }}
             />
           </div>
         ))}
@@ -141,16 +139,12 @@ const VehicleGallery: React.FC<VehicleGalleryProps> = ({ images, title }) => {
           
           <div className="relative w-full max-w-6xl max-h-screen p-4">
             <div className="relative aspect-video">
-              <Image
-                src={images[activeIndex]}
+              <VehicleImage
+                src={galleryImages[activeIndex]}
                 alt={`${title} - Image ${activeIndex + 1}`}
                 fill
                 sizes="100vw"
                 className="object-contain"
-                priority
-                onError={(e) => {
-                  e.currentTarget.src = '/images/cars/car-placeholder.jpg';
-                }}
               />
             </div>
             
@@ -176,7 +170,7 @@ const VehicleGallery: React.FC<VehicleGalleryProps> = ({ images, title }) => {
             
             <div className="absolute bottom-8 left-0 right-0 flex justify-center">
               <div className="bg-black bg-opacity-70 px-4 py-2 rounded-full text-white text-sm">
-                {activeIndex + 1} / {images.length}
+                {activeIndex + 1} / {galleryImages.length}
               </div>
             </div>
           </div>

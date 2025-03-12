@@ -1,75 +1,91 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { ChevronRight, Car, Gauge, Calendar } from 'lucide-react';
 
-// This would typically come from an API call
-const featuredVehicles = [
-  {
-    id: '1',
-    title: '2023 Toyota Camry XSE',
-    make: 'Toyota',
-    model: 'Camry',
-    trim: 'XSE',
-    year: 2023,
-    price: 32995,
-    mileage: 12560,
-    fuelType: 'Gasoline',
-    transmission: 'Automatic',
-    exteriorColor: 'Pearl White',
-    image: '/images/cars/toyota-camry.jpg',
-    featured: true,
-  },
-  {
-    id: '2',
-    title: '2022 Honda Accord Sport',
-    make: 'Honda',
-    model: 'Accord',
-    trim: 'Sport',
-    year: 2022,
-    price: 28995,
-    mileage: 18750,
-    fuelType: 'Gasoline',
-    transmission: 'Automatic',
-    exteriorColor: 'Modern Steel',
-    image: '/images/cars/honda-accord.jpg',
-    featured: true,
-  },
-  {
-    id: '3',
-    title: '2023 Ford F-150 Lariat',
-    make: 'Ford',
-    model: 'F-150',
-    trim: 'Lariat',
-    year: 2023,
-    price: 45995,
-    mileage: 5230,
-    fuelType: 'Gasoline',
-    transmission: 'Automatic',
-    exteriorColor: 'Agate Black',
-    image: '/images/cars/ford-f150.jpg',
-    featured: true,
-  },
-  {
-    id: '4',
-    title: '2022 BMW X5 xDrive40i',
-    make: 'BMW',
-    model: 'X5',
-    trim: 'xDrive40i',
-    year: 2022,
-    price: 59995,
-    mileage: 15680,
-    fuelType: 'Gasoline',
-    transmission: 'Automatic',
-    exteriorColor: 'Alpine White',
-    image: '/images/cars/bmw-x5.jpg',
-    featured: true,
-  },
-];
+interface Vehicle {
+  id: string;
+  title: string;
+  make: string;
+  model: string;
+  trim?: string;
+  year: number;
+  price: number;
+  mileage: number;
+  fuelType: string;
+  transmission: string;
+  exteriorColor: string;
+  image: string;
+  featured?: boolean;
+}
 
 const FeaturedVehicles: React.FC = () => {
+  const [featuredVehicles, setFeaturedVehicles] = useState<Vehicle[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchFeaturedVehicles = async () => {
+      try {
+        // Fetch all vehicles and filter for featured ones
+        const response = await fetch('/api/vehicles');
+        
+        if (!response.ok) {
+          throw new Error('Failed to fetch vehicles');
+        }
+        
+        const vehicles = await response.json();
+        
+        // Filter for featured vehicles
+        const featured = vehicles.filter((vehicle: Vehicle) => vehicle.featured);
+        
+        setFeaturedVehicles(featured);
+        setIsLoading(false);
+      } catch (err) {
+        console.error('Error fetching featured vehicles:', err);
+        setError('Failed to load featured vehicles');
+        setIsLoading(false);
+      }
+    };
+
+    fetchFeaturedVehicles();
+  }, []);
+
+  const [imageErrors, setImageErrors] = useState<{[key: string]: boolean}>({});
+
+  const handleImageError = (id: string) => {
+    setImageErrors(prev => ({
+      ...prev,
+      [id]: true
+    }));
+  };
+
+  if (isLoading) {
+    return (
+      <section className="bg-white py-16">
+        <div className="container mx-auto px-4 text-center">
+          <p>Loading featured vehicles...</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="bg-white py-16">
+        <div className="container mx-auto px-4 text-center text-red-500">
+          <p>{error}</p>
+        </div>
+      </section>
+    );
+  }
+
+  if (featuredVehicles.length === 0) {
+    return null; // Or render a "No featured vehicles" message
+  }
+
   return (
     <section className="bg-white py-16">
       <div className="container mx-auto px-4">
@@ -91,14 +107,12 @@ const FeaturedVehicles: React.FC = () => {
             <div key={vehicle.id} className="card group">
               <div className="relative aspect-[4/3] overflow-hidden bg-gray-200">
                 <Image
-                  src={vehicle.image}
+                  src={imageErrors[vehicle.id] ? '/images/cars/car-placeholder.jpg' : (vehicle.image || '/images/cars/car-placeholder.jpg')}
                   alt={vehicle.title}
                   fill
                   sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
                   className="object-cover group-hover:scale-105 transition-transform duration-300"
-                  onError={(e) => {
-                    e.currentTarget.src = '/images/cars/car-placeholder.jpg';
-                  }}
+                  onError={() => handleImageError(vehicle.id)}
                 />
                 {vehicle.featured && (
                   <div className="absolute top-3 right-3 bg-accent-500 text-white text-sm font-semibold py-1 px-3 rounded-full">

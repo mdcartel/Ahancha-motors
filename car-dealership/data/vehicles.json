@@ -1,46 +1,571 @@
+
 [
   {
     "id": "15242f79-ff15-49e8-a64f-1aaa12e375a5",
-    "title": "2025 Toyota Camry red",
-    "make": "Toyota",
-    "model": "Camry",
-    "trim": "red",
-    "year": 2025,
-    "price": 2000,
-    "mileage": 12000,
+    "title": "2024 Mercedes-Benz G-Class AMG G63",
+    "make": "Mercedes-Benz",
+    "model": "G-Class",
+    "trim": "AMG G63",
+    "year": 2024,
+    "price": 179995,
+    "mileage": 1250,
     "fuelType": "Gasoline",
-    "transmission": "Automatic",
-    "exteriorColor": "red",
-    "interiorColor": "red",
-    "vin": "TCXSRF22",
-    "stockNumber": "112",
-    "engine": "3.4L",
-    "drivetrain": "Front-Wheel Drive",
-    "bodyType": "Sedan",
+    "transmission": "9-Speed Automatic",
+    "exteriorColor": "Obsidian Black Metallic",
+    "interiorColor": "Designo Platinum White Nappa Leather",
+    "vin": "WDCYC7KJ6RX123456",
+    "stockNumber": "MBZ2024-G63-01",
+    "engine": "4.0L V8 Biturbo",
+    "drivetrain": "4MATIC All-Wheel Drive",
+    "bodyType": "SUV",
     "condition": "New",
-    "description": "New car doing Graete",
-    "image": "/images/cars/cx3.png",
+    "description": "The legendary Mercedes-Benz G-Class AMG G63 combines iconic military-inspired design with breathtaking performance and luxurious refinement. A true automotive icon reimagined for the modern era.",
+    "image": "/images/cars/mercedes-g-wagon.png",
     "featured": true,
     "features": [
       {
-        "category": "Comfort & Convenience",
+        "category": "Performance",
         "items": [
-          "sunroof"
+          "585 HP Biturbo V8",
+          "0-60 mph in 4.5 seconds",
+          "AMG Performance 4MATIC",
+          "Adaptive Suspension"
+        ]
+      },
+      {
+        "category": "Luxury",
+        "items": [
+          "Designo Interior",
+          "Heated/Ventilated Seats",
+          "Panoramic Sunroof",
+          "Ambient Lighting"
         ]
       },
       {
         "category": "Technology",
         "items": [
-          "electric"
+          "MBUX Infotainment System",
+          "Augmented Reality Navigation",
+          "360-Degree Camera",
+          "Digital Instrument Cluster"
+        ]
+      }
+    ],
+    "createdAt": "2024-03-12T14:30:00.000Z"
+  },
+  {
+    "id": "25673b8a-cc26-4e9d-b7f4-2b1f4a9e3c2d",
+    "title": "2025 Toyota Camry XSE Hybrid",
+    "make": "Toyota",
+    "model": "Camry",
+    "trim": "XSE Hybrid",
+    "year": 2025,
+    "price": 35990,
+    "mileage": 12,
+    "fuelType": "Hybrid",
+    "transmission": "Automatic",
+    "exteriorColor": "Midnight Black",
+    "interiorColor": "Red Leather",
+    "vin": "4T1K61AK5MU123456",
+    "stockNumber": "TC2025-001",
+    "engine": "2.5L 4-Cylinder Hybrid",
+    "drivetrain": "Front-Wheel Drive",
+    "bodyType": "Sedan",
+    "condition": "New",
+    "description": "Experience ultimate efficiency and performance with the latest Camry Hybrid XSE. Sleek design meets cutting-edge hybrid technology.",
+    "image": "/images/cars/toyota-camry-hybrid.png",
+    "featured": true,
+    "features": [
+      {
+        "category": "Technology",
+        "items": [
+          "10-inch Touchscreen",
+          "Wireless Apple CarPlay",
+          "Android Auto",
+          "Wireless Charging"
         ]
       },
       {
         "category": "Safety",
         "items": [
-          "secure"
+          "Toyota Safety Sense 3.0",
+          "Adaptive Cruise Control",
+          "Lane Keeping Assist"
+        ]
+      },
+      {
+        "category": "Comfort",
+        "items": [
+          "Heated Seats",
+          "Dual-Zone Climate Control",
+          "Premium Sound System"
         ]
       }
     ],
-    "createdAt": "2025-03-12T08:28:50.525Z"
+    "createdAt": "2024-03-12T15:00:00.000Z"
+  },
+  {
+    "id": "36784c9b-dd37-5f0d-c8e5-3c2d1a9b4e6f",
+    "title": "2018 Mazda Demio Sport",
+    "make": "Mazda",
+    "model": "Demio",
+    "trim": "Sport",
+    "year": 2018,
+    "price": 12500,
+    "mileage": 45000,
+    "fuelType": "Gasoline",
+    "transmission": "Automatic",
+    "exteriorColor": "Crystal Blue Metallic",
+    "interiorColor": "Black Cloth",
+    "vin": "JMZDE146481234567",
+    "stockNumber": "MZD2018-D01",
+    "engine": "1.5L 4-Cylinder",
+    "drivetrain": "Front-Wheel Drive",
+    "bodyType": "Hatchback",
+    "condition": "Used",
+    "description": "Compact, efficient, and fun to drive, the Mazda Demio offers exceptional value with its reliable performance and stylish design. Perfect for city driving and urban adventures.",
+    "image": "/images/cars/mazda-demio.png",
+    "featured": true,
+    "features": [
+      {
+        "category": "Efficiency",
+        "items": [
+          "Excellent Fuel Economy",
+          "Compact Size",
+          "Easy Parking",
+          "Low Maintenance Costs"
+        ]
+      },
+      {
+        "category": "Comfort",
+        "items": [
+          "Spacious Interior",
+          "Comfortable Seating",
+          "Smooth Ride",
+          "Flexible Cargo Space"
+        ]
+      },
+      {
+        "category": "Technology",
+        "items": [
+          "Touchscreen Display",
+          "Bluetooth Connectivity",
+          "Backup Camera",
+          "USB Ports"
+        ]
+      }
+    ],
+    "createdAt": "2024-03-12T15:30:00.000Z"
+  },
+  {
+    "id": "47895d0c-ee47-6e1e-d9f6-4d3e2b0c5f7g",
+    "title": "2022 BMW X5 M Competition",
+    "make": "BMW",
+    "model": "X5",
+    "trim": "M Competition",
+    "year": 2022,
+    "price": 117995,
+    "mileage": 8750,
+    "fuelType": "Gasoline",
+    "transmission": "8-Speed Automatic",
+    "exteriorColor": "Marina Bay Blue Metallic",
+    "interiorColor": "Silverstone",
+    "vin": "5UXCW2C01N9K54321",
+    "stockNumber": "BMW2022-M05",
+    "engine": "4.4L Twin-Turbo V8",
+    "drivetrain": "All-Wheel Drive",
+    "bodyType": "SUV",
+    "condition": "Used",
+    "description": "Ultimate performance meets luxury SUV. The BMW X5 M Competition delivers supercar-like performance with unparalleled comfort and sophistication.",
+    "image": "/images/cars/bmw-x5-m.png",
+    "featured": true,
+    "features": [
+      {
+        "category": "Performance",
+        "items": [
+          "600 HP Twin-Turbo V8",
+          "0-60 mph in 3.8 seconds",
+          "Adaptive M Suspension",
+          "M Carbon Ceramic Brakes"
+        ]
+      },
+      {
+        "category": "Technology",
+        "items": [
+          "Live Cockpit Professional",
+          "Heads-Up Display",
+          "Gesture Control",
+          "Parking Assistant Plus"
+        ]
+      },
+      {
+        "category": "Luxury",
+        "items": [
+          "Panoramic Sky Lounge Roof",
+          "Massage Seats",
+          "Soft-Close Doors",
+          "Ambient Lighting"
+        ]
+      }
+    ],
+    "createdAt": "2024-03-12T16:00:00.000Z"
+  },
+  {
+    "id": "58906e1d-ff58-7f2f-e0d7-5e4f3c1d6h8",
+    "title": "2023 Audi RS6 Avant",
+    "make": "Audi",
+    "model": "RS6",
+    "trim": "Avant",
+    "year": 2023,
+    "price": 119995,
+    "mileage": 3250,
+    "fuelType": "Gasoline",
+    "transmission": "8-Speed Automatic",
+    "exteriorColor": "Nardo Gray",
+    "interiorColor": "Black Leather",
+    "vin": "WAU8DAF25LN123456",
+    "stockNumber": "AUDI2023-RS6",
+    "engine": "4.0L Twin-Turbo V8",
+    "drivetrain": "Quattro All-Wheel Drive",
+    "bodyType": "Wagon",
+    "condition": "Used",
+    "description": "The Audi RS6 Avant is the ultimate performance wagon, combining power, style, and versatility in one stunning package. Experience the thrill of driving a high-performance masterpiece.",
+    "image": "/images/cars/audi-rs6.png",
+    "featured": true,
+    "features": [
+      {
+        "category": "Performance",
+        "items": [
+          "591 HP Twin-Turbo V8",
+          "0-60 mph in 3.5 seconds",
+          "RS Sport Exhaust",
+          "RS Adaptive Air Suspension"
+        ]
+      },
+      {
+        "category": "Technology",
+        "items": [
+          "Audi Virtual Cockpit",
+          "MMI Touch Response",
+          "Head-Up Display",
+          "Bang & Olufsen Sound System"
+        ]
+      },
+      {
+        "category": "Luxury",
+        "items": [
+          "Valcona Leather Seats",
+          "Heated/Cooled Cup Holders",
+          "Four-Zone Climate Control",
+          "Ambient LED Lighting"
+        ]
+      }
+    ],
+    "createdAt": "2024-03-12T16:30:00.000Z"
+  },
+
+  {
+    "id": "ke-new-01",
+    "title": "2024 Toyota Hilux Double Cab",
+    "make": "Toyota",
+    "model": "Hilux",
+    "trim": "GLX",
+    "year": 2024,
+    "price": 45000,
+    "mileage": 50,
+    "fuelType": "Diesel",
+    "transmission": "Manual",
+    "exteriorColor": "Graphite Gray",
+    "interiorColor": "Gray Cloth",
+    "vin": "AHTSZ3CD4R1234567",
+    "stockNumber": "KE-HILUX-2024-01",
+    "engine": "2.4L Diesel",
+    "drivetrain": "4WD",
+    "bodyType": "Pickup Truck",
+    "condition": "New",
+    "description": "Robust and reliable Toyota Hilux, perfect for both urban and rural Kenyan terrains. Known for its durability and versatility.",
+    "image": "/images/cars/toyota-hilux.jpg",
+    "featured": false,
+    "features": [
+      {
+        "category": "Utility",
+        "items": [
+          "Long Cargo Bed",
+          "Towing Capacity",
+          "Robust Suspension"
+        ]
+      },
+      {
+        "category": "Safety",
+        "items": [
+          "Anti-lock Braking System",
+          "Hill Start Assist",
+          "Vehicle Stability Control"
+        ]
+      },
+      {
+        "category": "Comfort",
+        "items": [
+          "Air Conditioning",
+          "Power Windows",
+          "Bluetooth Connectivity"
+        ]
+      }
+    ],
+    "createdAt": "2024-03-12T17:00:00.000Z"
+  },
+  {
+    "id": "ke-new-02",
+    "title": "2024 Mazda CX-5 Skyactiv",
+    "make": "Mazda",
+    "model": "CX-5",
+    "trim": "Touring",
+    "year": 2024,
+    "price": 35000,
+    "mileage": 100,
+    "fuelType": "Gasoline",
+    "transmission": "Automatic",
+    "exteriorColor": "Soul Red Crystal",
+    "interiorColor": "Black Leather",
+    "vin": "JMZKE146581234567",
+    "stockNumber": "KE-CX5-2024-01",
+    "engine": "2.5L Skyactiv-G",
+    "drivetrive": "AWD",
+    "bodyType": "Crossover SUV",
+    "condition": "New",
+    "description": "Stylish and efficient Mazda CX-5, offering premium comfort and performance for Kenyan families and professionals.",
+    "image": "/images/cars/mazda-cx5.jpg",
+    "featured": false,
+    "features": [
+      {
+        "category": "Technology",
+        "items": [
+          "10.25-inch Infotainment Screen",
+          "Apple CarPlay",
+          "Android Auto",
+          "Wireless Charging"
+        ]
+      },
+      {
+        "category": "Safety",
+        "items": [
+          "i-Activsense Safety Features",
+          "Blind Spot Monitoring",
+          "Rear Cross Traffic Alert"
+        ]
+      },
+      {
+        "category": "Comfort",
+        "items": [
+          "Heated Seats",
+          "Dual-Zone Climate Control",
+          "Power Tailgate"
+        ]
+      }
+    ],
+    "createdAt": "2024-03-12T18:00:00.000Z"
+  },
+  {
+    "id": "ke-new-03",
+    "title": "2024 Isuzu D-Max Single Cab",
+    "make": "Isuzu",
+    "model": "D-Max",
+    "trim": "Basic",
+    "year": 2024,
+    "price": 38000,
+    "mileage": 75,
+    "fuelType": "Diesel",
+    "transmission": "Manual",
+    "exteriorColor": "Arctic White",
+    "interiorColor": "Gray Cloth",
+    "vin": "MPANX2CD4R7654321",
+    "stockNumber": "KE-DMAX-2024-01",
+    "engine": "3.0L Diesel",
+    "drivetrain": "4WD",
+    "bodyType": "Pickup Truck",
+    "condition": "New",
+    "description": "Rugged Isuzu D-Max Single Cab, designed for hard work and reliability. Ideal for businesses and agricultural operations in Kenya.",
+    "image": "/images/cars/isuzu-dmax.jpg",
+    "featured": false,
+    "features": [
+      {
+        "category": "Utility",
+        "items": [
+          "High Payload Capacity",
+          "Robust Chassis",
+          "Easy Loading Bed"
+        ]
+      },
+      {
+        "category": "Performance",
+        "items": [
+          "High Torque Diesel Engine",
+          "Low Fuel Consumption",
+          "Strong Towing Capability"
+        ]
+      },
+      {
+        "category": "Durability",
+        "items": [
+          "Reinforced Suspension",
+          "Corrosion Resistant Body",
+          "Low Maintenance Design"
+        ]
+      }
+    ],
+    "createdAt": "2024-03-12T19:00:00.000Z"
+  },
+  {
+    "id": "ke-used-01",
+    "title": "2019 Toyota Prado TXL",
+    "make": "Toyota",
+    "model": "Prado",
+    "trim": "TXL",
+    "year": 2019,
+    "price": 32000,
+    "mileage": 85000,
+    "fuelType": "Diesel",
+    "transmission": "Automatic",
+    "exteriorColor": "Silver Metallic",
+    "interiorColor": "Beige Leather",
+    "vin": "JTEBH3FJ5K7890123",
+    "stockNumber": "KE-PRADO-2019-01",
+    "engine": "2.8L Diesel",
+    "drivetrain": "4WD",
+    "bodyType": "SUV",
+    "condition": "Used",
+    "description": "Well-maintained Toyota Prado TXL, perfect for family use and safari adventures. Spacious, comfortable, and capable of handling Kenya's diverse terrains.",
+    "image": "/images/cars/toyota-prado.jpg",
+    "featured": false,
+    "features": [
+      {
+        "category": "Off-Road Capability",
+        "items": [
+          "Adjustable Suspension",
+          "Multi-Terrain Select",
+          "Crawl Control"
+        ]
+      },
+      {
+        "category": "Comfort",
+        "items": [
+          "Leather Seats",
+          "Automatic Climate Control",
+          "Power Seats",
+          "Sunroof"
+        ]
+      },
+      {
+        "category": "Safety",
+        "items": [
+          "Multiple Airbags",
+          "Stability Control",
+          "Parking Sensors"
+        ]
+      }
+    ],
+    "createdAt": "2024-03-12T20:00:00.000Z"
+  },
+  {
+    "id": "ke-used-02",
+    "title": "2017 Nissan X-Trail",
+    "make": "Nissan",
+    "model": "X-Trail",
+    "trim": "Advance",
+    "year": 2017,
+    "price": 22000,
+    "mileage": 95000,
+    "fuelType": "Gasoline",
+    "transmission": "CVT",
+    "exteriorColor": "Blue",
+    "interiorColor": "Black Cloth",
+    "vin": "JNTAN5B17H9012345",
+    "stockNumber": "KE-XTRAIL-2017-01",
+    "engine": "2.0L Gasoline",
+    "drivetrain": "AWD",
+    "bodyType": "Crossover SUV",
+    "condition": "Used",
+    "description": "Practical and reliable Nissan X-Trail. An excellent choice for urban driving with good fuel efficiency and comfortable ride.",
+    "image": "/images/cars/nissan-xtrail.jpg",
+    "featured": false,
+    "features": [
+      {
+        "category": "Technology",
+        "items": [
+          "Touchscreen Infotainment",
+          "Bluetooth",
+          "Reverse Camera",
+          "Keyless Entry"
+        ]
+      },
+      {
+        "category": "Comfort",
+        "items": [
+          "Spacious Interior",
+          "Adjustable Seats",
+          "Climate Control"
+        ]
+      },
+      {
+        "category": "Practicality",
+        "items": [
+          "Flexible Cargo Space",
+          "Fuel Efficient",
+          "Easy Maneuverability"
+        ]
+      }
+    ],
+    "createdAt": "2024-03-12T21:00:00.000Z"
+  },
+  {
+    "id": "ke-used-03",
+    "title": "2018 Mitsubishi Pajero Sport",
+    "make": "Mitsubishi",
+    "model": "Pajero Sport",
+    "trim": "GLX",
+    "year": 2018,
+    "price": 28000,
+    "mileage": 78000,
+    "fuelType": "Diesel",
+    "transmission": "Automatic",
+    "exteriorColor": "Dark Red",
+    "interiorColor": "Gray Cloth",
+    "vin": "MMCJGK96HK012345",
+    "stockNumber": "KE-PAJERO-2018-01",
+    "engine": "2.4L Diesel",
+    "drivetrain": "4WD",
+    "bodyType": "SUV",
+    "condition": "Used",
+    "description": "Robust Mitsubishi Pajero Sport, ideal for families and adventure seekers. Strong performance and reliable off-road capabilities.",
+    "image": "/images/cars/mitsubishi-pajero.jpg",
+    "featured": false,
+    "features": [
+      {
+        "category": "Off-Road Performance",
+        "items": [
+          "Super Select 4WD",
+          "High Ground Clearance",
+          "Hill Descent Control"
+        ]
+      },
+      {
+        "category": "Safety",
+        "items": [
+          "Active Stability Control",
+          "Brake Assist",
+          "Trailer Stability Assist"
+        ]
+      },
+      {
+        "category": "Comfort",
+        "items": [
+          "Comfortable Suspension",
+          "Spacious Interior",
+          "Ample Storage Space"
+        ]
+      }
+    ],
+    "createdAt": "2024-03-12T22:00:00.000Z"
   }
+
 ]
