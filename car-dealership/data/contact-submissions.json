@@ -1,0 +1,32 @@
+[
+  {
+    "firstName": "Daniel",
+    "lastName": "Chacha",
+    "email": "chachadaniel44@gmail.com",
+    "phone": "0796280700",
+    "subject": "Inquiry about Sample Vehicle",
+    "message": "I'm interested in this Sample Vehicle you have listed. Please contact me with more information.",
+    "requestType": "vehicle-inquiry",
+    "preferredContact": "email",
+    "subscribedToNewsletter": false,
+    "vehicleId": "1",
+    "vehicleTitle": "Sample Vehicle",
+    "bestTimeToCall": "",
+    "timestamp": "2025-03-13T10:49:43.462Z"
+  },
+  {
+    "firstName": "Daniel",
+    "lastName": "Chacha",
+    "email": "chachadaniel44@gmail.com",
+    "phone": "0796280700",
+    "message": "I'm interested in this 2024 Toyota Hilux Double Cab you have listed. Please contact me with more information.",
+    "preferredContact": "email",
+    "subscribedToNewsletter": false,
+    "subject": "Inquiry about 2024 Toyota Hilux Double Cab",
+    "requestType": "vehicle-inquiry",
+    "bestTimeToCall": "",
+    "vehicleId": "ke-new-01",
+    "vehicleTitle": "2024 Toyota Hilux Double Cab",
+    "timestamp": "2025-03-13T10:51:08.578Z"
+  }
+]

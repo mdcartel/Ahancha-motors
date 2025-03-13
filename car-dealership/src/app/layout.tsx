@@ -15,9 +15,9 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: {
     default: 'Ahancha Motors Dealership | Find Your Dream Car',
-    template: '%s | Ahancha Motors Dealership',
+    template: '%s | Ahancha Motors Dealership - Your Trusted Car Dealer',
   },
-  description: 'Discover your perfect vehicle at our dealership. Browse our extensive inventory of new, used, and certified pre-owned cars, trucks, and SUVs.',
+  description: 'Discover your perfect vehicle at our dealership. Browse our extensive inventory of new, used, and certified pre-owned cars, trucks, and SUVs. Get the best deals and financing options available.',
   keywords: 'car dealership, auto sales, new cars, used cars, car financing, car service',
   openGraph: {
     title: 'Ahancha Motors Dealership | Find Your Dream Car',
@@ -29,7 +29,13 @@ export const metadata: Metadata = {
         url: '/images/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Ahancha Motors Dealership',
+        alt: 'Ahancha Motors Dealership - Quality Cars at Great Prices',
+      },
+      {
+        url: '/images/cars/featured-car.png',
+        width: 1200,
+        height: 630,
+        alt: 'Featured Car at Ahancha Motors',
       },
     ],
     locale: 'en_US',
@@ -38,6 +44,7 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    'max-snippet': -1,
     googleBot: {
       index: true,
       follow: true,
