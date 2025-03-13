@@ -141,7 +141,7 @@ const Header: React.FC = () => {
             <div className="hidden md:flex items-center space-x-4 text-sm">
               <Link href="/coming" className="hover:text-red-400 transition-colors">Blog</Link>
               <span className="text-gray-500">|</span>
-              <Link href="/coming" className="hover:text-red-400 transition-colors">FAQ</Link>
+              <Link href="/faqs" className="hover:text-red-400 transition-colors">FAQ</Link>
             </div>
           </div>
         </div>

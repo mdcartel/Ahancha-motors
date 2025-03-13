@@ -6,11 +6,15 @@ import { DollarSign, Percent, Clock, ArrowRight } from 'lucide-react';
 interface FinanceCalculatorProps {
   vehiclePrice: number;
   vehicleTitle?: string;
+  onUpdate?: (calculatorData: any) => void;
+  manualUpdateOnly?: boolean; // Add this prop
 }
 
 const FinanceCalculator: React.FC<FinanceCalculatorProps> = ({ 
   vehiclePrice, 
-  vehicleTitle = 'this vehicle'
+  vehicleTitle = 'this vehicle',
+  onUpdate,
+  manualUpdateOnly = false // Default to false for backward compatibility
 }) => {
   const [loanParams, setLoanParams] = useState({
     price: vehiclePrice,
@@ -26,6 +30,15 @@ const FinanceCalculator: React.FC<FinanceCalculatorProps> = ({
   const [monthlyPayment, setMonthlyPayment] = useState(0);
   const [totalLoanAmount, setTotalLoanAmount] = useState(0);
   const [totalInterest, setTotalInterest] = useState(0);
+  
+  // Initialize with vehiclePrice when it changes
+  useEffect(() => {
+    setLoanParams(prev => ({
+      ...prev,
+      price: vehiclePrice,
+      downPayment: Math.round(vehiclePrice * 0.1)
+    }));
+  }, [vehiclePrice]);
   
   // Calculate monthly payment and other loan details
   useEffect(() => {
@@ -46,33 +59,62 @@ const FinanceCalculator: React.FC<FinanceCalculatorProps> = ({
     // Ensure loan amount is not negative
     loanAmount = Math.max(0, loanAmount);
     
-    // Set the total loan amount
-    setTotalLoanAmount(loanAmount);
-    
     // Calculate monthly payment using loan formula
     const monthlyInterestRate = loanParams.interestRate / 100 / 12;
     const numberOfPayments = loanParams.loanTerm;
     
-    if (loanAmount <= 0) {
-      setMonthlyPayment(0);
-      setTotalInterest(0);
-      return;
-    }
+    let payment = 0;
+    let interestTotal = 0;
     
-    if (monthlyInterestRate === 0) {
+    if (loanAmount <= 0) {
+      payment = 0;
+      interestTotal = 0;
+    } else if (monthlyInterestRate === 0) {
       // Simple division for 0% interest
-      setMonthlyPayment(loanAmount / numberOfPayments);
-      setTotalInterest(0);
+      payment = loanAmount / numberOfPayments;
+      interestTotal = 0;
     } else {
       // Standard loan payment formula: P * r * (1 + r)^n / ((1 + r)^n - 1)
-      const payment = loanAmount * 
+      payment = loanAmount * 
         (monthlyInterestRate * Math.pow(1 + monthlyInterestRate, numberOfPayments)) /
         (Math.pow(1 + monthlyInterestRate, numberOfPayments) - 1);
       
-      setMonthlyPayment(payment);
-      setTotalInterest(payment * numberOfPayments - loanAmount);
+      interestTotal = payment * numberOfPayments - loanAmount;
     }
-  }, [loanParams]);
+    
+    // Update state
+    setMonthlyPayment(payment);
+    setTotalLoanAmount(loanAmount);
+    setTotalInterest(interestTotal);
+    
+  }, [loanParams]); // Only depend on loanParams
+  
+  // Separate effect for the onUpdate callback to avoid loops
+  useEffect(() => {
+    // Only automatically call onUpdate if manualUpdateOnly is false
+    if (onUpdate && !manualUpdateOnly) {
+      onUpdate({
+        price: loanParams.price,
+        downPayment: loanParams.downPayment,
+        tradeInValue: loanParams.tradeInValue,
+        loanTerm: loanParams.loanTerm,
+        interestRate: loanParams.interestRate,
+        taxRate: loanParams.taxRate,
+        includeExtendedWarranty: loanParams.includeExtendedWarranty,
+        extendedWarrantyPrice: loanParams.extendedWarrantyPrice,
+        monthlyPayment,
+        totalLoanAmount,
+        totalInterest
+      });
+    }
+  }, [
+    monthlyPayment, 
+    totalLoanAmount, 
+    totalInterest, 
+    loanParams, 
+    onUpdate,
+    manualUpdateOnly // Add this to dependencies
+  ]);
   
   // Handle input changes
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -83,6 +125,22 @@ const FinanceCalculator: React.FC<FinanceCalculatorProps> = ({
       setLoanParams(prev => ({ ...prev, [name]: checked }));
     } else {
       setLoanParams(prev => ({ ...prev, [name]: parseFloat(value) || 0 }));
+    }
+  };
+  
+  // Manual trigger for applying calculations
+  const applyCalculations = () => {
+    if (onUpdate) {
+      onUpdate({
+        price: loanParams.price,
+        downPayment: loanParams.downPayment,
+        tradeInValue: loanParams.tradeInValue,
+        loanTerm: loanParams.loanTerm,
+        interestRate: loanParams.interestRate,
+        monthlyPayment,
+        totalLoanAmount,
+        totalInterest
+      });
     }
   };
   
@@ -110,7 +168,7 @@ const FinanceCalculator: React.FC<FinanceCalculatorProps> = ({
               onChange={handleInputChange}
               min="0"
               step="100"
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-red-500 focus:border-red-500"
             />
           </div>
         </div>
@@ -131,7 +189,7 @@ const FinanceCalculator: React.FC<FinanceCalculatorProps> = ({
               onChange={handleInputChange}
               min="0"
               step="100"
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-red-500 focus:border-red-500"
             />
           </div>
         </div>
@@ -152,7 +210,7 @@ const FinanceCalculator: React.FC<FinanceCalculatorProps> = ({
               onChange={handleInputChange}
               min="0"
               step="100"
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-red-500 focus:border-red-500"
             />
           </div>
         </div>
@@ -170,7 +228,7 @@ const FinanceCalculator: React.FC<FinanceCalculatorProps> = ({
               name="loanTerm"
               value={loanParams.loanTerm}
               onChange={handleInputChange}
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-red-500 focus:border-red-500"
             >
               <option value="24">24 months (2 years)</option>
               <option value="36">36 months (3 years)</option>
@@ -199,7 +257,7 @@ const FinanceCalculator: React.FC<FinanceCalculatorProps> = ({
               min="0"
               max="25"
               step="0.1"
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-red-500 focus:border-red-500"
             />
           </div>
         </div>
@@ -221,7 +279,7 @@ const FinanceCalculator: React.FC<FinanceCalculatorProps> = ({
               min="0"
               max="15"
               step="0.1"
-              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
+              className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-red-500 focus:border-red-500"
             />
           </div>
         </div>
@@ -235,7 +293,7 @@ const FinanceCalculator: React.FC<FinanceCalculatorProps> = ({
               name="includeExtendedWarranty"
               checked={loanParams.includeExtendedWarranty}
               onChange={handleInputChange}
-              className="h-4 w-4 text-primary focus:ring-primary border-gray-300 rounded"
+              className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded"
             />
             <label htmlFor="includeExtendedWarranty" className="ml-2 text-sm text-gray-700">
               Include Extended Warranty
@@ -254,7 +312,7 @@ const FinanceCalculator: React.FC<FinanceCalculatorProps> = ({
                 onChange={handleInputChange}
                 min="0"
                 step="100"
-                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-primary focus:border-primary"
+                className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-md focus:ring-red-500 focus:border-red-500"
               />
             </div>
           )}
@@ -265,7 +323,7 @@ const FinanceCalculator: React.FC<FinanceCalculatorProps> = ({
       <div className="mt-8 p-4 bg-gray-50 rounded-md border border-gray-200">
         <div className="flex justify-between items-center">
           <h4 className="text-lg font-medium text-gray-900">Estimated Monthly Payment</h4>
-          <span className="text-2xl font-bold text-primary">
+          <span className="text-2xl font-bold text-red-600">
             ${monthlyPayment.toFixed(2)}
           </span>
         </div>
@@ -290,18 +348,24 @@ const FinanceCalculator: React.FC<FinanceCalculatorProps> = ({
         </div>
       </div>
       
+      {/* Apply to Financing button - only shown if onUpdate is provided and manualUpdateOnly is true */}
+      {onUpdate && manualUpdateOnly && (
+        <div className="mt-6 flex justify-end">
+          <button
+            type="button"
+            onClick={applyCalculations}
+            className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white rounded-md transition-colors"
+          >
+            Apply These Calculations
+          </button>
+        </div>
+      )}
+      
       {/* Disclaimer and CTA */}
       <div className="mt-6">
         <p className="text-xs text-gray-500 mb-4">
           Disclaimer: Estimated payment calculations are for informational purposes only and do not represent a financing offer. Actual rates and terms may vary based on credit approval and other factors.
         </p>
-        
-        <a 
-          href="/financing" 
-          className="inline-flex items-center text-primary hover:text-primary-dark font-medium transition-colors"
-        >
-          Learn more about our financing options <ArrowRight size={16} className="ml-2" />
-        </a>
       </div>
     </div>
   );
