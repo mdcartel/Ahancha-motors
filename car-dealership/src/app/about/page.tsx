@@ -7,8 +7,8 @@ import TeamSection from '@/components/about/TeamSection';
 import NewsletterSection from '@/components/home/NewsletterSection';
 
 export const metadata: Metadata = {
-  title: 'About Us | Premium Auto Dealership',
-  description: 'Learn about Premium Auto Dealership\'s history, our mission, and the team dedicated to exceptional customer service.',
+  title: 'About Us | Ahancha Motors Dealership',
+  description: 'Learn about Ahancha Motors Dealership\'s history, our mission, and the team dedicated to exceptional customer service.',
 };
 
 export default function AboutPage() {
@@ -19,7 +19,7 @@ export default function AboutPage() {
         <div className="absolute inset-0 z-0 opacity-30">
           <Image 
             src="/images/backgrounds/mar.png" 
-            alt="Premium Auto Dealership" 
+            alt="Ahancha Motors Dealership" 
             fill 
             className="object-cover xl:object-left"
             priority
@@ -28,7 +28,7 @@ export default function AboutPage() {
         <div className="relative z-10 container mx-auto px-4 py-20">
           <div className="max-w-3xl">
             <div className="inline-block px-4 py-1.5 bg-red-600 text-white text-sm font-medium rounded-full mb-4">
-              About Premium Auto
+              About Ahancha Motors
             </div>
             <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white">Your Trusted Partner in Automotive Excellence</h1>
             <p className="text-lg text-gray-300">
@@ -43,9 +43,9 @@ export default function AboutPage() {
       <div className="container mx-auto px-4 py-12">
         {/* Overview Section */}
         <div className="max-w-3xl mx-auto mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-6">Welcome to Premium Auto</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-6">Welcome to Ahancha Motors</h2>
           <p className="text-lg text-gray-700 mb-4">
-            Premium Auto Dealership is a family-owned business dedicated to providing exceptional vehicles 
+            Ahancha Motors Dealership is a family-owned business dedicated to providing exceptional vehicles 
             and outstanding customer service. Since our founding in 2002, we've helped thousands of customers 
             find their perfect vehicle match while building a reputation for honesty, integrity, and automotive expertise.
           </p>
@@ -143,7 +143,7 @@ export default function AboutPage() {
                 </svg>
                 <div className="relative z-10">
                   <p className="text-gray-300 mb-4">
-                    "Premium Auto made buying my new car a breeze. Their staff was knowledgeable, friendly, and 
+                    "Ahancha Motors made buying my new car a breeze. Their staff was knowledgeable, friendly, and 
                     never pushy. I got a great deal and couldn't be happier with my purchase."
                   </p>
                   <div className="font-medium">
@@ -160,7 +160,7 @@ export default function AboutPage() {
                 </svg>
                 <div className="relative z-10">
                   <p className="text-gray-300 mb-4">
-                    "I've been bringing my vehicles to Premium Auto for service for years. Their technicians are top-notch, 
+                    "I've been bringing my vehicles to Ahancha Motors for service for years. Their technicians are top-notch, 
                     and they always explain everything clearly. I wouldn't go anywhere else."
                   </p>
                   <div className="font-medium">
@@ -177,7 +177,7 @@ export default function AboutPage() {
                 </svg>
                 <div className="relative z-10">
                   <p className="text-gray-300 mb-4">
-                    "The financing team at Premium Auto worked miracles for me. They found a loan option that fit my budget 
+                    "The financing team at Ahancha Motors worked miracles for me. They found a loan option that fit my budget 
                     perfectly. The whole process was smooth and transparent."
                   </p>
                   <div className="font-medium">
@@ -192,7 +192,7 @@ export default function AboutPage() {
         <NewsletterSection />
         {/* CTA Section */}
         <div className="max-w-5xl mx-auto text-center mt-16 mb-8">
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">Ready to Experience the Premium Auto Difference?</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">Ready to Experience the Ahancha Motors Difference?</h2>
           <p className="text-lg text-gray-600 mb-8 max-w-2xl mx-auto">
             Visit our dealership today to explore our extensive inventory and meet our friendly team.
           </p>

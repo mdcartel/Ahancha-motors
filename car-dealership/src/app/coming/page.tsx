@@ -94,7 +94,7 @@ const ComingSoon = () => {
             </h1>
             
             <p className="text-white text-lg mb-8 max-w-lg leading-relaxed">
-              We're putting the finishing touches on our premium automotive experience. 
+              We're putting the finishing touches on our Ahancha Motorsmotive experience. 
               Be the first to know when we unveil our exclusive collection of luxury vehicles.
             </p>
             

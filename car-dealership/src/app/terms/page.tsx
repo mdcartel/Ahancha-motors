@@ -3,8 +3,8 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: 'Terms of Service | Premium Auto Dealership',
-  description: 'Terms and conditions for using the Premium Auto Dealership website and services.',
+  title: 'Terms of Service | Ahancha Motors Dealership',
+  description: 'Terms and conditions for using the Ahancha Motors Dealership website and services.',
 };
 
 export default function TermsOfServicePage() {
@@ -15,7 +15,7 @@ export default function TermsOfServicePage() {
                       <div className="absolute inset-0 z-0 opacity-30">
                         <Image 
                           src="/images/backgrounds/services.png" 
-                          alt="Premium Auto Dealership" 
+                          alt="Ahancha Motors Dealership" 
                           fill 
                           className="object-cover xl:object-left"
                           priority
@@ -40,7 +40,7 @@ export default function TermsOfServicePage() {
           <div className="bg-white rounded-lg shadow-md p-6 mb-8">
             <div className="prose max-w-none">
               <p>
-                Welcome to Premium Auto Dealership. These Terms of Service ("Terms") govern your use of our website, 
+                Welcome to Ahancha Motors Dealership. These Terms of Service ("Terms") govern your use of our website, 
                 located at <a href="https://www.premiumauto.com" className="text-red-600 hover:underline">www.premiumauto.com</a> (the "Site") 
                 and the products and services we offer (collectively, the "Services"). By accessing or using our Site or Services, 
                 you agree to be bound by these Terms and our Privacy Policy.
@@ -73,7 +73,7 @@ export default function TermsOfServicePage() {
               <h2 className="text-xl font-bold text-gray-900 mt-6 mb-4">3. Intellectual Property</h2>
               <p>
                 All content, features, and functionality of the Site, including but not limited to text, graphics, logos, 
-                icons, images, audio clips, digital downloads, and software, are the exclusive property of Premium Auto Dealership 
+                icons, images, audio clips, digital downloads, and software, are the exclusive property of Ahancha Motors Dealership 
                 or its licensors and are protected by United States and international copyright, trademark, patent, and other 
                 intellectual property laws. You may not reproduce, distribute, modify, create derivative works of, publicly 
                 display, publicly perform, republish, download, store, or transmit any content on our Site without our prior 
@@ -95,7 +95,7 @@ export default function TermsOfServicePage() {
 
               <h2 className="text-xl font-bold text-gray-900 mt-6 mb-4">5. Third-Party Links</h2>
               <p>
-                Our Site may contain links to third-party websites that are not owned or controlled by Premium Auto Dealership. 
+                Our Site may contain links to third-party websites that are not owned or controlled by Ahancha Motors Dealership. 
                 We have no control over, and assume no responsibility for, the content, privacy policies, or practices of any 
                 third-party websites. We do not warrant the offerings of any of these entities/individuals or their websites. 
                 You acknowledge and agree that we shall not be responsible or liable, directly or indirectly, for any damage 
@@ -136,7 +136,7 @@ export default function TermsOfServicePage() {
 
               <h2 className="text-xl font-bold text-gray-900 mt-6 mb-4">9. Limitation of Liability</h2>
               <p>
-                IN NO EVENT SHALL PREMIUM AUTO DEALERSHIP, ITS AFFILIATES, OR THEIR RESPECTIVE OFFICERS, DIRECTORS, EMPLOYEES, 
+                IN NO EVENT SHALL Ahancha Motors DEALERSHIP, ITS AFFILIATES, OR THEIR RESPECTIVE OFFICERS, DIRECTORS, EMPLOYEES, 
                 OR AGENTS, BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL, CONSEQUENTIAL, OR PUNITIVE DAMAGES, INCLUDING WITHOUT 
                 LIMITATION, LOSS OF PROFITS, DATA, USE, GOODWILL, OR OTHER INTANGIBLE LOSSES, RESULTING FROM (I) YOUR ACCESS TO 
                 OR USE OF OR INABILITY TO ACCESS OR USE THE SITE; (II) ANY CONDUCT OR CONTENT OF ANY THIRD PARTY ON THE SITE; 
@@ -147,7 +147,7 @@ export default function TermsOfServicePage() {
 
               <h2 className="text-xl font-bold text-gray-900 mt-6 mb-4">10. Indemnification</h2>
               <p>
-                You agree to defend, indemnify, and hold harmless Premium Auto Dealership, its affiliates, and their respective 
+                You agree to defend, indemnify, and hold harmless Ahancha Motors Dealership, its affiliates, and their respective 
                 officers, directors, employees, and agents, from and against any claims, liabilities, damages, judgments, awards, 
                 losses, costs, expenses, or fees (including reasonable attorneys' fees) arising out of or relating to your violation 
                 of these Terms or your use of the Site.
@@ -173,7 +173,7 @@ export default function TermsOfServicePage() {
                 If you have any questions about these Terms, please contact us at:
               </p>
               <div className="not-prose">
-                <p className="text-gray-800 font-medium">Premium Auto Dealership</p>
+                <p className="text-gray-800 font-medium">Ahancha Motors Dealership</p>
                 <p className="text-gray-800">123 Auto Drive</p>
                 <p className="text-gray-800">Car City, CC 12345</p>
                 <p className="text-gray-800">Email: <a href="mailto:chachadaniel44@gmail.com" className="text-red-600 hover:underline">chachadaniel44@gmail.com</a></p>

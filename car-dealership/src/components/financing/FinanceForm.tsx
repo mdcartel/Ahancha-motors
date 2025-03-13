@@ -443,7 +443,7 @@ const FinanceForm = () => {
                     className="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded mt-1"
                   />
                   <label htmlFor="agreedToTerms" className="ml-2 text-sm text-gray-700">
-                    I authorize Premium Auto Dealership to obtain my credit report and verify the information provided. 
+                    I authorize Ahancha Motors Dealership to obtain my credit report and verify the information provided. 
                     I understand this does not guarantee financing approval. 
                     See our <a href="/privacy" className="text-red-600 hover:underline">Privacy Policy</a> for more information.
                   </label>

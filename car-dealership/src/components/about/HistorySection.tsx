@@ -8,7 +8,7 @@ const HistorySection = () => {
     {
       year: 2002,
       title: "Foundation",
-      description: "Premium Auto Dealership was founded by John Anderson with a small inventory of just 15 vehicles."
+      description: "Ahancha Motors Dealership was founded by John Anderson with a small inventory of just 15 vehicles."
     },
     {
       year: 2007,
@@ -62,7 +62,7 @@ const HistorySection = () => {
             </div>
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Our History</h2>
             <p className="text-gray-700 mb-4">
-              Premium Auto Dealership began as a small family business with a big vision. Founded in 2002 by John Anderson, 
+              Ahancha Motors Dealership began as a small family business with a big vision. Founded in 2002 by John Anderson, 
               we started with just 15 vehicles and a commitment to honest, personalized service.
             </p>
             <p className="text-gray-700 mb-4">

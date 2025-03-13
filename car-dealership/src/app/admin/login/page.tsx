@@ -57,7 +57,7 @@ function LoginForm() {
             <div className="relative w-20 h-20 mx-auto">
               <Image
                 src="/images/logo.png"
-                alt="Premium Auto Dealership"
+                alt="Ahancha Motors Dealership"
                 fill
                 sizes="80px"
                 className="object-contain"

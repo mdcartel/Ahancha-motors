@@ -6,7 +6,7 @@ import Newsletter from '@/components/home/Newsletter';
 
 
 export const metadata: Metadata = {
-  title: 'Automotive Services | Premium Auto Dealership',
+  title: 'Automotive Services | Ahancha Motors Dealership',
   description: 'Professional automotive services including maintenance, repairs, detailing, and more. Factory-trained technicians and genuine parts for all makes and models.',
 };
 
@@ -18,7 +18,7 @@ export default function ServicesPage() {
                 <div className="absolute inset-0 z-0 opacity-30">
                   <Image 
                     src="/images/backgrounds/services.png" 
-                    alt="Premium Auto Dealership" 
+                    alt="Ahancha Motors Dealership" 
                     fill 
                     className="object-cover xl:object-left"
                     priority
@@ -43,7 +43,7 @@ export default function ServicesPage() {
           <div className="bg-white rounded-lg shadow-md p-6 mb-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Service Center Excellence</h2>
             <p className="text-gray-700 mb-4">
-              At Premium Auto Dealership, we're committed to keeping your vehicle running at its best throughout its lifetime. 
+              At Ahancha Motors Dealership, we're committed to keeping your vehicle running at its best throughout its lifetime. 
               Our state-of-the-art service center is staffed by factory-trained technicians who understand the intricacies of 
               all makes and models. We use the latest diagnostic equipment and genuine parts to ensure quality repairs and maintenance.
             </p>
@@ -59,7 +59,7 @@ export default function ServicesPage() {
 
           {/* Service Advantages */}
           <div className="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 className="text-2xl font-bold text-gray-900 mb-6">The Premium Auto Service Advantage</h2>
+            <h2 className="text-2xl font-bold text-gray-900 mb-6">The Ahancha Motors Service Advantage</h2>
             
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               <div className="text-center">

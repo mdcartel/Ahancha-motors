@@ -9,7 +9,7 @@ const TeamSection = () => {
     {
       name: "Joyce Wegesa",
       position: "Founder & CEO",
-      bio: "Joyce founded Premium Auto in 2002 with a vision to create a dealership that prioritizes customer relationships over sales quotas. With over 30 years of experience in the automotive industry, his leadership has established Premium Auto as a trusted name in the community.",
+      bio: "Joyce founded Ahancha Motors in 2002 with a vision to create a dealership that prioritizes customer relationships over sales quotas. With over 30 years of experience in the automotive industry, his leadership has established Ahancha Motors as a trusted name in the community.",
       image: "/images/team/joy.jpg",
       email: "joyce@ahancha.com",
       phone: "+2541 1483-3381",
@@ -44,10 +44,10 @@ const TeamSection = () => {
           <div className="inline-block px-4 py-1 bg-red-600/10 rounded-full text-red-600 font-medium text-sm mb-4">
             Meet Our Team
           </div>
-          <h2 className="text-3xl font-bold text-gray-900 mb-4">The People Behind Premium Auto</h2>
+          <h2 className="text-3xl font-bold text-gray-900 mb-4">The People Behind Ahancha Motors</h2>
           <p className="text-lg text-gray-700">
             Our dedicated team of professionals is committed to providing you with an exceptional 
-            automotive experience. Get to know the people who make Premium Auto special.
+            automotive experience. Get to know the people who make Ahancha Motors special.
           </p>
         </div>
 

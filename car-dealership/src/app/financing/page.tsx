@@ -6,7 +6,7 @@ import FinanceOptions from '@/components/financing/FinanceOptions';
 import FinancingFAQ from '@/components/financing/FinancingFAQ';
 
 export const metadata: Metadata = {
-  title: 'Auto Financing | Premium Auto Dealership',
+  title: 'Auto Financing | Ahancha Motors Dealership',
   description: 'Explore flexible financing options for your next vehicle. Apply online, calculate payments, and learn about our financing process.',
 };
 
@@ -17,7 +17,7 @@ export default function FinancingPage() {
                 <div className="absolute inset-0 z-0 opacity-30">
                   <Image 
                     src="/images/cars/cx51.png" 
-                    alt="Premium Auto Dealership" 
+                    alt="Ahancha Motors Dealership" 
                     fill 
                     className="object-cover xl:object-left"
                     priority
@@ -42,7 +42,7 @@ export default function FinancingPage() {
           <div className="bg-white rounded-lg shadow-md p-6 mb-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">Finance Your Next Vehicle with Confidence</h2>
             <p className="text-gray-700 mb-4">
-              At Premium Auto Dealership, we understand that purchasing a vehicle is a significant investment. 
+              At Ahancha Motors Dealership, we understand that purchasing a vehicle is a significant investment. 
               Our dedicated finance team works with you to find the perfect financing solution that fits your 
               budget and lifestyle. Whether you're looking for a low-interest loan, flexible lease terms, or 
               special financing programs, we've got you covered.

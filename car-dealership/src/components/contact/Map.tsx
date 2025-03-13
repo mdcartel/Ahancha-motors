@@ -17,13 +17,13 @@ const Map: React.FC = () => {
         allowFullScreen 
         loading="lazy" 
         referrerPolicy="no-referrer-when-downgrade"
-        title="Map of Premium Auto Dealership"
+        title="Map of Ahancha Motors Dealership"
         className="absolute inset-0"
       ></iframe>
       
       {/* Overlay with dealership information */}
       <div className="absolute top-4 left-4 bg-white p-4 shadow-md rounded-md max-w-xs z-10">
-        <h3 className="text-lg font-bold text-gray-900 mb-2">Premium Auto Dealership</h3>
+        <h3 className="text-lg font-bold text-gray-900 mb-2">Ahancha Motors Dealership</h3>
         <p className="text-gray-600 mb-2">123 Auto Drive<br />Car City, CC 12345</p>
         <a 
           href="https://maps.google.com/?q=123+Auto+Drive+Car+City+CC+12345" 

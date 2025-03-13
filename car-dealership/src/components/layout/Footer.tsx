@@ -152,7 +152,7 @@ const Footer: React.FC = () => {
               </Link>
             </div>
             <p className="text-gray-500 text-sm text-center">
-              &copy; {currentYear} Premium Auto Dealership. All rights reserved.
+              &copy; {currentYear} Ahancha Motors Dealership. All rights reserved.
             </p>
           </div>
         </div>

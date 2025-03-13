@@ -73,7 +73,7 @@ export async function generateMetadata(props: { params: Params }): Promise<Metad
   
   if (!vehicle) {
     return {
-      title: 'Vehicle Not Found | Premium Auto Dealership',
+      title: 'Vehicle Not Found | Ahancha Motors Dealership',
       description: 'The requested vehicle could not be found in our inventory.',
       metadataBase: new URL(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'),
     };
@@ -81,10 +81,10 @@ export async function generateMetadata(props: { params: Params }): Promise<Metad
   
   return {
     metadataBase: new URL(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'),
-    title: `${vehicle.title} | Premium Auto Dealership`,
+    title: `${vehicle.title} | Ahancha Motors Dealership`,
     description: `${vehicle.year} ${vehicle.make} ${vehicle.model} ${vehicle.trim || ''} with ${vehicle.mileage.toLocaleString()} miles. ${vehicle.description ? vehicle.description.substring(0, 150) + '...' : ''}`,
     openGraph: {
-      title: `${vehicle.title} | Premium Auto Dealership`,
+      title: `${vehicle.title} | Ahancha Motors Dealership`,
       description: `${vehicle.year} ${vehicle.make} ${vehicle.model} ${vehicle.trim || ''} with ${vehicle.mileage.toLocaleString()} miles.`,
       images: vehicle.images && vehicle.images.length > 0 ? [vehicle.images[0]] : [],
       type: 'website',

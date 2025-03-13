@@ -3,7 +3,7 @@
  */
 
 // Company Information
-export const COMPANY_NAME = 'Premium Auto Dealership';
+export const COMPANY_NAME = 'Ahancha Motors Dealership';
 export const COMPANY_ADDRESS = '123 Auto Drive, Car City, CC 12345';
 export const COMPANY_PHONE = '+2547 9628-0700';
 export const COMPANY_EMAIL = 'chachadaniel44@gmail.com';
@@ -178,7 +178,7 @@ export const ITEMS_PER_PAGE = 12;
 
 // SEO Constants
 export const SEO_DEFAULTS = {
-  title: 'Premium Auto Dealership | Find Your Dream Car',
+  title: 'Ahancha Motors Dealership | Find Your Dream Car',
   description:
     'Discover your perfect vehicle at our dealership. Browse our extensive inventory of new, used, and certified pre-owned cars, trucks, and SUVs.',
   keywords:

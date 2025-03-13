@@ -116,7 +116,7 @@ export default function AdminDashboard() {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
           <div>
             <h1 className="text-2xl md:text-3xl font-bold text-gray-900">Dashboard</h1>
-            <p className="text-gray-500 mt-1">Welcome to Premium Auto Dealership Admin</p>
+            <p className="text-gray-500 mt-1">Welcome to Ahancha Motors Dealership Admin</p>
           </div>
           
           <div className="mt-4 md:mt-0 space-x-2">

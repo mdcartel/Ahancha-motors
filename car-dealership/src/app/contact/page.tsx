@@ -6,8 +6,8 @@ import ContactForm from '@/components/contact/ContactForm';
 import Map from '@/components/contact/Map';
 
 export const metadata: Metadata = {
-  title: 'Contact Us | Premium Auto Dealership',
-  description: 'Contact Premium Auto Dealership. Reach out to our sales, service, or financing team with questions or to schedule a test drive.',
+  title: 'Contact Us | Ahancha Motors Dealership',
+  description: 'Contact Ahancha Motors Dealership. Reach out to our sales, service, or financing team with questions or to schedule a test drive.',
 };
 
 export default function ContactPage() {
@@ -24,7 +24,7 @@ export default function ContactPage() {
                       <div className="absolute inset-0 z-0 opacity-30">
                         <Image 
                           src="/images/backgrounds/bmw.png" 
-                          alt="Premium Auto Dealership" 
+                          alt="Ahancha Motors Dealership" 
                           fill 
                           className="object-cover xl:object-left"
                           priority

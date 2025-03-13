@@ -73,7 +73,7 @@ export default function AdminLayout({
             <div className="h-8 w-8 bg-red-600 rounded-md flex items-center justify-center">
               <span className="text-white font-bold">PA</span>
             </div>
-            <span className="text-gray-800 text-lg font-bold">Premium Auto</span>
+            <span className="text-gray-800 text-lg font-bold">Ahancha Motors</span>
           </Link>
           <button 
             className="text-gray-500 hover:text-gray-700 lg:hidden"
@@ -340,7 +340,7 @@ export default function AdminLayout({
         <footer className="bg-white border-t border-gray-200 py-4 px-6">
           <div className="flex flex-col sm:flex-row justify-between items-center">
             <p className="text-sm text-gray-500">
-              © {new Date().getFullYear()} Premium Auto Dealership. All rights reserved.
+              © {new Date().getFullYear()} Ahancha Motors Dealership. All rights reserved.
             </p>
             <div className="mt-2 sm:mt-0 text-sm text-gray-500">
               Version 1.0.0

@@ -3,8 +3,8 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 
 export const metadata: Metadata = {
-  title: 'Privacy Policy | Premium Auto Dealership',
-  description: 'Learn how Premium Auto Dealership collects, uses, and protects your personal information.',
+  title: 'Privacy Policy | Ahancha Motors Dealership',
+  description: 'Learn how Ahancha Motors Dealership collects, uses, and protects your personal information.',
 };
 
 export default function PrivacyPolicyPage() {
@@ -15,7 +15,7 @@ export default function PrivacyPolicyPage() {
                             <div className="absolute inset-0 z-0 opacity-30">
                               <Image 
                                 src="/images/backgrounds/services.png" 
-                                alt="Premium Auto Dealership" 
+                                alt="Ahancha Motors Dealership" 
                                 fill 
                                 className="object-cover xl:object-left"
                                 priority
@@ -39,7 +39,7 @@ export default function PrivacyPolicyPage() {
           <div className="bg-white rounded-lg shadow-md p-6 mb-8">
             <div className="prose max-w-none">
               <p>
-                At Premium Auto Dealership, we respect your privacy and are committed to protecting your personal information. 
+                At Ahancha Motors Dealership, we respect your privacy and are committed to protecting your personal information. 
                 This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our 
                 website or use our services. Please read this Privacy Policy carefully. By accessing or using our website, you 
                 acknowledge that you have read, understood, and agree to be bound by all the terms of this Privacy Policy.
@@ -217,7 +217,7 @@ export default function PrivacyPolicyPage() {
                 If you have any questions, concerns, or requests regarding this Privacy Policy or our privacy practices, please contact us at:
               </p>
               <div className="not-prose">
-                <p className="text-gray-800 font-medium">Premium Auto Dealership</p>
+                <p className="text-gray-800 font-medium">Ahancha Motors Dealership</p>
                 <p className="text-gray-800">123 Auto Drive</p>
                 <p className="text-gray-800">Car City, CC 12345</p>
                 <p className="text-gray-800">Email: <a href="mailto:privacy@premiumauto.com" className="text-red-600 hover:underline">privacy@premiumauto.com</a></p>

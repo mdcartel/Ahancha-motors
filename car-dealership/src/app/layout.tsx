@@ -13,22 +13,22 @@ const inter = Inter({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Premium Auto Dealership | Find Your Dream Car',
-    template: '%s | Premium Auto Dealership',
+    default: 'Ahancha Motors Dealership | Find Your Dream Car',
+    template: '%s | Ahancha Motors Dealership',
   },
   description: 'Discover your perfect vehicle at our dealership. Browse our extensive inventory of new, used, and certified pre-owned cars, trucks, and SUVs.',
   keywords: 'car dealership, auto sales, new cars, used cars, car financing, car service',
   openGraph: {
-    title: 'Premium Auto Dealership | Find Your Dream Car',
+    title: 'Ahancha Motors Dealership | Find Your Dream Car',
     description: 'Discover your perfect vehicle at our dealership. Browse our extensive inventory of new, used, and certified pre-owned cars, trucks, and SUVs.',
     url: 'https://premiumauto.com',
-    siteName: 'Premium Auto Dealership',
+    siteName: 'Ahancha Motors Dealership',
     images: [
       {
         url: '/images/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'Premium Auto Dealership',
+        alt: 'Ahancha Motors Dealership',
       },
     ],
     locale: 'en_US',
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Premium Auto Dealership | Find Your Dream Car',
+    title: 'Ahancha Motors Dealership | Find Your Dream Car',
     description: 'Discover your perfect vehicle at our dealership. Browse our extensive inventory of new, used, and certified pre-owned cars, trucks, and SUVs.',
     creator: '@premiumauto',
     images: ['/images/og-image.jpg'],

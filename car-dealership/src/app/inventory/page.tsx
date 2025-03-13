@@ -52,7 +52,7 @@ export default async function InventoryPage() {
         <div className="absolute inset-0 z-0 opacity-30">
           <Image 
             src="/images/backgrounds/bmw.png" 
-            alt="Premium Auto Dealership" 
+            alt="Ahancha Motors Dealership" 
             fill 
             className="object-cover xl:object-left"
             priority
