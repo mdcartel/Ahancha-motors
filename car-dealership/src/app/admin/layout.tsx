@@ -170,7 +170,7 @@ export default function AdminLayout({
             {customersExpanded && (
               <div className="mt-1 ml-8 space-y-1">
                 <Link href="#" className="block px-3 py-2 text-sm text-gray-600 hover:text-red-600 rounded-lg">
-                  Customer List
+                  Customer's List
                 </Link>
                 <Link href="#" className="block px-3 py-2 text-sm text-gray-600 hover:text-red-600 rounded-lg">
                   Leads
