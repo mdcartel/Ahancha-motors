@@ -1,4 +1,4 @@
 User-agent: *
 Disallow: /admin/
 Disallow: /api/
-Sitemap: http://motors.ahancha.com/sitemap.xml
+Sitemap: https://motors.ahancha.com/sitemap.xml

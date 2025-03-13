@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Ahancha Motors Dealership | Find Your Dream Car',
     description: 'Discover your perfect vehicle at our dealership. Browse our extensive inventory of new, used, and certified pre-owned cars, trucks, and SUVs.',
-    url: 'http://motors.ahancha.com/',
+    url: 'https://motors.ahancha.com/',
     siteName: 'Ahancha Motors Dealership',
     images: [
       {
