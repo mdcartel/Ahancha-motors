@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { Menu, X, ChevronDown, Phone, Clock, MapPin, Search } from 'lucide-react';
@@ -30,8 +30,19 @@ const Header: React.FC = () => {
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [activeSubmenu, setActiveSubmenu] = useState<string | null>(null);
+  const [openDesktopSubmenu, setOpenDesktopSubmenu] = useState<string | null>(null);
   const pathname = usePathname();
   const router = useRouter();
+  const dropdownRefs = useRef<{ [key: string]: React.RefObject<HTMLDivElement | null> }>({});
+
+  // Initialize refs for each dropdown
+  useEffect(() => {
+    navLinks.forEach(link => {
+      if (link.submenu) {
+        dropdownRefs.current[link.name] = React.createRef();
+      }
+    });
+  }, []);
 
   // Handle scroll effect for sticky header
   useEffect(() => {
@@ -48,12 +59,35 @@ const Header: React.FC = () => {
     setIsMobileMenuOpen(false);
   }, [pathname]);
 
+  // Close desktop dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (openDesktopSubmenu) {
+        const dropdownRef = dropdownRefs.current[openDesktopSubmenu];
+        if (dropdownRef && dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+          setOpenDesktopSubmenu(null);
+        }
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [openDesktopSubmenu]);
+
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
   };
 
   const toggleSubmenu = (name: string) => {
     setActiveSubmenu(activeSubmenu === name ? null : name);
+  };
+
+  const toggleDesktopSubmenu = (name: string, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    setOpenDesktopSubmenu(openDesktopSubmenu === name ? null : name);
   };
 
   const isActive = (path: string) => {
@@ -82,14 +116,6 @@ const Header: React.FC = () => {
     
     // Default check for regular paths
     return pathname?.startsWith(path);
-  };
-
-  // Handle navigation for inventory filters
-  const handleInventoryNavigation = (e: React.MouseEvent<HTMLAnchorElement>, path: string) => {
-    e.preventDefault();
-    
-    // Navigate using the router to make sure it works with your filter system
-    router.push(path);
   };
 
   return (
@@ -122,12 +148,10 @@ const Header: React.FC = () => {
       </div>
 
       {/* Main navigation */}
-      <div className={`
-        w-full 
-        ${isScrolled ? 'bg-white shadow-md' : 'bg-white/80 backdrop-blur-md'}
-        transition-all duration-300
-        ${isScrolled ? 'py-3' : 'py-4'}
-      `}>
+      <div className={isScrolled 
+        ? "w-full bg-white shadow-md py-3 transition-all duration-300" 
+        : "w-full bg-white/80 backdrop-blur-md py-4 transition-all duration-300"
+      }>
         <div className="container mx-auto px-4">
           <div className="flex items-center justify-between">
             {/* Logo */}
@@ -143,54 +167,60 @@ const Header: React.FC = () => {
             <nav className="hidden lg:block">
               <ul className="flex items-center space-x-1">
                 {navLinks.map((link) => (
-                  <li key={link.name} className="relative group">
+                  <li key={link.name} className="relative">
                     {link.submenu ? (
-                      <>
+                      <div ref={link.submenu ? dropdownRefs.current[link.name] : undefined}>
                         <button 
-                          className={`
-                            flex items-center px-3 py-2 rounded-md text-sm font-medium
-                            ${isActive(link.path) ? 'text-red-600' : 'text-gray-700 hover:text-red-600 hover:bg-gray-50'} 
-                            transition-colors duration-200
-                          `}
-                          onClick={() => toggleSubmenu(link.name)}
-                          aria-expanded={activeSubmenu === link.name}
+                          className={isActive(link.path) 
+                            ? "flex items-center px-3 py-2 rounded-md text-sm font-medium text-red-600 transition-colors duration-200" 
+                            : "flex items-center px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-gray-50 transition-colors duration-200"
+                          }
+                          onClick={(e) => toggleDesktopSubmenu(link.name, e)}
+                          aria-expanded={openDesktopSubmenu === link.name}
                         >
                           {link.name}
-                          <ChevronDown size={15} className="ml-1 group-hover:rotate-180 transition-transform duration-200" />
+                          <ChevronDown 
+                            size={15} 
+                            className={openDesktopSubmenu === link.name 
+                              ? "ml-1 transition-transform duration-200 rotate-180" 
+                              : "ml-1 transition-transform duration-200"
+                            } 
+                          />
                         </button>
-                        <div className="absolute left-0 mt-1 w-56 bg-white rounded-md shadow-lg overflow-hidden transform scale-0 group-hover:scale-100 opacity-0 group-hover:opacity-100 origin-top transition-all duration-200 z-50">
+                        <div 
+                          className={openDesktopSubmenu === link.name 
+                            ? "absolute left-0 mt-1 w-56 bg-white rounded-md shadow-lg overflow-hidden transition-all duration-200 z-50 opacity-100 visible" 
+                            : "absolute left-0 mt-1 w-56 bg-white rounded-md shadow-lg overflow-hidden transition-all duration-200 z-50 opacity-0 invisible"
+                          }
+                        >
                           <div className="py-1 border-t-2 border-red-600">
                             {link.submenu.map((subItem) => (
                               <a 
                                 key={subItem.name} 
                                 href={subItem.path}
-                                onClick={(e) => handleInventoryNavigation(e, subItem.path)}
-                                className={`
-                                  block px-4 py-2 text-sm
-                                  ${isActive(subItem.path) 
-                                    ? 'bg-gray-50 text-red-600 font-medium' 
-                                    : 'text-gray-700 hover:bg-gray-50 hover:text-red-600'
-                                  } 
-                                  transition-colors duration-150
-                                `}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  setOpenDesktopSubmenu(null);
+                                  window.location.href = subItem.path;
+                                }}
+                                className={isActive(subItem.path) 
+                                  ? "block px-4 py-2 text-sm bg-gray-50 text-red-600 font-medium transition-colors duration-150" 
+                                  : "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 hover:text-red-600 transition-colors duration-150"
+                                }
                               >
                                 {subItem.name}
                               </a>
                             ))}
                           </div>
                         </div>
-                      </>
+                      </div>
                     ) : (
                       <Link 
                         href={link.path}
-                        className={`
-                          block px-3 py-2 rounded-md text-sm font-medium
-                          ${isActive(link.path) 
-                            ? 'text-red-600' 
-                            : 'text-gray-700 hover:text-red-600 hover:bg-gray-50'
-                          } 
-                          transition-colors duration-150
-                        `}
+                        className={isActive(link.path) 
+                          ? "block px-3 py-2 rounded-md text-sm font-medium text-red-600 transition-colors duration-150" 
+                          : "block px-3 py-2 rounded-md text-sm font-medium text-gray-700 hover:text-red-600 hover:bg-gray-50 transition-colors duration-150"
+                        }
                       >
                         {link.name}
                       </Link>
@@ -231,16 +261,19 @@ const Header: React.FC = () => {
       </div>
 
       {/* Mobile Menu Overlay */}
-      <div className={`
-        lg:hidden fixed inset-0 z-40 bg-gray-900/50 backdrop-blur-sm transform transition-opacity duration-300 ease-in-out
-        ${isMobileMenuOpen ? 'opacity-100' : 'opacity-0 pointer-events-none'}
-      `} onClick={toggleMobileMenu}>
+      <div 
+        className={isMobileMenuOpen 
+          ? "lg:hidden fixed inset-0 z-40 bg-gray-900/50 backdrop-blur-sm transform transition-opacity duration-300 ease-in-out opacity-100" 
+          : "lg:hidden fixed inset-0 z-40 bg-gray-900/50 backdrop-blur-sm transform transition-opacity duration-300 ease-in-out opacity-0 pointer-events-none"
+        } 
+        onClick={toggleMobileMenu}
+      >
         {/* Mobile Menu Panel */}
         <div 
-          className={`
-            absolute top-0 right-0 h-full w-80 max-w-full bg-white shadow-xl transform transition-transform duration-300 ease-in-out
-            ${isMobileMenuOpen ? 'translate-x-0' : 'translate-x-full'}
-          `}
+          className={isMobileMenuOpen 
+            ? "absolute top-0 right-0 h-full w-80 max-w-full bg-white shadow-xl transform transition-transform duration-300 ease-in-out translate-x-0" 
+            : "absolute top-0 right-0 h-full w-80 max-w-full bg-white shadow-xl transform transition-transform duration-300 ease-in-out translate-x-full"
+          }
           onClick={(e) => e.stopPropagation()}
         >
           <div className="flex flex-col h-full overflow-y-auto">
@@ -258,32 +291,36 @@ const Header: React.FC = () => {
                     {link.submenu ? (
                       <div>
                         <button 
-                          className={`
-                            flex items-center justify-between w-full p-3 rounded-md text-left
-                            ${isActive(link.path) ? 'bg-gray-100 text-red-600' : 'text-gray-700'}
-                          `}
+                          className={isActive(link.path) 
+                            ? "flex items-center justify-between w-full p-3 rounded-md text-left bg-gray-100 text-red-600" 
+                            : "flex items-center justify-between w-full p-3 rounded-md text-left text-gray-700"
+                          }
                           onClick={() => toggleSubmenu(link.name)}
                         >
                           <span className="font-medium">{link.name}</span>
                           <ChevronDown 
                             size={18} 
-                            className={`transform transition-transform duration-200 ${activeSubmenu === link.name ? 'rotate-180' : ''}`} 
+                            className={activeSubmenu === link.name 
+                              ? "transform transition-transform duration-200 rotate-180" 
+                              : "transform transition-transform duration-200"
+                            } 
                           />
                         </button>
                         
-                        <div className={`mt-1 pl-4 space-y-1 ${activeSubmenu === link.name ? 'block' : 'hidden'}`}>
+                        <div className={activeSubmenu === link.name ? "mt-1 pl-4 space-y-1 block" : "mt-1 pl-4 space-y-1 hidden"}>
                           {link.submenu.map((subItem) => (
                             <a 
                               key={subItem.name} 
                               href={subItem.path}
                               onClick={(e) => {
-                                handleInventoryNavigation(e, subItem.path);
+                                e.preventDefault();
                                 toggleMobileMenu();
+                                window.location.href = subItem.path;
                               }}
-                              className={`
-                                block p-3 rounded-md text-sm
-                                ${isActive(subItem.path) ? 'bg-gray-100 text-red-600' : 'text-gray-600 hover:bg-gray-50'}
-                              `}
+                              className={isActive(subItem.path) 
+                                ? "block p-3 rounded-md text-sm bg-gray-100 text-red-600" 
+                                : "block p-3 rounded-md text-sm text-gray-600 hover:bg-gray-50"
+                              }
                             >
                               {subItem.name}
                             </a>
@@ -293,10 +330,10 @@ const Header: React.FC = () => {
                     ) : (
                       <Link 
                         href={link.path}
-                        className={`
-                          block p-3 rounded-md
-                          ${isActive(link.path) ? 'bg-gray-100 text-red-600' : 'text-gray-700 hover:bg-gray-50'}
-                        `}
+                        className={isActive(link.path) 
+                          ? "block p-3 rounded-md bg-gray-100 text-red-600" 
+                          : "block p-3 rounded-md text-gray-700 hover:bg-gray-50"
+                        }
                       >
                         <span className="font-medium">{link.name}</span>
                       </Link>

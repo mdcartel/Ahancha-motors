@@ -19,7 +19,7 @@ const TeamSection = () => {
       name: "Daniel Madaraka",
       position: "Sales Director",
       bio: "Sarah leads our sales team with a customer-first approach. Her background in customer service and 15 years in automotive sales ensures that every client receives personalized attention and finds the perfect vehicle to match their needs.",
-      image: "/images/team/sales-director.jpg",
+      image: "/images/team/dante.jpg",
       email: "cardendante@gmail.com",
       phone: "+2547 1117-5616",
       linkedin: "#"
@@ -28,7 +28,7 @@ const TeamSection = () => {
       name: "Chacha Chacha",
       position: "Service Manager",
       bio: "Michael manages our service department with precision and care. A certified master technician with experience across multiple brands, he ensures that every vehicle receives the highest quality maintenance and repairs.",
-      image: "/images/team/service-manager.jpg",
+      image: "/images/team/alexa.jpg",
       email: "calex2607@gmail.com",
       phone: "+2547 9628-0700",
       linkedin: "#"
