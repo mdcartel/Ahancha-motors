@@ -3,6 +3,7 @@ import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import Header from '@/components/layout/Header';
 import Footer from '@/components/layout/Footer';
+import ClarityScript from '@/components/ClarityScript';
 
 // Initialize font
 const inter = Inter({ 
@@ -21,7 +22,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: 'Ahancha Motors Dealership | Find Your Dream Car',
     description: 'Discover your perfect vehicle at our dealership. Browse our extensive inventory of new, used, and certified pre-owned cars, trucks, and SUVs.',
-    url: 'https://premiumauto.com',
+    url: 'http://motors.ahancha.com/',
     siteName: 'Ahancha Motors Dealership',
     images: [
       {
@@ -62,6 +63,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={inter.variable}>
       <body className={`flex flex-col min-h-screen ${inter.className}`}>
+      <ClarityScript />
         <Header />
         <main className="flex-grow">{children}</main>
         <Footer />
