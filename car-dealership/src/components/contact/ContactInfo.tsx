@@ -79,10 +79,10 @@ const ContactInfo: React.FC = () => {
           <p className="text-gray-600 mt-1">Send us an email and we'll respond promptly.</p>
           <div className="mt-2">
             <a 
-              href="mailto:info@premiumauto.com" 
+              href="mailto:chachadaniel44@gmail.com" 
               className="text-primary hover:text-primary-dark transition-colors font-medium"
             >
-              info@premiumauto.com
+              chachadaniel44@gmail.com
             </a>
           </div>
         </div>

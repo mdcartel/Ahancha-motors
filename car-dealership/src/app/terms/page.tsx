@@ -176,7 +176,7 @@ export default function TermsOfServicePage() {
                 <p className="text-gray-800 font-medium">Premium Auto Dealership</p>
                 <p className="text-gray-800">123 Auto Drive</p>
                 <p className="text-gray-800">Car City, CC 12345</p>
-                <p className="text-gray-800">Email: <a href="mailto:info@premiumauto.com" className="text-red-600 hover:underline">info@premiumauto.com</a></p>
+                <p className="text-gray-800">Email: <a href="mailto:chachadaniel44@gmail.com" className="text-red-600 hover:underline">chachadaniel44@gmail.com</a></p>
                 <p className="text-gray-800">Phone: +2547 9628-0700</p>
               </div>
             </div>
