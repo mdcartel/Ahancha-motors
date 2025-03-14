@@ -1,7 +1,6 @@
 // app/api/newsletter/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs/promises';
-import path from 'path';
+import { saveNewsletterSubscription, getNewsletterSubscribers, unsubscribeFromNewsletter } from '@/lib/db';
 import nodemailer from 'nodemailer';
 
 interface NewsletterSubscription {
@@ -22,51 +21,6 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASSWORD || 'Z=EsX+l94YGL',
   },
 });
-
-// Save subscription to file
-async function saveSubscription(subscription: Omit<NewsletterSubscription, 'timestamp'>) {
-  try {
-    const dataDir = path.join(process.cwd(), 'data');
-    const filePath = path.join(dataDir, 'newsletter-subscribers.json');
-    
-    // Ensure the directory exists
-    await fs.mkdir(dataDir, { recursive: true });
-    
-    // Get existing subscribers or create empty array
-    let subscribers: NewsletterSubscription[] = [];
-    try {
-      const fileData = await fs.readFile(filePath, 'utf8');
-      subscribers = JSON.parse(fileData);
-    } catch (error) {
-      // File doesn't exist or is invalid, start with empty array
-      subscribers = [];
-    }
-    
-    // Check if email already exists
-    const emailExists = subscribers.some(sub => sub.email.toLowerCase() === subscription.email.toLowerCase());
-    
-    if (emailExists) {
-      return { success: false, reason: 'already_subscribed' };
-    }
-    
-    // Add timestamp
-    const newSubscription: NewsletterSubscription = {
-      ...subscription,
-      timestamp: new Date().toISOString(),
-    };
-    
-    // Add new subscriber
-    subscribers.push(newSubscription);
-    
-    // Save back to file
-    await fs.writeFile(filePath, JSON.stringify(subscribers, null, 2), 'utf8');
-    
-    return { success: true };
-  } catch (error) {
-    console.error('Error saving newsletter subscription:', error);
-    return { success: false, reason: 'server_error' };
-  }
-}
 
 // Updated send confirmation email function
 async function sendConfirmationEmail(email: string, name?: string) {
@@ -132,8 +86,8 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Save subscription
-    const result = await saveSubscription({
+    // Save subscription using the database utility
+    const result = await saveNewsletterSubscription({
       email: data.email,
       name: data.name,
       source: data.source || 'website',
@@ -172,16 +126,9 @@ export async function POST(request: NextRequest) {
 // GET handler to retrieve subscribers (admin only - would be protected in production)
 export async function GET() {
   try {
-    const filePath = path.join(process.cwd(), 'data', 'newsletter-subscribers.json');
-    
-    try {
-      const fileData = await fs.readFile(filePath, 'utf8');
-      const subscribers = JSON.parse(fileData);
-      return NextResponse.json(subscribers);
-    } catch (error) {
-      // File doesn't exist or is invalid
-      return NextResponse.json([]);
-    }
+    // Using database utility to retrieve subscribers
+    const subscribers = await getNewsletterSubscribers();
+    return NextResponse.json(subscribers);
   } catch (error) {
     console.error('Error retrieving newsletter subscribers:', error);
     return NextResponse.json(
@@ -204,37 +151,24 @@ export async function DELETE(request: NextRequest) {
       );
     }
     
-    const filePath = path.join(process.cwd(), 'data', 'newsletter-subscribers.json');
+    // Using database utility to unsubscribe
+    const result = await unsubscribeFromNewsletter(email);
     
-    try {
-      const fileData = await fs.readFile(filePath, 'utf8');
-      let subscribers: NewsletterSubscription[] = JSON.parse(fileData);
-      
-      // Filter out the email to unsubscribe
-      const initialCount = subscribers.length;
-      subscribers = subscribers.filter(sub => sub.email.toLowerCase() !== email.toLowerCase());
-      
-      // If no change in length, the email wasn't subscribed
-      if (subscribers.length === initialCount) {
-        return NextResponse.json({
-          success: false,
-          message: 'Email not found in our subscription list.',
-        }, { status: 404 });
-      }
-      
-      // Save updated list
-      await fs.writeFile(filePath, JSON.stringify(subscribers, null, 2), 'utf8');
-      
+    if (result.success) {
       return NextResponse.json({
         success: true,
         message: 'You have been successfully unsubscribed from our newsletter.',
       });
-    } catch (error) {
-      // File doesn't exist or is invalid
+    } else if (result.reason === 'not_found') {
       return NextResponse.json({
         success: false,
         message: 'Email not found in our subscription list.',
       }, { status: 404 });
+    } else {
+      return NextResponse.json(
+        { error: 'Failed to unsubscribe. Please try again later.' },
+        { status: 500 }
+      );
     }
   } catch (error) {
     console.error('Error processing unsubscribe request:', error);

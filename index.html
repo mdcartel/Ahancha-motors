@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Full-Stack Developer Interview Task</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .logo {
+            max-width: 180px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        h2 {
+            color: #3498db;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        ul, ol {
+            margin-bottom: 20px;
+        }
+        li {
+            margin-bottom: 8px;
+        }
+        .requirement {
+            background-color: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+        .highlight {
+            font-weight: bold;
+            color: #2980b9;
+        }
+        .deadline {
+            background-color: #e74c3c;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 5px;
+            display: inline-block;
+            margin-top: 20px;
+        }
+        .footer {
+            margin-top: 50px;
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            font-size: 14px;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <img src="https://www.chach-a.com/Logo.svg" alt="Chacha Technologies Logo" class="logo">
+        <h1>Full-Stack Developer Interview Task</h1>
+    </div>
+
+    <p>Dear Candidate,</p>
+    
+    <p>Thank you for applying to the Full-Stack Developer position at Chacha Technologies. As part of our interview process, we'd like you to complete the following coding task to demonstrate your skills.</p>
+
+    <h2>📌 Task: Build a Simple Blog Application</h2>
+    
+    <p>We would like you to build a blog application where users can:</p>
+    <ol>
+        <li><span class="highlight">Register and Log in</span> (Authentication)</li>
+        <li><span class="highlight">Create, Edit, Delete, and View Blog Posts</span> (CRUD functionality)</li>
+        <li><span class="highlight">Like and Comment on Posts</span> (Interactive features)</li>
+        <li><span class="highlight">View Posts Feed</span> (Paginated list of posts)</li>
+    </ol>
+
+    <div class="requirement">
+        <h2>🔍 Frontend Requirements:</h2>
+        <ul>
+            <li>Use <span class="highlight">React</span> (or any frontend framework of your choice).</li>
+            <li>Design a responsive UI with components like:
+                <ul>
+                    <li>Login/Register forms.</li>
+                    <li>A dashboard displaying all posts.</li>
+                    <li>A detailed view for individual posts (showing comments and likes).</li>
+                    <li>Form for creating/editing posts.</li>
+                </ul>
+            </li>
+            <li>Good user experience (UX) with <span class="highlight">clean styling and proper error handling</span>.</li>
+        </ul>
+    </div>
+
+    <div class="requirement">
+        <h2>🔍 Backend Requirements:</h2>
+        <ul>
+            <li>Use <span class="highlight">Flask/Django (Python)</span> or <span class="highlight">Node.js/Express (JavaScript)</span>.</li>
+            <li>Build a <span class="highlight">REST API</span> with the following endpoints:
+                <ul>
+                    <li><code>/register</code>: Create a new user.</li>
+                    <li><code>/login</code>: Authenticate user and return a token.</li>
+                    <li><code>/posts</code>: CRUD operations for posts.</li>
+                    <li><code>/comments</code>: Add comments to posts.</li>
+                    <li><code>/likes</code>: Like or unlike a post.</li>
+                </ul>
+            </li>
+            <li><span class="highlight">Database Integration:</span> Use <span class="highlight">SQLite, PostgreSQL, or MongoDB</span>.</li>
+            <li>Implement <span class="highlight">JWT Authentication</span> for secured routes.</li>
+        </ul>
+    </div>
+
+    <div class="requirement">
+        <h2>🔍 Bonus Points (Optional):</h2>
+        <ul>
+            <li>Implementing a <span class="highlight">Search Functionality</span> for blog posts.</li>
+            <li>Adding a <span class="highlight">Profile Page</span> where users can see their own posts and comments.</li>
+            <li>Deploying the application (e.g., on <span class="highlight">Render, Vercel, or DigitalOcean</span>).</li>
+            <li>Writing <span class="highlight">Unit Tests</span> for backend endpoints.</li>
+        </ul>
+    </div>
+
+    <h2>📋 Submission Guidelines:</h2>
+    <ul>
+        <li>Provide a <span class="highlight">GitHub repo link</span> with clear instructions on how to run the application locally.</li>
+        <li>Include a <span class="highlight">README file</span> detailing your thought process, tech stack used, and instructions.</li>
+        <li>Have it hosted on Vercel or Netlify.</li>
+    </ul>
+
+    <p class="deadline">⏰ Duration: 48 hours from receipt of this email</p>
+
+    <p>We understand this is a significant commitment of your time, and we appreciate your effort. This task is designed to evaluate your full-stack development skills, problem-solving abilities, and attention to detail.</p>
+
+    <p>If you have any questions or need clarification about the task, please don't hesitate to reach out.</p>
+
+    <p>Good luck!</p>
+
+    <p>Best regards,<br>
+    Hiring Team<br>
+    Chacha Technologies</p>
+
+    <div class="footer">
+        <p>© 2025 Chacha Technologies. All rights reserved.</p>
+        <p>This email contains confidential information intended only for the named recipient.</p>
+    </div>
+</body>
+</html>

@@ -1,7 +1,6 @@
 // app/api/contact/route.ts
 import { NextRequest, NextResponse } from 'next/server';
-import fs from 'fs/promises';
-import path from 'path';
+import { saveContactSubmission, getContactSubmissions } from '@/lib/db';
 import nodemailer from 'nodemailer';
 
 // Interface for contact form data
@@ -30,44 +29,6 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASSWORD || 'Z=EsX+l94YGL',
   },
 });
-
-// Function to save contact submissions to a JSON file
-async function saveContactSubmission(submission: ContactFormData) {
-  try {
-    const dataDir = path.join(process.cwd(), 'data');
-    const filePath = path.join(dataDir, 'contact-submissions.json');
-    
-    // Ensure the directory exists
-    await fs.mkdir(dataDir, { recursive: true });
-    
-    // Get existing submissions or create empty array
-    let submissions: ContactFormData[] = [];
-    try {
-      const fileData = await fs.readFile(filePath, 'utf8');
-      submissions = JSON.parse(fileData);
-    } catch (error) {
-      // File doesn't exist or is invalid, start with empty array
-      submissions = [];
-    }
-    
-    // Add timestamp
-    const submissionWithTimestamp = {
-      ...submission,
-      timestamp: new Date().toISOString(),
-    };
-    
-    // Add new submission
-    submissions.push(submissionWithTimestamp);
-    
-    // Save back to file
-    await fs.writeFile(filePath, JSON.stringify(submissions, null, 2), 'utf8');
-    
-    return true;
-  } catch (error) {
-    console.error('Error saving contact submission:', error);
-    return false;
-  }
-}
 
 // Updated helper to send email notification
 async function sendEmailNotification(formData: ContactFormData) {
@@ -147,7 +108,7 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Save the submission
+    // Using the new db utility function to save the submission
     const saved = await saveContactSubmission(formData);
     
     // Send email notification
@@ -156,7 +117,7 @@ export async function POST(request: NextRequest) {
     // Add to newsletter if subscribed
     if (formData.subscribedToNewsletter) {
       // If you have a newsletter API endpoint, you can call it here
-      await fetch('/api/newsletter/subscribe', {
+      await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/api/newsletter/subscribe`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: formData.email, name: `${formData.firstName} ${formData.lastName}` }),
@@ -187,16 +148,9 @@ export async function POST(request: NextRequest) {
 // GET handler to retrieve contact submissions (admin only - would be protected in production)
 export async function GET() {
   try {
-    const filePath = path.join(process.cwd(), 'data', 'contact-submissions.json');
-    
-    try {
-      const fileData = await fs.readFile(filePath, 'utf8');
-      const submissions = JSON.parse(fileData);
-      return NextResponse.json(submissions);
-    } catch (error) {
-      // File doesn't exist or is invalid
-      return NextResponse.json([]);
-    }
+    // Using the new db utility function to retrieve submissions
+    const submissions = await getContactSubmissions();
+    return NextResponse.json(submissions);
   } catch (error) {
     console.error('Error retrieving contact submissions:', error);
     return NextResponse.json(
