@@ -1012,6 +1012,173 @@
       }
     ],
     "createdAt": "2024-03-13T12:30:00.000Z"
+  },
+  {
+    "make": "Toyota",
+    "model": "Fortuner",
+    "trim": "GX 2.8L",
+    "year": 2023,
+    "price": 7950000,
+    "mileage": 5000,
+    "fuelType": "Diesel",
+    "transmission": "Automatic",
+    "exteriorColor": "Attitude Black",
+    "interiorColor": "Dark Brown",
+    "vin": "AHTLB8GS8M9123456",
+    "stockNumber": "KE-TF2023-001",
+    "engine": "2.8L 4-Cylinder Turbo Diesel",
+    "drivetrain": "4WD",
+    "bodyType": "SUV",
+    "condition": "New",
+    "description": "This 2023 Toyota Fortuner GX is a premium 7-seater SUV that combines rugged capability with refined comfort. Perfect for both city driving and off-road adventures, the Fortuner features a powerful 2.8L turbo diesel engine, advanced 4WD system, and elevated ground clearance. The spacious interior offers luxurious amenities and versatile seating, while the exterior showcases a bold, modern design. Ideal for Kenyan roads and families looking for a reliable, high-performance vehicle.",
+    "image": "/images/cars/toyota-fortuner.png",
+    "featured": false,
+    "fuelEconomy": {
+      "city": 11,
+      "highway": 15,
+      "combined": 13
+    },
+    "features": [
+      {
+        "category": "Comfort & Convenience",
+        "items": [
+          "7-Seater Configuration",
+          "Leather Seats",
+          "Power Adjustable Driver Seat",
+          "Dual-Zone Automatic Climate Control",
+          "Push Button Start",
+          "Smart Entry System",
+          "Power Tailgate"
+        ]
+      },
+      {
+        "category": "Technology",
+        "items": [
+          "8-inch Touchscreen Display",
+          "Apple CarPlay & Android Auto",
+          "6-Speaker Audio System",
+          "Bluetooth Connectivity",
+          "Reverse Camera",
+          "Parking Sensors",
+          "Wireless Charging"
+        ]
+      },
+      {
+        "category": "Safety",
+        "items": [
+          "7 SRS Airbags",
+          "Vehicle Stability Control",
+          "Anti-lock Braking System (ABS)",
+          "Hill Start Assist Control",
+          "Downhill Assist Control",
+          "Trailer Sway Control",
+          "Emergency Brake Signal"
+        ]
+      },
+      {
+        "category": "Performance",
+        "items": [
+          "2.8L Turbo Diesel Engine",
+          "204 Horsepower",
+          "500 Nm Torque",
+          "6-Speed Automatic Transmission",
+          "Selectable 4WD with Low Range",
+          "29° Approach Angle",
+          "Rear Differential Lock"
+        ]
+      }
+    ],
+    "images": [
+      "/images/cars/toyota-fortuner.png",
+      "/images/cars/toyota-fortuner-interior.avif",
+      "/images/cars/toyota-fortuner-rear.jpg",
+      "/images/cars/toyota-fortuner-side.webp",
+      "/images/cars/toyota-fortuner-dashboard.jpg"
+    ]
+  },
+  {
+    "make": "Mazda",
+    "model": "CX-5",
+    "trim": "Grand Touring",
+    "year": 2023,
+    "price": 5500000,
+    "mileage": 3200,
+    "fuelType": "Petrol",
+    "transmission": "Automatic",
+    "exteriorColor": "Soul Red Crystal",
+    "interiorColor": "Pure White",
+    "vin": "JM3KFBDM7N0123456",
+    "stockNumber": "KE-MC5-002",
+    "engine": "2.5L SkyActiv-G",
+    "drivetrain": "All-Wheel Drive",
+    "bodyType": "Crossover",
+    "condition": "New",
+    "description": "The 2023 Mazda CX-5 Grand Touring represents the perfect blend of sophistication, performance, and practicality for Kenyan roads. This premium crossover SUV features Mazda's signature KODO design philosophy with a striking Soul Red Crystal exterior and luxurious Pure White leather interior. Powered by a responsive 2.5L SkyActiv-G engine with All-Wheel Drive, the CX-5 delivers excellent handling and stability on a variety of road conditions. Enjoy the perfect balance of fuel efficiency and power, along with cutting-edge technology and safety features that make this vehicle ideal for both urban commuting and weekend adventures.",
+    "image": "/images/cars/mazda-cx5.jpg",
+    "featured": false,
+    "fuelEconomy": {
+      "city": 12,
+      "highway": 16,
+      "combined": 14
+    },
+    "features": [
+      {
+        "category": "Comfort & Convenience",
+        "items": [
+          "Leather-Trimmed Seats",
+          "10-Way Power Driver's Seat with Memory",
+          "Heated Front & Rear Seats",
+          "Dual-Zone Automatic Climate Control",
+          "Power Glass Moonroof",
+          "Power Tailgate",
+          "Auto-Dimming Rearview Mirror"
+        ]
+      },
+      {
+        "category": "Technology",
+        "items": [
+          "10.25-inch Mazda Connect Infotainment",
+          "Apple CarPlay & Android Auto",
+          "Bose® 10-Speaker Audio System",
+          "360° View Monitor",
+          "Heads-Up Display (Active Driving Display)",
+          "Mazda Navigation System",
+          "Wireless Charging Pad"
+        ]
+      },
+      {
+        "category": "Safety",
+        "items": [
+          "Mazda Radar Cruise Control",
+          "Smart Brake Support",
+          "Lane Departure Warning System",
+          "Lane-Keep Assist System",
+          "Blind Spot Monitoring",
+          "Rear Cross Traffic Alert",
+          "Adaptive Front-lighting System"
+        ]
+      },
+      {
+        "category": "Performance",
+        "items": [
+          "2.5L SkyActiv-G Engine",
+          "187 Horsepower",
+          "252 Nm Torque",
+          "6-Speed Automatic Transmission",
+          "i-Activ AWD System",
+          "G-Vectoring Control Plus",
+          "Drive Selection with Sport Mode"
+        ]
+      }
+    ],
+    "images": [
+      "/images/cars/mazda-cx5.jpg",
+      "/images/cars/mazda-cx5-interior.jpg",
+      "/images/cars/mazda-cx5-rear.jpg",
+      "/images/cars/mazda-cx5-side.jpg",
+      "/images/cars/mazda-cx5-dashboard.jpg"
+    ]
   }
+  
 
 ]
