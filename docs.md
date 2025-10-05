@@ -119,4 +119,3 @@ For each endpoint, you'll want to implement:
    - Consistent JSON structure
    - Include metadata for paginated responses
 
-This API structure will support all the features of your car dealership website, from vehicle browsing and filtering to customer inquiries and admin management.
