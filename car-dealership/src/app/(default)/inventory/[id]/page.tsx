@@ -2,12 +2,12 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
-import { 
-  ArrowLeft, 
-  Calendar, 
-  Gauge, 
-  Fuel, 
-  Cog, 
+import {
+  ArrowLeft,
+  Calendar,
+  Gauge,
+  Fuel,
+  Cog,
   Car,
   Award
 } from 'lucide-react';
@@ -60,6 +60,28 @@ async function getSimilarVehicles(vehicle: any) {
   }
 }
 
+// Generate static params for all vehicle inventory pages
+export async function generateStaticParams() {
+  try {
+    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/vehicles`, {
+      cache: 'no-store',
+    });
+
+    if (!response.ok) {
+      console.warn('Failed to fetch vehicles for generateStaticParams');
+      return [];
+    }
+
+    const vehicles = await response.json();
+    return vehicles.map((vehicle: any) => ({
+      id: vehicle.id,
+    }));
+  } catch (error) {
+    console.error('Error in generateStaticParams:', error);
+    return [];
+  }
+}
+
 type Params = {
   id: string;
 };
@@ -68,9 +90,9 @@ export async function generateMetadata(props: { params: Params }): Promise<Metad
   // Important: Await the params object
   const params = await props.params;
   const id = params.id;
-  
+
   const vehicle = await getVehicle(id);
-  
+
   if (!vehicle) {
     return {
       title: 'Vehicle Not Found | Ahancha Motors Dealership',
@@ -78,7 +100,7 @@ export async function generateMetadata(props: { params: Params }): Promise<Metad
       metadataBase: new URL(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'),
     };
   }
-  
+
   return {
     metadataBase: new URL(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'),
     title: `${vehicle.title} | Ahancha Motors Dealership`,
@@ -96,28 +118,28 @@ export default async function VehicleDetailPage(props: { params: Params }) {
   // Important: Await the params object
   const params = await props.params;
   const id = params.id;
-  
+
   const vehicle = await getVehicle(id);
-  
+
   if (!vehicle) {
     notFound();
   }
-  
+
   const similarVehicles = await getSimilarVehicles(vehicle);
-  
+
   return (
     <div className="bg-gray-100 min-h-screen pb-12">
       {/* Vehicle Header */}
       <div className="bg-white border-b border-gray-200">
         <div className="container mx-auto px-4 py-6">
-          <Link 
-            href="/inventory" 
+          <Link
+            href="/inventory"
             className="flex items-center text-primary hover:text-primary-dark mb-4"
           >
             <ArrowLeft className="mr-2 h-4 w-4" />
             Back to Inventory
           </Link>
-          
+
           <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
             <div>
               <h1 className="text-2xl md:text-3xl font-bold text-gray-900">{vehicle.title}</h1>
@@ -148,7 +170,7 @@ export default async function VehicleDetailPage(props: { params: Params }) {
                 </span>
               </div>
             </div>
-            
+
             <div className="text-3xl font-bold text-primary self-start md:self-center">
               ${vehicle.price.toLocaleString()}
             </div>
@@ -158,9 +180,9 @@ export default async function VehicleDetailPage(props: { params: Params }) {
 
       {/* Main Content */}
       <div className="container mx-auto px-4 py-8">
-        <ClientVehicleComponents 
-          vehicle={vehicle} 
-          similarVehicles={similarVehicles} 
+        <ClientVehicleComponents
+          vehicle={vehicle}
+          similarVehicles={similarVehicles}
         />
       </div>
     </div>
