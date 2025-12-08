@@ -15,7 +15,7 @@ interface Vehicle {
 async function getVehiclesFromFile() {
   try {
     const filePath = path.join(process.cwd(), 'data', 'vehicles.json');
-    
+
     try {
       const fileData = await fs.readFile(filePath, 'utf8');
       return JSON.parse(fileData);
@@ -46,6 +46,14 @@ async function getVehiclesFromFile() {
   }
 }
 
+// Generate static params for all vehicle IDs at build time
+export async function generateStaticParams() {
+  const vehicles = await getVehiclesFromFile();
+  return vehicles.map((vehicle: Vehicle) => ({
+    id: vehicle.id,
+  }));
+}
+
 // Use the exact type signature that Next.js requires
 export async function GET(
   _request: NextRequest,
@@ -62,27 +70,27 @@ export async function GET(
       // If that fails, try direct access (prod mode)
       id = params.id;
     }
-    
+
     if (!id) {
       return NextResponse.json(
         { error: 'Vehicle ID is required' },
         { status: 400 }
       );
     }
-    
+
     // Get all vehicles
     const vehicles = await getVehiclesFromFile();
-    
+
     // Find the vehicle with the matching ID
     const vehicle = vehicles.find((v: Vehicle) => v.id === id);
-    
+
     if (!vehicle) {
       return NextResponse.json(
         { error: 'Vehicle not found' },
         { status: 404 }
       );
     }
-    
+
     return NextResponse.json(vehicle);
   } catch (error) {
     return NextResponse.json(
