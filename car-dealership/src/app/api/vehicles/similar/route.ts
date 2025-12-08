@@ -1,4 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
+// Mark this app route as statically exportable when using `output: "export"`
+export const dynamic = "force-static";
 import fs from 'fs/promises';
 import path from 'path';
 

@@ -1,5 +1,7 @@
 // app/api/vehicles/route.ts
 import { NextRequest, NextResponse } from 'next/server';
+// Mark this app route as statically exportable when using `output: "export"`
+export const dynamic = "force-static";
 import { v4 as uuidv4 } from 'uuid';
 import fs from 'fs/promises';
 import path from 'path';
@@ -18,6 +20,16 @@ async function getVehiclesFromFile() {
 }
 
 async function saveVehiclesToFile(vehicles: any[]) {
+  // By default, writing to the local filesystem is disabled for safety in
+  // production environments (many hosts like Vercel have a read-only filesystem).
+  // To enable writing during local development you can set the environment
+  // variable `ALLOW_FS_WRITE=true`.
+  const canWrite = process.env.ALLOW_FS_WRITE === 'true';
+  if (!canWrite) {
+    console.warn('Disk writes are disabled; set ALLOW_FS_WRITE=true to enable.');
+    return false;
+  }
+
   try {
     const filePath = path.join(process.cwd(), 'data', 'vehicles.json');
     // Ensure the directory exists
@@ -69,15 +81,15 @@ export async function POST(request: NextRequest) {
     // Add to vehicles array
     vehicles.push(newVehicle);
     
-    // Save updated vehicles list
+    // Save updated vehicles list (guarded in production)
     const success = await saveVehiclesToFile(vehicles);
-    
+
     if (success) {
       return NextResponse.json(newVehicle, { status: 201 });
     } else {
       return NextResponse.json(
-        { error: 'Failed to save vehicle data' },
-        { status: 500 }
+        { error: 'Failed to save vehicle data; writing to disk is disabled in this environment' },
+        { status: 501 }
       );
     }
   } catch (error) {
@@ -116,15 +128,15 @@ export async function DELETE(request: NextRequest) {
       );
     }
     
-    // Save updated vehicles list
+    // Save updated vehicles list (guarded in production)
     const success = await saveVehiclesToFile(updatedVehicles);
-    
+
     if (success) {
       return NextResponse.json({ success: true });
     } else {
       return NextResponse.json(
-        { error: 'Failed to save vehicle data' },
-        { status: 500 }
+        { error: 'Failed to save vehicle data; writing to disk is disabled in this environment' },
+        { status: 501 }
       );
     }
   } catch (error) {
