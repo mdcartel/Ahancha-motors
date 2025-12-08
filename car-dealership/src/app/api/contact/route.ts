@@ -1,5 +1,7 @@
 // app/api/contact/route.ts
 import { NextRequest, NextResponse } from 'next/server';
+// Mark this app route as statically exportable when using `output: "export"`
+export const dynamic = "force-static";
 import { saveContactSubmission, getContactSubmissions } from '@/lib/db';
 import nodemailer from 'nodemailer';
 

@@ -1,5 +1,7 @@
 // app/api/newsletter/route.ts
 import { NextRequest, NextResponse } from 'next/server';
+// Mark this app route as statically exportable when using `output: "export"`
+export const dynamic = "force-static";
 import { saveNewsletterSubscription, getNewsletterSubscribers, unsubscribeFromNewsletter } from '@/lib/db';
 import nodemailer from 'nodemailer';
 
