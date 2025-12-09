@@ -1,11 +1,16 @@
 // lib/db.js
 import fs from 'fs/promises';
 import path from 'path';
-import sqlite3 from 'sqlite3';
-import { open } from 'sqlite';
+// Commented out for static export - SQLite not needed when API routes don't work
+// import sqlite3 from 'sqlite3';
+// import { open } from 'sqlite';
 
 // Determine if we're in development or production
 const isDevelopment = process.env.NODE_ENV === 'development';
+
+// Check if we're in a build/static export context (no database needed)
+const isStaticExport = process.env.NEXT_PHASE === 'phase-production-build' ||
+  process.env.__NEXT_PRIVATE_STANDALONE_CONFIG === 'true';
 
 // File paths for development mode
 const getFilePath = (filename) => {
@@ -13,9 +18,11 @@ const getFilePath = (filename) => {
   return path.join(dataDir, filename);
 };
 
-// SQLite setup for production
-let dbPromise;
-if (!isDevelopment) {
+// SQLite setup disabled for static export
+// For static export builds, API routes don't work at runtime, so no database needed
+let dbPromise = null;
+/*
+if (!isDevelopment && !isStaticExport) {
   dbPromise = open({
     filename: '/tmp/ahancha-motors.db', // Using /tmp which is writable in Vercel
     driver: sqlite3.Database
@@ -51,6 +58,7 @@ if (!isDevelopment) {
     return db;
   });
 }
+*/
 
 //=============== CONTACT SUBMISSIONS FUNCTIONS ===============//
 
@@ -60,10 +68,10 @@ export async function saveContactSubmission(submission) {
       // Development: Use file system
       const dataDir = path.join(process.cwd(), 'data');
       const filePath = getFilePath('contact-submissions.json');
-      
+
       // Ensure the directory exists
       await fs.mkdir(dataDir, { recursive: true });
-      
+
       // Get existing submissions or create empty array
       let submissions = [];
       try {
@@ -73,29 +81,29 @@ export async function saveContactSubmission(submission) {
         // File doesn't exist or is invalid, start with empty array
         submissions = [];
       }
-      
+
       // Add timestamp
       const submissionWithTimestamp = {
         ...submission,
         timestamp: new Date().toISOString(),
       };
-      
+
       // Add new submission
       submissions.push(submissionWithTimestamp);
-      
+
       // Save back to file
       await fs.writeFile(filePath, JSON.stringify(submissions, null, 2), 'utf8');
-      
+
       return true;
     } else {
       // Production: Use SQLite
       const db = await dbPromise;
-      
+
       // Add timestamp if not present
       if (!submission.timestamp) {
         submission.timestamp = new Date().toISOString();
       }
-      
+
       const result = await db.run(`
         INSERT INTO contact_submissions (
           first_name, last_name, email, phone, subject, message, 
@@ -117,7 +125,7 @@ export async function saveContactSubmission(submission) {
         submission.vehicleTitle || null,
         submission.timestamp
       ]);
-      
+
       return result.lastID > 0;
     }
   } catch (error) {
@@ -131,7 +139,7 @@ export async function getContactSubmissions() {
     if (isDevelopment) {
       // Development: Use file system
       const filePath = getFilePath('contact-submissions.json');
-      
+
       try {
         const fileData = await fs.readFile(filePath, 'utf8');
         return JSON.parse(fileData);
@@ -142,7 +150,7 @@ export async function getContactSubmissions() {
     } else {
       // Production: Use SQLite
       const db = await dbPromise;
-      
+
       const rows = await db.all(`
         SELECT 
           first_name as firstName,
@@ -161,7 +169,7 @@ export async function getContactSubmissions() {
         FROM contact_submissions
         ORDER BY timestamp DESC
       `);
-      
+
       // Convert SQLite's integer to boolean for subscribedToNewsletter
       return rows.map(row => ({
         ...row,
@@ -182,10 +190,10 @@ export async function saveNewsletterSubscription(subscription) {
       // Development: Use file system
       const dataDir = path.join(process.cwd(), 'data');
       const filePath = getFilePath('newsletter-subscribers.json');
-      
+
       // Ensure the directory exists
       await fs.mkdir(dataDir, { recursive: true });
-      
+
       // Get existing subscribers or create empty array
       let subscribers = [];
       try {
@@ -195,39 +203,39 @@ export async function saveNewsletterSubscription(subscription) {
         // File doesn't exist or is invalid, start with empty array
         subscribers = [];
       }
-      
+
       // Check if email already exists
       const emailExists = subscribers.some(sub => sub.email.toLowerCase() === subscription.email.toLowerCase());
-      
+
       if (emailExists) {
         return { success: false, reason: 'already_subscribed' };
       }
-      
+
       // Add timestamp
       const newSubscription = {
         ...subscription,
         timestamp: new Date().toISOString(),
       };
-      
+
       // Add new subscriber
       subscribers.push(newSubscription);
-      
+
       // Save back to file
       await fs.writeFile(filePath, JSON.stringify(subscribers, null, 2), 'utf8');
-      
+
       return { success: true };
     } else {
       // Production: Use SQLite
       const db = await dbPromise;
-      
+
       // Add timestamp if not present
       if (!subscription.timestamp) {
         subscription.timestamp = new Date().toISOString();
       }
-      
+
       // Convert interests array to JSON string if it exists
       const interests = subscription.interests ? JSON.stringify(subscription.interests) : null;
-      
+
       try {
         const result = await db.run(`
           INSERT INTO newsletter_subscribers (
@@ -240,7 +248,7 @@ export async function saveNewsletterSubscription(subscription) {
           interests,
           subscription.timestamp
         ]);
-        
+
         return { success: true };
       } catch (error) {
         // Check if it's a unique constraint error (email already exists)
@@ -261,7 +269,7 @@ export async function getNewsletterSubscribers() {
     if (isDevelopment) {
       // Development: Use file system
       const filePath = getFilePath('newsletter-subscribers.json');
-      
+
       try {
         const fileData = await fs.readFile(filePath, 'utf8');
         return JSON.parse(fileData);
@@ -272,7 +280,7 @@ export async function getNewsletterSubscribers() {
     } else {
       // Production: Use SQLite
       const db = await dbPromise;
-      
+
       const rows = await db.all(`
         SELECT 
           email,
@@ -283,7 +291,7 @@ export async function getNewsletterSubscribers() {
         FROM newsletter_subscribers
         ORDER BY timestamp DESC
       `);
-      
+
       // Parse interests JSON string back to array
       return rows.map(row => ({
         ...row,
@@ -301,23 +309,23 @@ export async function unsubscribeFromNewsletter(email) {
     if (isDevelopment) {
       // Development: Use file system
       const filePath = getFilePath('newsletter-subscribers.json');
-      
+
       try {
         const fileData = await fs.readFile(filePath, 'utf8');
         let subscribers = JSON.parse(fileData);
-        
+
         // Filter out the email to unsubscribe
         const initialCount = subscribers.length;
         subscribers = subscribers.filter(sub => sub.email.toLowerCase() !== email.toLowerCase());
-        
+
         // If no change in length, the email wasn't subscribed
         if (subscribers.length === initialCount) {
           return { success: false, reason: 'not_found' };
         }
-        
+
         // Save updated list
         await fs.writeFile(filePath, JSON.stringify(subscribers, null, 2), 'utf8');
-        
+
         return { success: true };
       } catch (error) {
         // File doesn't exist or is invalid
@@ -326,16 +334,16 @@ export async function unsubscribeFromNewsletter(email) {
     } else {
       // Production: Use SQLite
       const db = await dbPromise;
-      
+
       const result = await db.run(`
         DELETE FROM newsletter_subscribers
         WHERE LOWER(email) = LOWER(?)
       `, [email]);
-      
+
       if (result.changes === 0) {
         return { success: false, reason: 'not_found' };
       }
-      
+
       return { success: true };
     }
   } catch (error) {

@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-    output: 'standalone', // Explicitly set to standalone (server mode, not static export)
+    output: 'export', // Static export mode for deployment
     typescript: {
         // Disable TypeScript during production builds
         ignoreBuildErrors: true,

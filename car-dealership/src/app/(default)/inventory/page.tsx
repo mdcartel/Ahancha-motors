@@ -3,39 +3,28 @@ import { Metadata } from 'next';
 import Image from 'next/image';
 import VehicleList from '@/components/vehicles/VehicleList';
 import Newsletter from '@/components/home/Newsletter';
+import fs from 'fs/promises';
+import path from 'path';
 
-// Mark the page as explicitly dynamic to avoid build warnings
-export const dynamic = 'force-dynamic';
+// Remove force-dynamic for static export compatibility
+// export const dynamic = 'force-dynamic';
 
 export const metadata: Metadata = {
   title: 'Vehicle Inventory | Browse Our Selection',
   description: 'Browse our extensive inventory of new, used, and certified pre-owned vehicles. Find your perfect car, truck, or SUV today.',
   keywords: 'car inventory, new cars, used cars, certified pre-owned, car dealership',
-  metadataBase: new URL(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'),
 };
 
-// Fetch vehicles from the API
+// Load vehicles directly from file system (for static export)
 async function getVehicles() {
   try {
-    console.log('Fetching vehicles from API...');
-    
-    // Use an absolute URL with the origin from environment variables
-    const baseUrl = process.env.NEXT_PUBLIC_API_URL || 
-                   (typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000');
-    
-    const response = await fetch(`${baseUrl}/api/vehicles`, {
-      cache: 'no-store',
-    });
-
-    if (!response.ok) {
-      throw new Error(`Failed to fetch vehicles: ${response.status}`);
-    }
-
-    const data = await response.json();
-    console.log(`Successfully fetched ${data.length} vehicles`);
-    return data;
+    const filePath = path.join(process.cwd(), 'data', 'vehicles.json');
+    const fileData = await fs.readFile(filePath, 'utf8');
+    const vehicles = JSON.parse(fileData);
+    console.log(`Successfully loaded ${vehicles.length} vehicles from file`);
+    return vehicles;
   } catch (error) {
-    console.error('Error fetching vehicles:', error);
+    console.error('Error reading vehicles file:', error);
     return [];
   }
 }
@@ -43,17 +32,17 @@ async function getVehicles() {
 export default async function InventoryPage() {
   // Get all vehicles - don't filter here in the server component
   const vehicles = await getVehicles();
-  
+
   // Pass all vehicles to the client component
   // Your VehicleList component already handles filtering client-side
   return (
     <div className="bg-gray-100 min-h-screen">
       <div className="relative bg-gray-900 text-white">
         <div className="absolute inset-0 z-0 opacity-30">
-          <Image 
-            src="/images/backgrounds/bmw.png" 
-            alt="Ahancha Motors Dealership" 
-            fill 
+          <Image
+            src="/images/backgrounds/bmw.png"
+            alt="Ahancha Motors Dealership"
+            fill
             className="object-cover xl:object-left"
             priority
           />

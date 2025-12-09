@@ -2,6 +2,8 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
+import fs from 'fs/promises';
+import path from 'path';
 import {
   ArrowLeft,
   Calendar,
@@ -14,66 +16,71 @@ import {
 
 import ClientVehicleComponents from './ClientVehicleComponents';
 
-// Fetch a specific vehicle from the API
-async function getVehicle(id: string) {
+// Define the Vehicle type
+interface Vehicle {
+  id: string;
+  make: string;
+  model: string;
+  year: number;
+  mileage: number;
+  description?: string;
+  title: string;
+  price: number;
+  fuelType: string;
+  transmission: string;
+  bodyType: string;
+  condition: string;
+  trim?: string;
+  images?: string[];
+  [key: string]: any;
+}
+
+// Load vehicles directly from file system (for static export)
+async function getVehiclesFromFile(): Promise<Vehicle[]> {
   try {
-    console.log(`Fetching vehicle with ID: ${id}`);
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/api/vehicles/${id}`, {
-      cache: 'no-store',
-    });
+    const filePath = path.join(process.cwd(), 'data', 'vehicles.json');
+    const fileData = await fs.readFile(filePath, 'utf8');
+    return JSON.parse(fileData);
+  } catch (error) {
+    console.error('Error reading vehicles file:', error);
+    return [];
+  }
+}
 
-    if (!response.ok) {
-      if (response.status === 404) {
-        return null;
-      }
-      throw new Error(`Failed to fetch vehicle: ${response.status}`);
-    }
-
-    return await response.json();
+// Fetch a specific vehicle by ID
+async function getVehicle(id: string): Promise<Vehicle | null> {
+  try {
+    const vehicles = await getVehiclesFromFile();
+    const vehicle = vehicles.find((v) => v.id === id);
+    return vehicle || null;
   } catch (error) {
     console.error(`Error fetching vehicle ${id}:`, error);
     return null;
   }
 }
 
-// Fetch similar vehicles from the API
-async function getSimilarVehicles(vehicle: any) {
+// Fetch similar vehicles
+async function getSimilarVehicles(vehicle: Vehicle): Promise<Vehicle[]> {
   try {
-    const queryParams = new URLSearchParams({
-      make: vehicle.make,
-      exclude: vehicle.id,
-      limit: '3'
-    }).toString();
+    const allVehicles = await getVehiclesFromFile();
 
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || ''}/api/vehicles/similar?${queryParams}`, {
-      cache: 'no-store',
-    });
+    // Filter vehicles by same make, exclude current vehicle, limit to 3
+    const similar = allVehicles
+      .filter((v) => v.make === vehicle.make && v.id !== vehicle.id)
+      .slice(0, 3);
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch similar vehicles: ${response.status}`);
-    }
-
-    return await response.json();
+    return similar;
   } catch (error) {
     console.error('Error fetching similar vehicles:', error);
     return [];
   }
 }
 
-// Generate static params for all vehicle inventory pages
+// Generate static params for all vehicle inventory pages at build time
 export async function generateStaticParams() {
   try {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'}/api/vehicles`, {
-      cache: 'no-store',
-    });
-
-    if (!response.ok) {
-      console.warn('Failed to fetch vehicles for generateStaticParams');
-      return [];
-    }
-
-    const vehicles = await response.json();
-    return vehicles.map((vehicle: any) => ({
+    const vehicles = await getVehiclesFromFile();
+    return vehicles.map((vehicle) => ({
       id: vehicle.id,
     }));
   } catch (error) {
@@ -86,8 +93,7 @@ type Params = {
   id: string;
 };
 
-export async function generateMetadata(props: { params: Params }): Promise<Metadata> {
-  // Important: Await the params object
+export async function generateMetadata(props: { params: Promise<Params> }): Promise<Metadata> {
   const params = await props.params;
   const id = params.id;
 
@@ -97,12 +103,10 @@ export async function generateMetadata(props: { params: Params }): Promise<Metad
     return {
       title: 'Vehicle Not Found | Ahancha Motors Dealership',
       description: 'The requested vehicle could not be found in our inventory.',
-      metadataBase: new URL(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'),
     };
   }
 
   return {
-    metadataBase: new URL(process.env.NEXT_PUBLIC_API_URL || 'http://localhost:3000'),
     title: `${vehicle.title} | Ahancha Motors Dealership`,
     description: `${vehicle.year} ${vehicle.make} ${vehicle.model} ${vehicle.trim || ''} with ${vehicle.mileage.toLocaleString()} miles. ${vehicle.description ? vehicle.description.substring(0, 150) + '...' : ''}`,
     openGraph: {
@@ -114,8 +118,7 @@ export async function generateMetadata(props: { params: Params }): Promise<Metad
   };
 }
 
-export default async function VehicleDetailPage(props: { params: Params }) {
-  // Important: Await the params object
+export default async function VehicleDetailPage(props: { params: Promise<Params> }) {
   const params = await props.params;
   const id = params.id;
 
